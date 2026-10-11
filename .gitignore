@@ -1,0 +1,10 @@
+node_modules/
+.venv/
+out/
+stems/
+assets/video/
+assets/clips/*.mp4
+assets/audio_slices/
+analysis/whisper_*.json
+*.part*.mp4
+__pycache__/

@@ -1,0 +1,25 @@
+{
+  "name": "stigg-song",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gemanor/stigg-song.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gemanor/stigg-song/issues"
+  },
+  "homepage": "https://github.com/gemanor/stigg-song#readme",
+  "dependencies": {
+    "opentype.js": "^2.0.0",
+    "playwright": "^1.56.0",
+    "three": "^0.170.0"
+  }
+}
