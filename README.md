@@ -9,8 +9,10 @@ A 2:38 satirical music video: an electroclash × hyperpop duet about a San Franc
 | `out/final/master_landscape.mp4` | 16:9 master, end card a. 1920×1080, 60 fps, H.264 CRF 17, AAC 320k. Upload-ready for YouTube, X and LinkedIn. |
 | `out/final/master_landscape_b.mp4` | 16:9 master, end card b: adds AFTER TOKENS · NOV 10 / SAN FRANCISCO under the logo. |
 | `out/final/master_portrait.mp4`, `master_portrait_b.mp4` | 9:16 cut (1080×1920, 60 fps) for Shorts, Reels and TikTok, end cards a and b. |
-| `deliver/im_an_ai_founder_16x9.mp4`, `deliver/im_an_ai_founder_9x16.mp4` | Sharing copies, under 100 MB each, committed to this repo. |
-| `deliver/teaser_16x9.mp4`, `deliver/teaser_9x16.mp4` | 35 s teasers: the hook and drop (0:00–0:16), then the check and the payoff (2:18 to the end). Both cuts sit on downbeats. |
+| `deliver/im_an_ai_founder_16x9.mp4` (92.6 MB), `deliver/im_an_ai_founder_9x16.mp4` (85.9 MB) | Sharing copies at full 1080p60, under GitHub's 100 MB limit, committed to this repo. |
+| `deliver/teaser_16x9.mp4` (29.6 MB), `deliver/teaser_9x16.mp4` (24.8 MB) | 35.8 s teasers: the hook and drop (0:00–0:16), then the check and the payoff (2:18 to the end). Both cuts sit on downbeats. |
+
+Making-of page (film, token-meter chart, stills, lyrics with what every line cost, credits): https://claude.ai/artifact/EEo1dsGZjdSgagSNHtuqqE
 
 `out/` is not tracked by git: the full-quality masters are about 165 MB each, over GitHub's 100 MB file limit. Rebuild them with the commands below.
 
