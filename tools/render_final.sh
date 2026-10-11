@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Final masters, rendered in section-aligned segments so any one segment can be re-rendered and re-spliced.
-# usage: bash tools/render_final.sh <landscape|portrait> [segment ...]     (no segments = all; segments: s1 s2 s3 s4 s5a s5b)
+# usage: bash tools/render_final.sh <landscape|portrait> [segment ...]     (no segments = all; segments: s1 s2 s3 s4 s5a s5b; "mux" = splice only)
 #   out/final/<canvas>/seg_<id>.mp4   video-only segments (1080p60, CRF 17)
 #   out/final/master_<canvas>.mp4     segments s1-s4 + s5a + the master audio
 #   out/final/master_<canvas>_b.mp4   same with the variant-b end card (s5b: AFTER TOKENS · NOV 10 / SAN FRANCISCO)
@@ -13,6 +13,7 @@ W="${WORKERS:-4}"
 declare -A FROM=([s1]=0 [s2]=42.55 [s3]=86.96 [s4]=118.85 [s5a]=147.8 [s5b]=147.8)
 declare -A TO=([s1]=42.55 [s2]=86.96 [s3]=118.85 [s4]=147.8 [s5a]="" [s5b]="")
 segs=("$@"); [ ${#segs[@]} -eq 0 ] && segs=(s1 s2 s3 s4 s5a s5b)
+[ "${segs[0]}" = mux ] && segs=()   # mux: only splice existing segments
 for s in "${segs[@]}"; do
   extra=(); [ -n "${TO[$s]}" ] && extra+=(--to "${TO[$s]}"); [ "$s" = s5b ] && extra+=(--variant b)
   echo "== $canvas $s from ${FROM[$s]} ${extra[*]}"
@@ -23,7 +24,8 @@ for v in a b; do
   [ -f "$dir/seg_s5$v.mp4" ] || continue
   list="$dir/concat_$v.txt"; : > "$list"
   for s in s1 s2 s3 s4 "s5$v"; do echo "file '$(realpath "$dir/seg_$s.mp4")'" >> "$list"; done
-  out="out/final/master_${canvas}$([ $v = b ] && echo _b).mp4"
+  if [ "$v" = b ]; then suffix=_b; else suffix=; fi
+  out="out/final/master_${canvas}${suffix}.mp4"
   ffmpeg -v error -y -f concat -safe 0 -i "$list" -i "$master" -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -af apad -shortest -movflags +faststart "$out"
   ffprobe -v error -show_entries format=duration:stream=codec_name,width,height,r_frame_rate,nb_frames -of compact "$out"
 done
