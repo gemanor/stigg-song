@@ -228,9 +228,9 @@ export const BURN = {
       const k = slam(tb, O.quarter, 1.5), a = clamp((tb - O.quarter + 0.066) / 0.05);
       const size = lerp(P ? 96 : 120, P ? 52 : 64, m);
       const s = "−250,000", w = tw(E, c, s, size), w2 = measure(E, c, " TOKENS", { font: B.FONT.mono, weight: 700, size: size * 0.36, tracking: 0.1 });
-      const bx = pn.x + pn.w / 2 - (w + w2) / 2, by = oy + rows * cell * z + (P ? 150 : 160) * lerp(1, 0.4, m);
-      const sxp = ix, syp = iy + (P ? 40 : 46) + rows * cell * zS + (P ? 30 : 34) + size * CAP;
-      const dx = lerp(bx, sxp, m), dy = lerp(by, syp, m);
+      // always sits under the (shrinking) number: never crosses it during the magic move
+      const bx = pn.x + pn.w / 2 - (w + w2) / 2, sxp = ix;
+      const dx = lerp(bx, sxp, m), dy = oy + rows * cell * z + lerp(P ? 72 : 60, P ? 30 : 34, m) + size * CAP;
       c.save();
       c.translate(dx + (w + w2) / 2, dy - size * CAP / 2);
       c.scale(k, k);
@@ -421,7 +421,7 @@ export const TEAM = {
   bench(E, c, st, L) {
     const { U, tb } = st, P = U.P, R = U.R, rad = L.rad;
     const xl = P ? R.x + 40 : 140, xr = P ? R.x + R.w - 40 : 1790;
-    const fin = tb >= O.myself - 0.066 ? clamp((tb - O.myself + 0.066) / 0.08) : 0; // rows give way to the equation
+    const fin = tb >= O.myself - 0.066 ? clamp((tb - O.myself + 0.066) / 0.04) : 0; // rows give way to the equation
     const rows = [["SLEEP", "0h", O.sleeps], ["MEALS", "0", O.eats]];
     const y0 = P ? R.y + 690 : 700, dy = P ? 130 : 135, sz = P ? 96 : 120;
     rows.forEach(([lab, val, on], i) => {
