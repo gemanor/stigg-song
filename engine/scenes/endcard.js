@@ -8,30 +8,36 @@
 // METER brand.tokensAt: 0 → 1,000,000 from 147.936 over 0.55 s (outCubic): full on the reprise downbeat.
 //
 // PLAN  t        word / event              visual                                                       layer
-// E1  147.800     (her_pays continues)      the take from the outro, no jump                             herpays.js
-//     147.816     CHIME: her phone tap      green rings from the phone; inside the ripple the blocked     BACK clip
-//                                           black world turns back into look A; TOP-UP APPROVED +counter  MID clip
-//                                           rolls 0 → 1,000,000; the HUD comes back online                 FRONT rings
-// E2  148.370     I'm (cut on the chant)    her_victory: the stadium fist pump, full body, right of centre
-//     148.38 I'm / 148.66 an / 148.69 AI   his chant in HER voice now: "I'm an AI / founder!" in huge    MID (matte)
+// E1  147.800     (her_pays continues)      the take from the outro, no jump (one slow push across it)   herpays.js
+//     147.816     CHIME: her phone tap      the terminal's green light (clip f88) lands on the chime; green BACK/MID
+//                                           rings grow from the terminal; inside the ripple the blocked    inside the
+//                                           black world turns back into look A, outside it stays blocked;  ripple only
+//                                           TOP-UP APPROVED +counter rolls 0 → 1,000,000; HUD back online
+// E2  148.370     I'm (cut on the chant)    her_victory 0.0→2.0 s (fist up on "founder!"), right of centre
+//     148.38 I'm / 148.66 an / 148.69 AI   his chant in HER voice now: "I'm an AI / founder!" in huge     MID (matte)
 //     149.04 founder!                       coral Instrument Serif Italic, word by word
-//     148.94                                tracked tag on her head: FOUNDER · PROFITABLE                 FRONT tracked
-// E3  150.360 DB  (cut)                     him_holds_matcha, deadpan, right third
-//     150.45                                tracked tag on the cup: HOLDING 1× ICED MATCHA / $6.15 · PAID  FRONT tracked
-//                                           BY: HER (callback: "Hold my Celsius")
-//     151.48      Founder!                  the gang wall: rows of FOUNDER! slam in behind him            MID (matte)
-// E4  152.040     I'm (cut)                 both: her fist pump + him holding her matcha, side by side    2 cut-outs
-//     152.04 I'M / 152.40 AN / 152.525 AI / I'M AN AI FOUNDER! in his hype type, slam per word           FRONT
-//     152.82 FOUNDER!
-//     153.700     (beat)                    her red pen strikes the line through: the last edit           FRONT
-// E5  154.160 DB  THE DROP                  MAKE EVERY / TOKEN COUNT. (TOKEN in pixel-grid green, cells   FRONT
+//     148.94                                tag beside her head (pose 0): ● FOUNDER / PROFITABLE           FRONT tracked
+// E3  150.360 DB  (cut)                     him_holds_matcha 1.98→3.66 s, deadpan, right third; a dim wall MID (matte)
+//                                           of FOUNDER! (the stadium, waiting) drifts behind him
+//     150.48                                tag on the cup (pose 15/16): HOLDING · 1× ICED MATCHA /        FRONT tracked
+//                                           $6.15 · PAID BY: HER (verified SF price; "Hold my Celsius")
+//     151.48      Founder!                  the wall lights up row by row with a jolt, while he takes his  MID (matte)
+//                                           one tiny deadpan sip (clip 3.1 s)
+// E4  152.040     I'm (cut)                 both, side by side: her fist pumps (her_victory 2.72→4.84 s),  2 cut-outs
+//                                           him holding her matcha (him_holds_matcha 0→2.1 s)
+//     152.04 I'M / 152.40 AN / 152.525 AI / I'M AN AI FOUNDER! in his hype type slams per word BEHIND them MID (matte)
+//     152.82 FOUNDER!                       (her fist punches up through it)
+//     153.700     (beat)                    her coral pen strikes the line through: the last edit          MID
+// E5  154.160 DB  THE DROP                  MAKE EVERY / TOKEN COUNT. (TOKEN in pixel-grid green, cells    MID
 //                                           assemble) + the big meter: TOP-UP APPROVED 1,000,000 PAID BY:
-//                                           HER; kick punches 154.14…155.83; the meter block lands 154.64
-// E6  156.066     STAB                      the meter is swapped for the Stigg logo (official file and   FRONT
-//                                           gradient) + "The usage runtime for AI products"; HUD off;
-//                                           (b) the After Tokens strip: AFTER TOKENS · NOV 10 · SAN FRANCISCO
-//     156.07→158  hold, silence             TOKEN glint sweep, grid drift, crosshair frame
-import { B, slot, clipT, unionBox, frameBox, smoothPt, poseMid, groundA, contactShadow, label, pixelCount, pixelCountSize, loadLogo, clamp, lerp, ease } from "./outro/lib.js";
+//                                           HER (lands 154.64); kick punches 154.14…155.83
+// E6  156.066     STAB                      the meter is swapped for the Stigg logo (official file and     MID
+//                                           gradient, 2x raster) + "The usage runtime for AI products";
+//                                           HUD off; corner crosshairs; (b) the After Tokens strip lands
+//                                           +0.22 s: AFTER TOKENS · NOV 10 / SAN FRANCISCO
+//     156.07→158  hold, silence             one slow linear push on the lockup, faster grid drift, TOKEN
+//                                           glint sweep: readable from 154.16 to the last frame
+import { B, slot, clipT, unionBox, frameBox, smoothPt, poseMid, groundA, contactShadow, label, pixelCount, pixelCountSize, loadLogo, camOn, clamp, lerp, ease } from "./outro/lib.js";
 import { surfaces } from "./outro/surf.js";
 import * as HP from "./outro/herpays.js";
 
@@ -62,7 +68,7 @@ export default {
     box.him = him.v ? unionBox(him.v, clipT(him.v, K.him, CUT.e3), clipT(him.v, K.him, CUT.e4)) : [0.6, 0.05, 0.9, 0.95];
     box.her4 = her.v ? unionBox(her.v, clipT(her.v, K.her4, CUT.e4), clipT(her.v, K.her4, CUT.e5)) : box.her;
     box.him4 = him.v ? unionBox(him.v, clipT(him.v, K.him4, CUT.e4), clipT(him.v, K.him4, CUT.e5)) : box.him;
-    logo = await loadLogo((wide(E) ? 560 : 500) * E.SCALE);
+    logo = await loadLogo((wide(E) ? 560 : 500) * E.SCALE * 2); // 2x raster: stays crisp under the final push
     wall = buildWall(E);
     await HP.load(E);
   },
@@ -139,7 +145,7 @@ function e2(E, t, rt) {
   if (v) shadowUnder(E, c, v, opts, box.her);
   // MID: the chant in her serif
   const serif = (size) => ({ font: B.FONT.serif, italic: true, weight: 400, size, color: B.C.coral, align: "left", stroke: 1.6 * S, strokeColor: B.C.coral });
-  const x0 = wide(E) ? 0.055 * E.W : R.x + 20 * S, y1 = wide(E) ? 0.33 * E.H : R.y + R.h * 0.12, y2 = wide(E) ? 0.63 * E.H : R.y + R.h * 0.3;
+  const x0 = wide(E) ? 0.055 * E.W : R.x + 20 * S, y1 = wide(E) ? 0.33 * E.H : R.y + R.h * 0.24, y2 = wide(E) ? 0.63 * E.H : R.y + R.h * 0.4;
   const s1 = wide(E) ? 210 * S : E.fitSize(c, "I'm an AI", serif(200 * S), R.w * 0.9), s2 = wide(E) ? 310 * S : E.fitSize(c, "founder!", serif(300 * S), R.w * 0.95);
   let x = x0;
   for (const [w, txt] of [[W[0], "I'm "], [W[1], "an "], [W[2], "AI"]]) {
@@ -206,7 +212,8 @@ function e3(E, t, rt) {
   g2.clear();
   if (v) {
     const cup = poseMid(v, lt, [15, 16]) ?? [0.78, 0.45], [cx, cy] = E.plateToScreen(E, v, cup, opts);
-    tag(E, g2.ctx, cx, cy - 20 * S, [{ s: "HOLDING · 1× ICED MATCHA", c: B.C.green }, { s: "$6.15 · PAID BY: HER" }], t, CUT.e3 + 0.12, { dx: wide(E) ? -170 : -120, dy: -120 });
+    const lines = wide(E) ? [{ s: "HOLDING · 1× ICED MATCHA", c: B.C.green }, { s: "$6.15 · PAID BY: HER" }] : [{ s: "1× ICED MATCHA", c: B.C.green }, { s: "PAID BY: HER" }];
+    tag(E, g2.ctx, cx, cy - 20 * S, lines, t, CUT.e3 + 0.12, { dx: wide(E) ? -170 : -80, dy: wide(E) ? -120 : -150, size: wide(E) ? 30 : 26 });
   }
   blitFront(E);
   E.hud.sub = false;
@@ -255,13 +262,15 @@ function lockup(E, b) {
     const sh = b ? -0.05 : 0;
     return { size: 190 * S, rows: 17, cell, l1: (0.2 + sh) * E.H, l2: (0.385 + sh) * E.H, meterY: 0.6 * E.H, logoY: (0.64 + sh) * E.H, tagY: (0.8 + sh) * E.H, bannerY: 0.835 * E.H, two: true };
   }
-  const size = 0;
   return { size: 120 * S, rows: 13, cell, l1: R.y + R.h * (b ? 0.07 : 0.1), l2: R.y + R.h * (b ? 0.2 : 0.235), l3: R.y + R.h * (b ? 0.33 : 0.37), meterY: R.y + R.h * 0.55, logoY: R.y + R.h * (b ? 0.53 : 0.6), tagY: R.y + R.h * (b ? 0.665 : 0.74), bannerY: R.y + R.h * 0.78, two: false };
 }
 function e56(E, t, rt, b) {
   const S = E.SCALE, R = E.SAFE, [g1] = surfaces(E), c = g1.ctx, L = lockup(E, b), stab = t >= CUT.e6;
   g1.clear();
-  groundA(c, E, t, { offY: -(t - CUT.e5) * 9 * S, gridA: 0.5 });
+  groundA(c, E, t, { offY: -(t - CUT.e5) * (stab ? 22 : 9) * S, gridA: 0.5 });
+  // after the stab the lockup holds to the end on one slow linear push (the final frames never freeze)
+  c.save();
+  if (stab) camOn(c, [E.W / 2, (L.l1 + L.tagY) / 2], 1 + 0.04 * clamp((t - CUT.e6) / (B.EV.end - CUT.e6)));
   const t0 = CUT.e5, pop = (d = 0) => E.popScale(t, t0 + d, { from: 1.28, k: 300, z: 0.5 }), al = (d = 0) => clamp((t - (t0 + d - 0.05)) / 0.035);
   const size = wide(E) ? L.size : E.fitSize(c, "MAKE EVERY", hype(L.size), R.w * 0.92);
   const tokO = { rows: L.rows, cell: L.cell, color: B.C.green, line: B.C.cell, seed: 21 };
@@ -287,16 +296,19 @@ function e56(E, t, rt, b) {
       c.save(); c.globalAlpha = u;
       label(E, c, "TOP-UP APPROVED", x, y - 30 * S, { size: 24, color: B.C.green });
       pixelCount(c, val, x, y, o);
-      const by = y + sz.h + 28 * S;
-      c.fillStyle = B.C.green; c.fillRect(x, by, sz.w, 10 * S);
+      // one event per beat: 155.12 the usage bar sweeps full (linear, it's a meter), 155.60 PAID BY: HER types on
+      const by = y + sz.h + 28 * S, bf = clamp((t - 155.12) / 0.22);
+      c.fillStyle = B.C.line; c.fillRect(x, by, sz.w, 10 * S);
+      c.fillStyle = B.C.green; c.fillRect(x, by, sz.w * bf, 10 * S);
       for (let i = 1; i < 10; i++) { c.fillStyle = B.C.bg; c.fillRect(x + (sz.w * i) / 10 - S, by, 2 * S, 10 * S); }
-      label(E, c, "PAID BY: HER", x, by + 40 * S, { size: 20, weight: 600, color: B.C.whiteA(0.6) });
+      const pb = "PAID BY: HER", np = Math.floor(clamp((t - 155.58) * 40, 0, pb.length));
+      if (np > 0) label(E, c, pb.slice(0, np), x, by + 40 * S, { size: 22, weight: 600, color: B.C.whiteA(0.7) });
       c.restore();
     }
   } else {
     // THE STAB: the meter becomes the brand
-    const lw = logo.width, lh = logo.height;
-    c.drawImage(logo, Math.round(E.W / 2 - lw / 2), Math.round(L.logoY - lh / 2));
+    const lw = logo.width / 2, lh = logo.height / 2;
+    c.drawImage(logo, E.W / 2 - lw / 2, L.logoY - lh / 2, lw, lh);
     const ts = wide(E) ? 46 * S : E.fitSize(c, "The usage runtime for AI products", { font: B.FONT.hero, weight: 500, size: 44 * S }, R.w * 0.92);
     const ua = clamp((t - (CUT.e6 + 0.1)) / 0.12);
     E.drawText(c, "The usage runtime for AI products", E.W / 2, L.tagY + (1 - ua) * 10 * S, { font: B.FONT.hero, weight: 500, size: ts, tracking: -0.01, color: B.C.paper, align: "center", alpha: 0.88 * ua });
@@ -305,6 +317,7 @@ function e56(E, t, rt, b) {
     const fx = wide(E) ? 0.18 * E.W : R.x + 10 * S, fy = Math.max(R.y + 12 * S, L.l1 - size * 0.62 - 44 * S);
     B.crosshairs(c, fx, fy, E.W - 2 * fx, (b ? L.bannerY - 36 * S : L.tagY + 60 * S) - fy, { len: 40 * S, inset: 12 * S, cross: 8 * S, color: B.C.greenA(0.5) });
   }
+  c.restore();
   blitBack(E, rt);
   E.hud.sub = false;
   E.hud.meter = false;

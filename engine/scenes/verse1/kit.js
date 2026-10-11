@@ -96,7 +96,9 @@ export function eyebrow(E, c, str, x, y, o = {}) {
   c.save();
   c.globalAlpha = a;
   c.fillStyle = o.sq ?? C.green;
-  c.fillRect(x, y - 9, 18, 18);
+  // the green square ticks on every beat (a small designed event on each beat of every slide)
+  const k = 1 + 0.45 * E.pulse("beats", E.t, 0.1);
+  c.fillRect(x + 9 - 9 * k, y - 9 * k, 18 * k, 18 * k);
   M(E, c, str, x + 34, y + 1, { size: o.size ?? 26, color: o.color ?? C.inkA(0.62), weight: 700 });
   c.restore();
 }
@@ -324,6 +326,67 @@ export function headshot(E, v, key, cx, cy, r, uvC, ruv, o = {}) {
   K.scene.children.length = 0;
   K.scene.add(m);
   E.renderer.render(K.scene, K.cam);
+}
+
+// ----------------------------------------------------------------------------------------------------- founder bubble
+// Loom-style webcam bubble: disc (BACK) + pop-out headshot (PLATE, kit.headshot) + ring/active-speaker/name (FRONT).
+// The ring skips the top opening so it never crosses the head that pops out of it.
+export function bubbleBack(c, cx, cy, r, o = {}) {
+  c.save();
+  c.globalAlpha *= o.alpha ?? 1;
+  c.fillStyle = o.fill ?? C.pale;
+  c.beginPath();
+  c.arc(cx, cy, r, 0, 6.283);
+  c.fill();
+  c.restore();
+}
+export function bubbleFront(E, c, cx, cy, r, o = {}) {
+  const popW = o.popW ?? 0.62, gapA = Math.asin(Math.min(0.99, popW)), a0 = -Math.PI / 2 + gapA, a1 = (3 * Math.PI) / 2 - gapA;
+  const lvl = clamp(o.level ?? 0), col = o.ring ?? C.green;
+  c.save();
+  c.globalAlpha *= o.alpha ?? 1;
+  c.lineCap = "round";
+  // active speaker: a second ring that lights with the voice
+  if (lvl > 0.02) {
+    c.globalAlpha *= 1;
+    c.strokeStyle = col;
+    c.lineWidth = (o.lw ?? 8) * 0.8;
+    c.globalAlpha = (o.alpha ?? 1) * lvl;
+    c.beginPath();
+    c.arc(cx, cy, r + (o.lw ?? 8) * 2.2, a0 + 0.06, a1 - 0.06);
+    c.stroke();
+    c.globalAlpha = o.alpha ?? 1;
+  }
+  c.strokeStyle = o.ink ?? C.ink;
+  c.lineWidth = o.lw ?? 8;
+  c.beginPath();
+  c.arc(cx, cy, r, a0, a1);
+  c.stroke();
+  if (o.name) {
+    const size = o.nameSize ?? 26, w = measure(E, c, o.name, { font: F.mono, weight: 700, size, tracking: 0.04 }) + size * 1.9 + (o.dot ? size : 0);
+    const h = size * 1.7, x = cx - w / 2, y = cy + r - h * 0.5;
+    c.fillStyle = C.ink;
+    rrect(c, x, y, w, h, h / 2);
+    c.fill();
+    let tx = x + size * 0.95;
+    if (o.dot) {
+      c.fillStyle = col;
+      c.globalAlpha = (o.alpha ?? 1) * (0.5 + 0.5 * lvl);
+      c.beginPath();
+      c.arc(tx + size * 0.25, y + h / 2, size * 0.26, 0, 6.283);
+      c.fill();
+      c.globalAlpha = o.alpha ?? 1;
+      tx += size;
+    }
+    E.drawText(c, o.name, tx, y + h / 2 + 1, { font: F.mono, weight: 700, size, tracking: 0.04, color: "#FFFFFF", align: "left", alpha: c.globalAlpha });
+  }
+  c.restore();
+}
+// voice level 0..1 for the active-speaker ring, from the vocal envelope gated by the speaker's words
+export function voice(E, t, who = "HIM") {
+  const w = E.wordAt(t + 0.02);
+  if (!w || B.speakerOf(w) !== who || t > w.e + 0.12) return 0;
+  return clamp((E.envAvg("vocal", t, 0.08) - 0.12) * 1.6);
 }
 
 // ----------------------------------------------------------------------------------------------------- props

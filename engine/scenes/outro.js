@@ -8,35 +8,42 @@
 //       from "...Sorry." 142.593 hits exactly 0 at 143.996.
 //
 // PLAN  t        word / event                visual                                                    layer
-// S1  134.500 DB  (hard cut in)               date_table again, clip 4.00→5.92 s (his hands drop ≈135.6) BACK grid, shadow
-//     135.066     Anyway.                     ANYWAY. white Inter Tight 900, tucked behind his cap        MID (matte)
-//     135.366     Gotta                       ANYWAY. clears 3× fast; GOTTA lands                         MID
-//     136.066     go.                         GO. lands; at 136.27 GOTTA GO. bolts off right (he's leaving) MID
-// S2  136.420 DB  (cut)                       him_gottago: half-turn, finger guns, wink                   plate
-//     137.066     See / 137.466 you /         SEE YOU AFTER TOKENS (brand.afterTokens, small + dry) in      MID, rules pass
-//     137.646 after / 137.846 tokens.         the empty left half; finger-gun ticks at his fingertip,      behind him;
-//                                             a wink spark at his eye (pose 19/20, 2/5)                    FRONT tracked
-// S3  138.320 DB  (cut)                       her_whopays: she slides the bill folder right               plate
-//     138.32→138.95                           THE CHECK slides out from under her fingers (tracked) and    FRONT
-//                                             lands in the right half: itemised from the meter, TOTAL DUE
-//                                             1,000,000 TOKENS, check #402 (402 = payment required)
-//     138.989 So... / 139.458 who's /         her line handwritten on the check, coral serif, per word    FRONT
-//     140.382 paying / 140.590 for /          140.382 pen arrow from her note to the total
-//     140.854 our / 141.043 date?             141.043 pen circle round 1,000,000; 141.18 / 141.64 her two taps
-// S4  142.120 DB  (cut)                       him_outoftokens: frozen smile, pats the empty pocket         plate
-//                                             giant meter (HUD meter off): LOW BALANCE blinking per beat,  MID
-//                                             pixel counter 40,063 rolling down, usage bar, burn rate
-//     142.593 ...Sorry. / 143.393 I'm /       each word leaves his mouth as a cost tag (SORRY. −13,026 …)  FRONT tracked
-//     143.713 out / 143.813 of                and flies into the counter: talking is what burns his tokens  (pose 9/10)
+// S1  134.500 DB  (hard cut in)               date_table again, clip 4.00→5.92 s, slow push-in; a pool of  BACK grid, light
+//                                             light + contact shadow under the table                      pool, shadow
+//     135.066     Anyway.                     ANYWAY. white Inter Tight 900, magazine-cover: heads overlap MID (matte)
+//                                             the letters' feet
+//     135.366     Gotta                       ANYWAY. clears 3× fast; GOTTA lands (his hands drop ≈135.6)  MID
+//     136.066     go.                         GO. (green) lands; at go.'s end GOTTA GO. bolts off right    MID
+// S2  136.420 DB  (cut)                       him_gottago 0.0→1.9 s: finger gun over the shoulder + wink   plate
+//     137.066 See / 137.466 you /             SEE YOU AFTER TOKENS (brand.afterTokens, small + dry) where  MID, rules pass
+//     137.646 after / 137.846 tokens.         his finger gun points; it "fires" a tick burst on each word  behind him; FRONT
+//                                             (pose 20); a wink spark at the head of the take (pose 2)     tracked
+// S3  138.320 DB  (cut)                       her_whopays 0.6→4.4 s on a drawn tabletop (the clip ends in  BACK table, plate
+//                                             a hard table-edge cut at y≈906 px); slow 5% push
+//     138.32→138.94                           THE CHECK slides out from under her fingers (pose 20) to the FRONT tracked
+//                                             right half: itemised from brand.initMeter ("SEE YOU AFTER
+//                                             TOKENS" ×9 145,657 …), TOTAL DUE 1,000,000 TOKENS, #402
+//     138.989 So... / 139.458 who's /         her line handwritten on the check (coral Instrument Serif,   FRONT
+//     140.382 paying / 140.590 for /          write-on per word); 140.382 pen arrow to the total;
+//     140.854 our / 141.043 date?             141.043 pen circle round 1,000,000; 141.80 her folder tap
+//                                             (clip 4.08 s): coral tap ring + two underlines
+// S4  142.120 DB  (cut)                       him_outoftokens 0.55→1.99 s (pocket pat) under a creeping    plate
+//                                             push; 143.56 (beat) crash zoom ×1.24 to his shock face (3.12 s)
+//                                             giant meter, HUD meter off: LOW BALANCE (blinks per beat),   MID
+//                                             pixel counter 40,063 → 0, usage bar, burn rate
+//     142.593 ...Sorry. / 143.393 I'm /       each word leaves beside his face as a cost tag and lands as  FRONT tracked
+//     143.713 out / 143.813 of                a ledger line above the balance: −13,026 "SORRY." / −12,505  (pose 8/9/10)
+//                                             "I'M" / −4,762 "OUT" / −9,770 "OF" (from brand.tokensAt)
 // S5  143.996     MUSIC STOPS → HARD CUT      pure #000, HUD off. Only the counter's "0" stays where it was
-//     144.020     tokens.                     TOKENS lands beside it + USAGE BLOCKED, pixel-grid coral     —
+//     144.020     tokens.                     TOKENS lands beside it + USAGE BLOCKED, pixel-grid coral
 //     144.0-145.4 silence                     block cursor blinks 1 Hz; "0 / 1,000,000 · LIMIT RESETS IN
-//                                             4:59:59" types on and ticks: alive, minimal
-// S6  145.466     Cute. (cut)                 her_pays in the blocked void: "Cute." huge coral serif;      herpays.js
-//     146.006 Hold / 146.666 my /             "Hold my matcha." + pen arrow tracked to the cup she hands    FRONT tracked
-//     146.846 matcha.                         off to the right (callback to "Hold my Celsius.")
-//     147.800     → endcard.js continues the take: the tap on the chime 147.816
-import { B, slot, clipT, unionBox, frameBox, poseMid, smoothPt, punch, groundA, contactShadow, label, blinkOn, pixelCount, pixelCountSize, pixelBlock, CORAL_LINE, checkItems, buildCheck, clamp, lerp, ease } from "./outro/lib.js";
+//                                             4:59:59" types on and ticks; slow push + standby breathing
+// S6  145.466     Cute. (cut)                 her_pays from 1.275 s in the blocked void: "Cute." huge      herpays.js
+//                                             coral serif; status 0 TOKENS · USAGE BLOCKED top right
+//     146.006 Hold / 146.666 my /             "Hold my matcha." + a pen arrow tracking the cup as his hand FRONT tracked
+//     146.846 matcha.                         takes it off to the right (callback to "Hold my Celsius.")   (pose 19)
+//     147.800     → endcard.js continues the same take: the terminal's green light (f88) on the chime 147.816
+import { B, slot, clipT, unionBox, frameBox, poseMid, smoothPt, punch, punchScreen, camOn, groundA, contactShadow, label, blinkOn, pixelCount, pixelCountSize, pixelBlock, CORAL_LINE, checkItems, buildCheck, clamp, lerp, ease } from "./outro/lib.js";
 import { surfaces } from "./outro/surf.js";
 import * as HP from "./outro/herpays.js";
 
@@ -121,7 +128,7 @@ const hype = (S, size, color = B.C.white) => ({ font: B.FONT.hero, weight: 900, 
 // ------------------------------------------------------------------------------------------------ S1 the table again
 function s1(E, t, rt) {
   const S = E.SCALE, R = E.SAFE, v = slots.s1.v;
-  const tgt = wide(E) ? { h: 0.75 * E.H, y1: 0.995 * E.H, cx: 0.5 * E.W } : { h: 0.42 * E.H, y1: 0.8 * E.H, cx: 0.5 * E.W };
+  const tgt = wide(E) ? { h: 0.75 * E.H, y1: 0.995 * E.H, cx: 0.5 * E.W } : { h: 0.31 * E.H, y1: 0.8 * E.H, cx: 0.5 * E.W };
   let opts = plateOpts(E, "s1", tgt);
   if (v) opts = punch(E, v, opts, [0.5, 0.6], 1 + 0.05 * ease.inOutQuad(clamp((t - CUT.s1) / (CUT.s2 - CUT.s1)))); // slow push-in
   const c = begin(E, rt);
@@ -136,7 +143,7 @@ function s1(E, t, rt) {
     contactShadow(c, fx, fy - 6 * S, (bx[2] - bx[0]) * r.w * 0.55, 34 * S, 0.6);
   }
   // MID: ANYWAY. → GOTTA GO. (one hero at a time), its baseline tucked behind his cap
-  const y = wide(E) ? 0.165 * E.H : R.y + R.h * 0.24;
+  const y = wide(E) ? 0.228 * E.H : R.y + R.h * 0.24; // magazine-cover: the heads overlap the letters' feet
   const size = wide(E) ? 230 * S : E.fitSize(c, "ANYWAY.", hype(S, 230 * S), R.w * 0.9);
   const [wA, wG, wGo] = [W[0], W[1], W[2]];
   if (t >= wA.s - 0.05 && t < wG.s) {
@@ -157,14 +164,14 @@ function s1(E, t, rt) {
 // ------------------------------------------------------------------------------------------------ S2 gotta go
 function s2(E, t, rt) {
   const S = E.SCALE, R = E.SAFE, v = slots.s2.v, lt = v ? clipT(v, K.s2, t) : 0;
-  const tgt = wide(E) ? { h: 0.95 * E.H, y1: 1.0 * E.H, x0: 0.5 * E.W } : { h: 0.5 * E.H, y1: 0.92 * E.H, cx: 0.55 * E.W };
+  const tgt = wide(E) ? { h: 0.95 * E.H, y1: 1.0 * E.H, x0: 0.5 * E.W } : { h: 0.44 * E.H, y1: 0.93 * E.H, cx: 0.58 * E.W };
   const opts = plateOpts(E, "s2", tgt), c = begin(E, rt);
   groundA(c, E, t, { offX: -(t - CUT.s2) * 14 * S });
   // MID: SEE YOU AFTER TOKENS, small and dry, in the empty half; its rules pass behind him
   const ws = W.slice(3, 7);
   if (t >= ws[0].s - 0.1) {
-    const cx = wide(E) ? 0.285 * E.W : R.x + R.w / 2, cy = wide(E) ? 0.44 * E.H : R.y + R.h * 0.2;
-    B.afterTokens(E, c, cx, cy, t, { size: wide(E) ? 86 : 66, words: ws, seed: 11 });
+    const cx = wide(E) ? 0.285 * E.W : R.x + R.w / 2, cy = wide(E) ? 0.44 * E.H : R.y + R.h * 0.3;
+    B.afterTokens(E, c, cx, cy, t, { size: wide(E) ? 86 : 84, words: ws, seed: 11 });
   }
   const f = mid(E, rt, "s2", opts);
   // FRONT: his finger gun "fires" each word of the lockup (it points straight at it); a wink spark at the head of the take
@@ -202,7 +209,10 @@ function s3(E, t, rt) {
   const S = E.SCALE, R = E.SAFE, v = slots.s3.v, lt = v ? clipT(v, K.s3, t) : 0;
   const tgt = wide(E) ? { h: 0.97 * E.H, y1: 1.0 * E.H, x0: 0.03 * E.W } : { h: 0.4 * E.H, y1: 0.92 * E.H, cx: 0.38 * E.W };
   const opts = plateOpts(E, "s3", tgt), c = begin(E, rt);
+  // a slow push over the whole shot (the check hold must never read as a freeze)
+  const P = wide(E) ? [0.5 * E.W, 0.45 * E.H] : [0.5 * E.W, 0.55 * E.H], kc = 1 + 0.05 * ease.inOutQuad(clamp((t - CUT.s3) / (CUT.s4 - CUT.s3)));
   groundA(c, E, t, { offY: -(t - CUT.s3) * 8 * S });
+  c.save(); camOn(c, P, kc);
   // the table: her_whopays ends in a hard horizontal cut at y≈906 px (an invisible table edge) with the folder on the
   // same plane, so a tabletop goes under her (her elbow and the folder rest on it)
   if (v) {
@@ -213,46 +223,54 @@ function s3(E, t, rt) {
     c.fillStyle = "#4A4D47"; c.fillRect(0, ty, E.W, Math.max(1, 2 * S));
     c.fillStyle = B.C.greenA(0.35); c.fillRect(0, ty + 9 * S, E.W, Math.max(1, S));
   }
-  const f = mid(E, rt, "s3", opts);
-  // the check: from under her fingers to its spot
-  const sc = wide(E) ? 1 : 0.8, cw = chk.w * sc, ch = chk.h * sc;
-  const X1 = wide(E) ? 0.575 * E.W : R.x + R.w / 2 - cw / 2, Y1 = wide(E) ? 0.07 * E.H : R.y + 18 * S;
-  const tip = v ? (smoothPt(v, lt, 20) ?? smoothPt(v, lt, 16) ?? [0.42, 0.85]) : [0.42, 0.85];
-  const [hx, hy] = v ? E.plateToScreen(E, v, tip, opts) : [0.4 * E.W, 0.85 * E.H];
-  const u = ease.outCubic(clamp((t - CUT.s3) / 0.62));
-  const x = lerp(hx - 40 * S, X1, u), y = lerp(hy - ch * 0.3, Y1, u), rot = lerp(-0.16, -0.028, u), k = lerp(0.82, 1, u);
-  f.save();
-  f.translate(x + cw / 2, y + ch / 2); f.rotate(rot); f.scale(k * sc, k * sc); f.translate(-chk.w / 2, -chk.h / 2);
-  f.drawImage(chk.cv, 0, 0);
-  // live: the total, her handwriting, her pen
-  E.drawText(f, "1,000,000", chk.pad - 4 * S, chk.totalY - 30 * S, { font: B.FONT.mono, weight: 800, size: 88 * S, tracking: -0.02, color: B.C.ink, align: "left" });
-  const note = { font: B.FONT.serif, italic: true, weight: 400, size: 62 * S, color: B.C.coral, align: "left", stroke: 1.2 * S, strokeColor: B.C.coral };
-  const lines = [[W[7], W[8], W[9]], [W[10], W[11], W[12]]];
-  lines.forEach((ln, li) => {
-    let xx = chk.pad, yy = chk.noteY + li * 74 * S;
-    for (const w of ln) {
-      const txt = w.w + " ", ww = E.measure(f, txt, note);
-      if (t >= w.s - 0.04) {
-        const p = clamp((t - (w.s - 0.04)) / 0.11);
-        f.save(); f.beginPath(); f.rect(xx - 6 * S, yy - 60 * S, (ww + 12 * S) * p, 110 * S); f.clip();
-        E.drawText(f, txt, xx, yy, { ...note, rot: -0.03 });
-        f.restore();
+  // MID: the check rides out from under her fingers (pose 19, her folder hand) on her line and lands exactly on
+  // "paying" (the folder itself keeps sliding in the clip); her cut-out is drawn over it
+  const t0c = W[7].s - 0.06;
+  if (t >= t0c) {
+    const sc = wide(E) ? 1 : 0.8, cw = chk.w * sc, ch = chk.h * sc;
+    const X1 = wide(E) ? 0.575 * E.W : R.x + R.w / 2 - cw / 2, Y1 = wide(E) ? 0.07 * E.H : R.y + R.h * 0.2;
+    const tip = v ? (smoothPt(v, lt, 19) ?? smoothPt(v, lt, 15) ?? [0.64, 0.78]) : [0.64, 0.78];
+    const [hx, hy] = v ? E.plateToScreen(E, v, tip, opts) : [0.62 * E.W, 0.8 * E.H];
+    const u = ease.outCubic(clamp((t - t0c) / (W[9].s - t0c)));
+    const x = lerp(hx - cw * 0.42, X1, u), y = lerp(hy - ch * 0.5, Y1, u), rot = lerp(-0.2, -0.028, u), k = lerp(0.62, 1, u);
+    c.save();
+    c.translate(x + cw / 2, y + ch / 2); c.rotate(rot); c.scale(k * sc, k * sc); c.translate(-chk.w / 2, -chk.h / 2);
+    c.drawImage(chk.cv, 0, 0);
+    // live: the total, her handwriting, her pen
+    E.drawText(c, "1,000,000", chk.pad - 4 * S, chk.totalY - 30 * S, { font: B.FONT.mono, weight: 800, size: 88 * S, tracking: -0.02, color: B.C.ink, align: "left" });
+    const note = { font: B.FONT.serif, italic: true, weight: 400, size: 66 * S, color: B.C.coral, align: "left", stroke: 1.2 * S, strokeColor: B.C.coral };
+    const lines = [[W[7], W[8], W[9]], [W[10], W[11], W[12]]];
+    lines.forEach((ln, li) => {
+      let xx = chk.pad;
+      const yy = chk.noteY + li * 74 * S;
+      for (const w of ln) {
+        const txt = w.w + " ", ww = E.measure(c, txt, note);
+        if (t >= w.s - 0.04) {
+          const p = clamp((t - (w.s - 0.04)) / 0.11);
+          c.save(); c.beginPath(); c.rect(xx - 6 * S, yy - 60 * S, (ww + 12 * S) * p, 110 * S); c.clip();
+          E.drawText(c, txt, xx, yy, { ...note, rot: -0.03 });
+          c.restore();
+        }
+        xx += ww;
       }
-      xx += ww;
-    }
-  });
-  const tw = E.measure(f, "1,000,000", { font: B.FONT.mono, weight: 800, size: 88 * S, tracking: -0.02 });
-  B.penArrow(f, chk.pad + 300 * S, chk.noteY - 46 * S, chk.pad + tw + 40 * S, chk.totalY - 10 * S, t, W[9].s, { dur: 0.18, width: 5 * S, bend: 0.35, seed: 3 });
-  B.penCircle(f, chk.pad + tw / 2 - 4 * S, chk.totalY - 34 * S, tw * 0.6, 62 * S, t, W[12].s, { dur: 0.28, width: 6 * S, seed: 5 });
-  B.penUnderline(f, chk.pad, chk.totalY + 24 * S, chk.pad + tw, t, TAP3 - 0.02, { dur: 0.1, width: 5 * S, seed: 13 });
-  B.penUnderline(f, chk.pad + 10 * S, chk.totalY + 40 * S, chk.pad + tw - 20 * S, t, TAP3 + 0.1, { dur: 0.1, width: 5 * S, seed: 17 });
-  f.restore();
-  // her tap on the folder: a small coral ring at her fingertips
+    });
+    const tw = E.measure(c, "1,000,000", { font: B.FONT.mono, weight: 800, size: 88 * S, tracking: -0.02 });
+    B.penArrow(c, chk.pad + 300 * S, chk.noteY - 46 * S, chk.pad + tw + 40 * S, chk.totalY - 10 * S, t, W[9].s, { dur: 0.18, width: 5 * S, bend: 0.35, seed: 3 });
+    B.penCircle(c, chk.pad + tw / 2 - 4 * S, chk.totalY - 34 * S, tw * 0.6, 62 * S, t, W[12].s, { dur: 0.28, width: 6 * S, seed: 5 });
+    B.penUnderline(c, chk.pad, chk.totalY + 24 * S, chk.pad + tw, t, TAP3 - 0.02, { dur: 0.1, width: 5 * S, seed: 13 });
+    B.penUnderline(c, chk.pad + 10 * S, chk.totalY + 40 * S, chk.pad + tw - 20 * S, t, TAP3 + 0.1, { dur: 0.1, width: 5 * S, seed: 17 });
+    c.restore();
+  }
+  c.restore();
+  const f = mid(E, rt, "s3", v ? punchScreen(E, v, opts, P, kc) : opts);
+  // FRONT: her tap on the folder (clip 4.08 s = 141.80): a small coral ring at her fingertips
+  f.save(); camOn(f, P, kc);
   if (v && t >= TAP3 - 0.02 && t < TAP3 + 0.4) {
     const p = smoothPt(v, lt, 19) ?? [0.64, 0.76], [px, py] = E.plateToScreen(E, v, p, opts), u = (t - TAP3 + 0.02) / 0.42;
     f.save(); f.globalAlpha = 1 - u; f.strokeStyle = B.C.coral; f.lineWidth = 4 * S;
     f.beginPath(); f.arc(px, py + 10 * S, (14 + 60 * ease.outCubic(u)) * S, 0, 6.2832); f.stroke(); f.restore();
   }
+  f.restore();
   end(E);
   E.hud.sub = false;
 }
@@ -261,14 +279,15 @@ function s3(E, t, rt) {
 function meterLay(E) {
   const S = E.SCALE, R = E.SAFE, cell = Math.max(2, Math.round(8 * S));
   return wide(E)
-    ? { x0: 0.07 * E.W, y: 0.36 * E.H, rows: 20, cell, sub: 9, logY: 0.07 * E.H, logH: 0.06 * E.H }
-    : { x0: R.x + 34 * S, y: R.y + R.h * 0.36, rows: 13, cell, sub: 7, logY: R.y + 30 * S, logH: 52 * S };
+    ? { x0: 0.07 * E.W, y: 0.36 * E.H, rows: 20, cell, sub: 9, logY: 0.068 * E.H, logH: 0.066 * E.H }
+    : { x0: R.x + 34 * S, y: R.y + R.h * 0.36, rows: 13, cell, sub: 7, logY: R.y + 34 * S, logH: 58 * S };
 }
 function s4(E, t, rt) {
   const S = E.SCALE, R = E.SAFE, v = slots.s4.v, lt = v ? clipT(v, keys4("s4", t), t) : 0, M = meterLay(E);
   const tgt = wide(E) ? { h: 0.93 * E.H, y1: 1.0 * E.H, x1: 0.965 * E.W } : { h: 0.42 * E.H, y1: 0.88 * E.H, cx: 0.5 * E.W };
   let opts = plateOpts(E, "s4", tgt);
-  if (v && t >= ZOOM4) opts = punch(E, v, opts, [0.5, 0.36], 1.24); // crash zoom on his face on the beat
+  // a creeping push on his frozen smile (tension), then a crash zoom on the beat 143.56
+  if (v) opts = punch(E, v, opts, [0.5, 0.36], t >= ZOOM4 ? 1.24 : 1 + 0.07 * ease.inQuad(clamp((t - CUT.s4) / (ZOOM4 - CUT.s4))));
   const c = begin(E, rt);
   groundA(c, E, t, { offY: (t - CUT.s4) * 12 * S });
   // MID: the giant meter (reads brand.tokensAt), coral = LOW BALANCE
@@ -285,9 +304,11 @@ function s4(E, t, rt) {
   // FRONT: every word he says leaves his mouth as a cost tag and lands as a ledger line above the balance (entries, then
   // the balance): the apology itemised (−13,026 "SORRY." / −12,505 "I'M" / −4,762 "OUT" / −9,770 "OF"), then "TOKENS."
   // lands on black.
-  const mouth = v ? (poseMid(v, lt, [9, 10]) ?? poseMid(v, lt, [0])) : null;
-  const [mx, my] = mouth ? E.plateToScreen(E, v, mouth, opts) : [0.72 * E.W, 0.38 * E.H];
-  const tags = [W[13], W[14], W[15], W[16]], px = (wide(E) ? 48 : 38) * S, lh = M.logH, ly0 = M.logY;
+  // tags leave from beside his face (his screen-left cheek/ear), never across it
+  const mouth = v ? (poseMid(v, lt, [9, 10]) ?? poseMid(v, lt, [0])) : null, ear = v ? smoothPt(v, lt, 8) : null;
+  let [mx, my] = mouth ? E.plateToScreen(E, v, mouth, opts) : [0.72 * E.W, 0.38 * E.H];
+  if (ear) { const [ex] = E.plateToScreen(E, v, ear, opts); mx = Math.min(mx, ex) - 60 * S; }
+  const tags = [W[13], W[14], W[15], W[16]], px = (wide(E) ? 56 : 44) * S, lh = M.logH, ly0 = M.logY;
   f.font = `800 ${px}px "JetBrains Mono"`;
   f.letterSpacing = "0px";
   const amtW = f.measureText("−00,000 ").width;
@@ -296,7 +317,8 @@ function s4(E, t, rt) {
     if (t < t0) return;
     const nxt = i < 3 ? tags[i + 1].s : B.EV.musicStop, cost = B.tokensAt(E, w.s) - B.tokensAt(E, nxt);
     const word = `"${w.w.replace(/^\.+/, "").toUpperCase()}"`, e = ease.outCubic(u);
-    const x = lerp(mx - 40 * S, M.x0, e), y = lerp(my + 10 * S, ly0 + i * lh, e) - Math.sin(e * Math.PI) * 60 * S, s = lerp(1.25, 1, e);
+    const tw = (amtW + f.measureText(word).width) * 1.25; // spawn with its right edge beside his face, never over it
+    const x = lerp(mx - 20 * S - tw, M.x0, e), y = lerp(my + 10 * S, ly0 + i * lh, e) - Math.sin(e * Math.PI) * 60 * S, s = lerp(1.25, 1, e);
     f.save(); f.translate(x, y); f.scale(s, s); f.globalAlpha = clamp(u / 0.12);
     f.font = `800 ${px}px "JetBrains Mono"`; f.textBaseline = "middle"; f.textAlign = "left"; f.letterSpacing = "0px";
     const amt = "−" + B.fmtInt(cost);
@@ -315,13 +337,17 @@ function s5(E, t, rt) {
   g1.clear();
   c.fillStyle = B.C.void;
   c.fillRect(0, 0, E.W, E.H);
-  const o = { rows: M.rows, cell: M.cell, color: B.C.coral, line: CORAL_LINE };
+  // the silence stays alive: a slow linear push on the message and a standby-LED breathing (≈0.8 Hz, low contrast)
+  c.save();
+  camOn(c, [M.x0, M.y + M.rows * M.cell * 0.5], 1 + 0.06 * clamp((t - B.EV.musicStop) / (CUT.s6 - B.EV.musicStop)));
+  const breathe = t < W[17].s + 0.3 ? 1 : 0.8 + 0.2 * (0.5 + 0.5 * Math.cos((2 * Math.PI * (t - W[17].s - 0.3)) / 1.25));
+  const o = { rows: M.rows, cell: M.cell, color: B.C.coral, line: CORAL_LINE, alpha: breathe };
   const zero = pixelCount(c, "0", M.x0, M.y, o);
   const wT = W[17]; // tokens. 144.020
   const lineY = M.y + M.rows * M.cell + 54 * S;
   if (t >= wT.s - 1 / 60) {
-    B.pixelText(c, "TOKENS", M.x0 + zero.w + M.rows * M.cell * 0.36, M.y, { rows: M.rows, cell: M.cell, color: B.C.coral, line: CORAL_LINE });
-    const ub = B.pixelText(c, "USAGE BLOCKED", M.x0, lineY, { rows: M.sub, cell: M.cell, color: B.C.coral, line: CORAL_LINE });
+    B.pixelText(c, "TOKENS", M.x0 + zero.w + M.rows * M.cell * 0.36, M.y, { rows: M.rows, cell: M.cell, color: B.C.coral, line: CORAL_LINE, alpha: breathe });
+    const ub = B.pixelText(c, "USAGE BLOCKED", M.x0, lineY, { rows: M.sub, cell: M.cell, color: B.C.coral, line: CORAL_LINE, alpha: breathe });
     // the block cursor: alive in the silence
     if (blinkOn(t, wT.s, 1.0)) pixelBlock(c, M.x0 + ub.w + M.cell * 3, lineY, Math.round(M.sub * 0.6), M.sub, M.cell, B.C.coral, CORAL_LINE);
     // the reset clock types on and ticks (he'd have to wait five hours)
@@ -330,6 +356,7 @@ function s5(E, t, rt) {
     const n = Math.floor(clamp((t - 144.42) * 34, 0, txt.length));
     if (n > 0) label(E, c, txt.slice(0, n), M.x0, lineY + M.sub * M.cell + 52 * S, { size: wide(E) ? 24 : 22, weight: 600, color: B.C.coralA(0.7), tracking: 0.1 });
   }
+  c.restore();
   g1.commit();
   E.renderer.setRenderTarget(rt);
   E.blitG2D(E, g1, 1);

@@ -26,7 +26,7 @@
 //  S5   92.697   See · 92.740 you                C · LOCKUP #3 on a tilted dark banner slapped across the green;   FRONT band   cut on word
 //       93.020   after · 93.380 tokens!          her_cu_talk knowing smirk + side-eye at it from the left (clip 4.55→)
 //       92.78D / 93.26 / 93.72                   punch · banner settle · crosshair flash
-//  S6   94.000   (pickup, after tokens! ends)    A · whip-zoom into his tracked lanyard badge (him_chant)          plate→card   94.20 beat lands the zoom
+//  S6   93.920   (pickup, after tokens! ends)    A · push-in: his tracked lanyard badge grows into a card (him_chant)  plate→card  94.20 beat lands it
 //       94.220   I'm (held)                      the badge is now a full-frame usage card: "I'M" slams              MID
 //       94.820   an · 94.940 AI · 95.220 founder!  words land on the card; FOUNDER! on a green highlighter bar        MID
 //       95.16 / 95.64                            live pixel balance on the card drains word by word (~300K)       MID
@@ -79,12 +79,13 @@ export default K.makeScene({
           x += E.measure(c, txt + " ", hero);
         }
         K.slamText(F, c, "FOUNDER!", lay.x0, lay.y2, ws[3].s, { ...K.COND, size: lay.s2, color: C.green, baseline: "alphabetic", align: "left" });
-      });
-      F.plate(v, op);
-      F.front((c) => {
         K.fistBursts(F, c, v, lt, op, kHim1, C.green);
         K.burnTag(F, c, ws[3], lay.x0 + lay.fw * 0.62, lay.y2 - lay.s2 * 0.8, { color: C.green, unit: " TOKENS", size: 30 });
-        // her air-quotes around FOUNDER!
+      });
+      F.plate(v, op);
+      if (t < 87.1) E.post.punch = Math.max(E.post.punch, 0.04 * Math.exp(-(t - 86.96) / 0.1)); // the cut-in slam
+      // her air-quotes around FOUNDER! (over the cut-out: the closing quote overlaps his arm)
+      if (t >= 87.98) F.front((c) => {
         const k = K.slam(t, 88.02, { from: 1.5 });
         if (k) {
           const q = { font: FONT.serif, italic: true, weight: 400, size: lay.s2 * 0.9, color: C.coral, baseline: "alphabetic" };
@@ -107,12 +108,10 @@ export default K.makeScene({
         K.wallTiers(F, c, gw.s, port ? { base: 240, rows: 16, speed: 560, bottom: 1.02, shrink: 0.88, fade: 0.05, ink: INK, acc: C.white }
           : { base: 300, rows: 10, speed: 700, bottom: 1.06, ink: INK, acc: C.white, fade: 0.07 });
         K.shadow(c, W / 2, port ? H : 0.985 * H, port ? 0.3 * W : 0.16 * W, "light");
-      });
-      F.plate(v, op);
-      F.front((c) => {
         K.fistBursts(F, c, v, lt, op, kHer2, C.coral, [16]);
         K.gangReadout(F, c, gw, port ? { y: F.PT + 40 * S, size: 30 } : { x: 0.24 * W, y: 0.24 * H, size: 40, rot: -0.04 });
       });
+      F.plate(v, op);
       K.punch(F, 0.035);
     } });
 
@@ -127,9 +126,9 @@ export default K.makeScene({
       F.back((c) => {
         K.groundA(F, c, { offX: (t - 88.94) * 20 * S });
         autoReply(F, c, card, true);
+        gunPops(F, c, v, lt, op, kGun3, C.green);
       });
       F.plate(v, op);
-      F.front((c) => gunPops(F, c, v, lt, op, kGun3, C.green));
       K.punch(F, 0.03);
     } });
 
@@ -146,9 +145,6 @@ export default K.makeScene({
         K.groundA(F, c, { offX: (t - 88.94) * 20 * S });
         pos = autoReply(F, c, card, false);
         K.shadow(c, port ? 0.5 * W : 0.2 * W, port ? H : 0.98 * H, port ? 0.26 * W : 0.14 * W);
-      });
-      F.plate(v, op);
-      F.front((c) => {
         B.penStrike(c, pos.cant[0], pos.cant[1], pos.cant[2], t, 90.4, { width: 12 * S * card.k * 1.6, seed: 5, dur: 0.12 });
         const nx = port ? R.x + R.w * 0.08 : 0.43 * W, ny = port ? F.PT + 500 * S : 0.84 * H;
         B.penNote(E, c, "of course you can't", nx, ny, t, 90.88, { size: (port ? 64 : 120) * S, cps: 28, rot: -0.04 });
@@ -156,13 +152,14 @@ export default K.makeScene({
         const k = K.slam(t, 91.82, { from: 1.3 });
         if (k) seen(F, c, pos.seen[0], pos.seen[1], k.sc, card.k);
       });
+      F.plate(v, op);
       E.post.punch = Math.max(E.post.punch, 0.018 * E.pulse("downbeats", t, 0.1));
     } });
 
     // ---------------------------------------------------------------------------------------- S5 LOCKUP #3 on a tilted banner, she side-eyes it
-    SH.push({ a: w(3, 0).s, b: 94.0, look: "C", clips: lin(herCu, w(3, 0).s, 4.55), draw(F) {
+    SH.push({ a: w(3, 0).s, b: 93.92, look: "C", clips: lin(herCu, w(3, 0).s, 4.55), draw(F) {
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
-      const dr = drift(F, w(3, 0).s, 94.0, 0.04);
+      const dr = drift(F, w(3, 0).s, 93.92, 0.04);
       const op = port
         ? K.frameSub(E, v, { h: 0.6 * H * dr, au: 0.3, av: 0.996, cx: 0.34 * W, bottom: 1.03 * H })
         : K.frameSub(E, v, { h: 1.0 * H * dr, au: 0.3, av: 0.996, cx: 0.19 * W, bottom: 1.04 * H });
@@ -180,9 +177,9 @@ export default K.makeScene({
     } });
 
     // ---------------------------------------------------------------------------------------- S6 badge whip-zoom → usage card
-    SH.push({ a: 94.0, b: w(5, 0).s, look: "A", clips: lin(chant, 94.0, 2.3), draw(F) {
+    SH.push({ a: 93.92, b: w(5, 0).s, look: "A", clips: lin(chant, 93.92, 2.3), draw(F) {
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
-      const z = ease.inOutCubic(clamp((t - 94.0) / 0.2));
+      const z = Math.sqrt(clamp((t - 93.92) / 0.29)); // card area grows linearly: luminance ramps, never flashes
       // final card rect
       const cw = port ? R.w * 0.98 : 0.78 * W, ch = port ? R.h * 0.86 : 0.84 * H;
       const cx1 = port ? R.x + R.w / 2 : W / 2, cy1 = port ? R.y + R.h * 0.53 : 0.53 * H;
@@ -192,14 +189,16 @@ export default K.makeScene({
       const bh0 = E.plateToScreen(E, v, [bu.c[0], bu.c[1] + bu.h / 2], op0)[1] - E.plateToScreen(E, v, [bu.c[0], bu.c[1] - bu.h / 2], op0)[1];
       const bw0 = bh0 * 0.56;
       // camera: zoom the plate around the badge while the card grows from the badge rect to the full card
-      const zs = 1 + 7 * z * z;
+      const zs = 1 + 1.6 * z * z; // a mild push: the card grows over him (no hoodie-filled frames, so no luminance flash)
       const op = { ...op0, zoom: op0.zoom * zs, x: op0.x + ((W / 2 + op0.x * S - b0[0]) * (zs - 1)) / S, y: op0.y + ((H / 2 + op0.y * S - b0[1]) * (zs - 1)) / S };
       const ccx = lerp(b0[0], cx1, z), ccy = lerp(b0[1], cy1, z), cww = lerp(bw0, cw, z), chh = lerp(bh0, ch, z);
-      F.back((c) => K.groundA(F, c, { gridA: 0.4 }));
-      if (z < 0.98) F.plate(v, op);
-      F.front((c) => badgeCard(F, c, ccx, ccy, cww, chh, z));
+      if (z < 0.98) {
+        F.back((c) => K.groundA(F, c, { gridA: 0.4 }));
+        F.plate(v, op);
+        F.front((c) => badgeCard(F, c, ccx, ccy, cww, chh, z));
+      } else F.back((c) => { K.groundA(F, c, { gridA: 0.4 }); badgeCard(F, c, ccx, ccy, cww, chh, z); });
       K.punch(F, 0.03);
-      if (t < 94.2) E.post.punch = Math.max(E.post.punch, 0.02 * z);
+      if (t < 94.21) E.post.punch = Math.max(E.post.punch, 0.02 * z);
     } });
 
     // ---------------------------------------------------------------------------------------- S7 GANG: a stadium of hims
@@ -259,25 +258,27 @@ export default K.makeScene({
         : K.frameSub(E, v, { h: 0.95 * H * dr, cx: 0.8 * W, bottom: 0.99 * H });
       const lx = port ? R.x + R.w / 2 : 0.38 * W, ly = port ? F.PT + 110 * S : 0.36 * H, size = port ? 70 : 128;
       const band = port ? [F.PT - 30 * S, F.PT + 480 * S] : [0.12 * H, 0.84 * H];
+      const nx = port ? R.x + R.w * 0.04 : 0.08 * W, ny = port ? F.PT + 300 * S : 0.66 * H, ns = (port ? 60 : 118) * S;
+      const nf = { font: FONT.serif, italic: true, weight: 400, size: ns }, mc = K.mctx();
+      const nw = E.measure(mc, "babe, you're pre-seed", nf), pw = E.measure(mc, "pre-seed", nf);
       F.back((c) => {
         K.groundC(F, c);
         c.fillStyle = C.bg; c.fillRect(0, band[0], W, band[1] - band[0]);
         B.hairGrid(c, 0, band[0], W, band[1] - band[0], { step: 96 * S, alpha: 0.5, offX: -(t - 98.02) * 30 * S });
         K.lockup(F, c, L[7].words, lx, ly, { size, seed: 11 });
+        if (t >= 99.9 && t < 100.08) { const bx = K.lockupBox(E, c, lx, ly, size); B.crosshairs(c, bx.x - 70 * S, bx.y - 60 * S, bx.w + 140 * S, bx.h + 120 * S, { color: C.white, len: 56 * S, inset: 12 * S, cross: 12 * S, lw: 3 * S }); }
         K.shadow(c, port ? 0.66 * W : 0.8 * W, port ? H : 0.99 * H, port ? 0.24 * W : 0.14 * W, "light");
-      });
-      F.plate(v, op);
-      F.front((c) => {
-        const nx = port ? R.x + R.w * 0.04 : 0.08 * W, ny = port ? F.PT + 300 * S : 0.66 * H, ns = (port ? 60 : 118) * S;
         B.penNote(E, c, "babe, you're pre-seed", nx, ny, t, 98.08, { size: ns, cps: 30, rot: -0.03 });
-        const f = { font: FONT.serif, italic: true, weight: 400, size: ns };
-        const nw = E.measure(c, "babe, you're pre-seed", f), pw = E.measure(c, "pre-seed", f);
         B.penUnderline(c, nx + nw - pw, ny + ns * 0.42, nx + nw, t, 98.96, { width: 7 * S, seed: 2, dur: 0.12 });
         B.penUnderline(c, nx + nw - pw + 8 * S, ny + ns * 0.56, nx + nw - 6 * S, t, 99.06, { width: 6 * S, seed: 8, dur: 0.1 });
+        gunPops(F, c, v, lt, op, kGun9, C.white);
+      });
+      F.plate(v, op);
+      // the arrow ends at his face: over the cut-out
+      if (t >= 99.42) F.front((c) => {
         const face = K.lmScreen(E, v, lt, 0, op);
         if (face && !port) B.penArrow(c, nx + nw + 24 * S, ny - 20 * S, face[0] - 90 * S, face[1] + 40 * S, t, 99.44, { width: 7 * S, seed: 4, bend: 0.25, dur: 0.18 });
         if (face && port) B.penArrow(c, nx + nw * 0.6, ny + 40 * S, face[0] - 60 * S, face[1] - 30 * S, t, 99.44, { width: 6 * S, seed: 4, bend: -0.2, dur: 0.18 });
-        gunPops(F, c, v, lt, op, kGun9, C.white);
       });
       K.punch(F, 0.03);
     } });
@@ -287,9 +288,9 @@ export default K.makeScene({
     function s1Layout(F) {
       const { E, S, W, H, R, port } = F, c = K.mctx();
       const x0 = port ? R.x + R.w * 0.1 : 0.07 * W;
-      const s1 = (port ? 92 : 150) * S;
+      const s1 = (port ? 100 : 196) * S;
       const s2 = port ? K.fit(F, c, "FOUNDER!", { ...K.COND, size: 400 * S }, R.w * 0.78) : K.fit(F, c, "FOUNDER!", { ...K.COND, size: 700 * S }, 0.5 * W);
-      const y1 = port ? F.PT + 90 * S : 0.36 * H, y2 = port ? y1 + 40 * S + s2 * K.CAP.cond : 0.82 * H;
+      const y1 = port ? F.PT + 95 * S : 0.4 * H, y2 = port ? y1 + 40 * S + s2 * K.CAP.cond : 0.84 * H;
       return { x0, s1, s2, y1, y2, fw: E.measure(c, "FOUNDER!", { ...K.COND, size: s2 }) };
     }
     function gunPops(F, c, v, lt, op, kn, col) {
@@ -351,9 +352,10 @@ export default K.makeScene({
       c.fillStyle = "#0b0c0b"; c.beginPath(); c.roundRect(cx - 90 * S * k, y + 26 * S * k, 180 * S * k, 30 * S * k, 15 * S * k); c.fill();
       if (k < 0.12) { c.restore(); return; } // still tiny: just a badge
       // header band
-      c.fillStyle = C.green; c.fillRect(x, y + 84 * S * k, w, 70 * S * k);
-      E.drawText(c, "ATTENDEE · ALL ACCESS", x + 50 * S * k, y + 120 * S * k, { ...K.MONO, size: 30 * S * k, color: INK, align: "left" });
-      E.drawText(c, "FOUNDER_01", x + w - 50 * S * k, y + 120 * S * k, { ...K.MONO, size: 30 * S * k, color: INK, align: "right" });
+      const lb = E.last("beats", t), bf = t >= 94.6 && lb && lb.dt < 0.1; // the header band flips on each beat (94.68 D, 95.16, 95.64)
+      c.fillStyle = bf ? INK : C.green; c.fillRect(x, y + 84 * S * k, w, 70 * S * k);
+      E.drawText(c, "ATTENDEE · ALL ACCESS", x + 50 * S * k, y + 120 * S * k, { ...K.MONO, size: 30 * S * k, color: bf ? C.green : INK, align: "left" });
+      E.drawText(c, "FOUNDER_01", x + w - 50 * S * k, y + 120 * S * k, { ...K.MONO, size: 30 * S * k, color: bf ? C.green : INK, align: "right" });
       const hero = { ...K.HERO, baseline: "alphabetic", align: "left", color: INK };
       const x0 = x + 60 * S * k, s1 = (port ? 150 : 210) * S * k, s2 = port ? K.fit(F, c, "FOUNDER!", { ...hero, size: 300 * S * k }, w - 120 * S * k) : 270 * S * k;
       const y1 = y + (port ? 330 : 400) * S * k, y2 = y1 + (port ? 20 : 30) * S * k + s2 * K.CAP.hero + (port ? 30 : 40) * S * k;

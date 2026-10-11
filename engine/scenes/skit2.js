@@ -1,33 +1,38 @@
 // SKIT 2 (56.12-68.02) · look E TERMINAL · "agents for agents" · owner A4
-// Spoken over a lone kick. One cut per line (cuts on the beat before each line). Kit: ./skit2/term.js, graph: ./skit2/graph.js
+// Spoken over a lone kick. One cut per line, each on the beat before its line. Kit: ./skit2/term.js, graph: ./skit2/graph.js
+// HUD subtitle off for the whole skit: her lines are set as coral-serif prompts, his as hype type, every word on its onset.
 //
 // PLAN (onsets from engine/data/lyrics.json "skit2"; beats/downbeats from engine/data/audio.json)
 //  time    word / event              visual                                                              layer   cut / camera
-//  56.12   (hard cut in, downbeat)   THE TABLE: both at the cafe table, keyed over the terminal ground;  back    shot 1 (date_table, slot;
-//                                    table band "TABLE_04"; tracked tags HUMAN_01 (her) / FOUNDER (him);         fallback: her_cu_talk +
-//                                    empty prompt "HER >" with a blinking cursor                          front   him_cu_talk across a table)
-//  56.47   So .. 58.59 do?           her line types on word by word in coral Instrument Serif             front   sub off (scene shows it)
-//  58.15   actually                  red-pen underline under "actually" (her emphasis)                   front
-//  56.60/57.56/58.50 (beats)         log bursts of 4 lines on 16ths (session, pitch_deck_v47 loading)     front
-//  59.46   (beat)                    CUT: him, medium (him_cu_talk 2.4-5.26), graph space opens left     -       shot 2
-//  59.77   We / 59.83 build          token ticks "-2,594" rise from his mouth on every word (the spine)  front   HUD sub on (his line)
-//  60.09   agents.                   a green deploy beam from his hand -> AGENT card #1 pops (0.92->1)   back
-//  61.21   For                       arrow 1 draws with a "FOR" label                                    back
-//  61.73   agents.                   AGENT card #2 pops                                                   back
-//  61.85   (music drops out)         card #3 pops (-> AGENT), each card reveals the same chain inside    back
-//  61.85-62.32 (dropout)             the dive: zoom into card #2 accelerates (inCubic); he is pushed out back    Droste zoom, Z = 4.47 / level
-//  62.32   (downbeat, kick returns)  CUT: her (her_cu_talk 0-3.32) in front of the graph zooming forever mid     shot 3
-//  62.47   And .. 64.07 do?          her line in coral serif on a dark prompt plate (top right)          front   sub off; zoom steps on every beat
-//  63.65   agents                    red-pen circle around one AGENT node, following it as it grows      front
-//  62.80/63.74/64.70 (beats)         log bursts: "waiting on agent_0045" / "planning the plan" ...      front
-//  65.64   (beat)                    CUT: him, tight (him_cu_talk 0.55-2.93), deadpan                    mid     shot 4
-//  65.67   ...They're                zoom decelerates; nodes keep "thinking..."                         back    HUD sub on
-//  66.91   on / 67.01 the            -                                                                    -
-//  67.13   waitlist.                 EVERY node flips to a grey WAITLISTED pill (ripple from the centre, back    zoom stops dead; punch 0.015
-//                                    0.16 s flips, 0.30 s spread); the AGENTS ON WAITLIST odometer       front
-//                                    slams in and rolls (linear, never stops); log prints WAITLISTED x4
-//  68.02   (downbeat)                hard cut to verse 2
+//  56.12   (hard cut in, downbeat)   THE TABLE: date_table 2.60-5.94 (she sips + side-eyes, he ends on a  back    shot 1, slow 0.6%/s push
+//                                    pleased smile), keyed over the terminal ground; floor line + contact
+//                                    shadow; SESSION panel (HUMANS 1) + pitch.log panel; tracked brackets  front
+//                                    HUMAN_01 (her anchor) / FOUNDER_01 (his pose) + her voice bars
+//  56.47   So .. 58.59 do?           her line as the session prompt "HER >", coral serif, word by word     front
+//  58.15   actually                  red-pen underline under "actually"                                    front
+//  56.60/57.56/58.50 (beats)         pitch.log prints bursts of 4 lines on 16ths                            front
+//  59.46   (beat)                    CUT him_cu_talk 2.40-5.26 (open-palm gesture), slow push              -       shot 2
+//  59.77   We / 59.83 build          WE BUILD (hype, white); "-2,594 / -1,805" token receipt beside his face front  ticks = brand meter events
+//  60.09   agents.                   AGENTS. (green) + AGENT card #1 pops (0.92->1) at the end of a green   back    beam tracked to his hand
+//                                    deploy beam from his hand
+//  61.21   For                       FOR; the chain pans left (in-out 0.32 s), arrow 1 draws               back
+//  61.73   agents.                   AGENTS. + card #2                                                      back
+//  61.85   (music drops out)         card #3 (-> AGENT), every card reveals the same chain inside           back
+//  61.85-62.32 (dropout)             THE DIVE: inCubic zoom into card #2 (Droste, Z = 4.47 per level); he   back    the camera flies past him
+//                                    scales up and slides out of frame; the hype type fades
+//  62.32   (downbeat, kick returns)  CUT her_cu_talk 0.00-3.32 (wide) in front of the graph zooming forever mid     shot 3; a zoom step on
+//                                    (DEPTH n · N AGENTS · 0 SHIPPED)                                              every beat (kick)
+//  62.47   And .. 64.07 do?          her line in a her.ask() prompt panel, coral serif                       front
+//  63.65   agents                    red-pen circle around one AGENT node, following it as it grows         front
+//  62.80/63.74/64.70 (beats)         log: planning the plan / waiting on agent_0045 <-> agent_0044 / ...    front
+//  65.64   (beat)                    CUT him_cu_talk 0.55-2.93 (tight, deadpan); scrim behind the type      mid     shot 4
+//  65.67   ...They're .. 67.01 the   ...THEY'RE ON THE (hype); the zoom decelerates                         front
+//  67.13   waitlist.                 WAITLIST. as a grey pill (inverse); EVERY node flips to a grey          front   zoom stops dead; punch 0.015
+//                                    WAITLISTED pill (0.16 s flips rippling 0.30 s from the centre); the    back
+//                                    AGENTS ON WAITLIST odometer slams in and rolls (1.4M/s, linear)        front
+//  68.02   (downbeat)                hard cut to verse 2 (last frames: the pill + the odometer mid-roll)
 // Meter: the HUD meter burns on each of his words (brand.tokensAt); every card carries a usage bar; "0 shipped" everywhere.
+// Portrait: content starts under the HUD meter (R.y+160..), close-ups at zoom ~1.3 with faces inside the safe band.
 import * as B from "../brand.js";
 import { K, F, tryClip, inClip, smoothPt, smoothMean, ground, panel, mono, serif, hype, drawLog, burstTimes, odometer,
   tokenTicks, mouthOf, brackets, beatAtOrBefore, shotAt, voiceBars } from "./skit2/term.js";
@@ -144,7 +149,8 @@ function plates(E, t, s) {
       if (HIM) out.push({ v: HIM, lt: inClip(HIM, 0.5 + lt), o: { fit: fitH, matte: true, ...(P ? { zoom: 0.96, x: 130, y: 300 } : { zoom: 0.62, x: 182, y: 182 }) }, who: "him" });
     }
   } else if (s.id === "build" && HIM) {
-    const o = { fit: fitH, matte: true, ...(P ? { zoom: 1.75, x: -261, y: 340 } : { zoom: 0.92, x: 330, y: 40 }) };
+    const o = { fit: fitH, matte: true, ...(P ? { zoom: 1.3, x: -131, y: 294 } : { zoom: 0.92, x: 330, y: 40 }) };
+    o.zoom *= 1 + 0.035 * Math.min(1, lt / 2.4); o.x += (P ? 8 : 26) * Math.min(1, lt / 2.4);   // slow push toward him
     // the dive pushes him out of frame (scale + slide), so the camera seems to fly past him into the graph
     if (t > T.dive) {
       const p = E.ease.inCubic(E.clamp((t - T.dive) / (T.c3 - T.dive)));
@@ -152,9 +158,9 @@ function plates(E, t, s) {
     }
     out.push({ v: HIM, lt: inClip(HIM, 2.4 + lt), o, who: "him" });
   } else if (s.id === "ask" && HER) {
-    out.push({ v: HER, lt: inClip(HER, 0.0 + lt), o: { fit: fitR, matte: true, ...(P ? { zoom: 1.85, x: 360, y: 281 } : { zoom: 0.9 + 0.012 * lt, x: -150, y: 48 }) }, who: "her" });
+    out.push({ v: HER, lt: inClip(HER, 0.0 + lt), o: { fit: fitR, matte: true, ...(P ? { zoom: 1.35, x: 202, y: 289 } : { zoom: 0.9 + 0.012 * lt, x: -150, y: 48 }) }, who: "her" });
   } else if (s.id === "wait" && HIM) {
-    out.push({ v: HIM, lt: inClip(HIM, 0.55 + lt), o: { fit: fitH, matte: true, ...(P ? { zoom: 2.05, x: -356, y: 311 } : { zoom: 1.12 + 0.01 * lt, x: 175, y: 96 }) }, who: "him" });
+    out.push({ v: HIM, lt: inClip(HIM, 0.55 + lt), o: { fit: fitH, matte: true, ...(P ? { zoom: 1.35, x: -228, y: 290 } : { zoom: 1.12 + 0.01 * lt, x: 175, y: 96 }) }, who: "him" });
   }
   return out;
 }
@@ -168,12 +174,12 @@ function graphState(E, t, s) {
   const steps = (a, b, k, te) => { let u = 0; for (const bt of E.A.beats) { if (bt < a - 1e-3 || bt >= b) continue; if (bt > te) break; u += k * E.ease.outCubic(E.clamp((te - bt) / 0.28)); } return u; };
   if (s.id === "build") {
     const p = t > T.dive ? E.ease.inCubic(E.clamp((t - T.dive) / (T.c3 - T.dive))) : 0;
-    G.Wbase = P ? R.w * 1.42 : E.W * 1.1;
+    G.Wbase = (P ? R.w * 1.33 : E.W * 1.1) * (1 + 0.03 * E.clamp((t - T.c2) / 2.4));
     const step = 0.37 * G.Wbase;
     // card 1 alone first; on "For" the chain pans left so card 2 lands in frame; then the dive into card 2
     const pan = E.ease.inOutCubic(E.clamp((t - (T.forW - 0.05)) / 0.32));
     const x0 = (P ? R.x + R.w * 0.34 : E.W * 0.27) + step, x1 = P ? R.x + R.w * 0.56 : E.W * 0.43;
-    const oy0 = P ? R.y + R.h * 0.42 : E.H * 0.62;
+    const oy0 = P ? R.y + 470 * S : E.H * 0.62;
     const o1 = [E.W * 0.5, P ? R.y + R.h * 0.4 : E.H * 0.5];
     G.ox = E.lerp(E.lerp(x0, x1, pan), o1[0], p); G.oy = E.lerp(oy0, o1[1], p);
     G.u = 1.35 * p;
@@ -182,12 +188,12 @@ function graphState(E, t, s) {
     G.innerOn = E.clamp((t - (T.card3 + 0.02)) / 0.1);
     G.labelFor = false;
   } else if (s.id === "ask") {
-    G.ox = P ? R.x + R.w * 0.5 : E.W * 0.68; G.oy = P ? R.y + R.h * 0.5 : E.H * 0.62;
+    G.ox = P ? R.x + R.w * 0.5 : E.W * 0.68; G.oy = P ? R.y + 560 * S : E.H * 0.62;
     G.Wbase = P ? R.w * 1.05 : E.W * 0.92;
     G.u = 0.35 + 0.14 * (t - T.c3) + steps(T.c3, T.c4, 0.2, t);
     G.depth0 = 2;
   } else {
-    G.ox = P ? R.x + R.w * 0.5 : E.W * 0.46; G.oy = P ? R.y + R.h * 0.42 : E.H * 0.5;
+    G.ox = P ? R.x + R.w * 0.5 : E.W * 0.46; G.oy = P ? R.y + 520 * S : E.H * 0.5;
     G.Wbase = P ? R.w * 1.05 : E.W * 0.86;
     // the zoom stops dead on "waitlist" (u frozen at that instant, then a 0.03 levels/s drift so nothing freezes);
     // u0 puts the frame at 3 nodes + their children on the flip
@@ -246,7 +252,7 @@ function tableFront(E, c, t, pl) {
       let fx, fy, fw, fh;
       if (f.n) { fh = Math.max(70 * S, Math.abs(f.n[1] - f.e[1]) * 7.2); fw = fh * 0.82; fx = f.n[0] - fw / 2; fy = f.n[1] - fh * 0.56; }
       else { fh = 250 * S * scl; fw = fh * 0.8; fx = f.c[0] - fw / 2; fy = f.c[1] - fh * 0.5; }
-      const on = E.clamp((lt - (f.her ? 0.06 : 0.22)) / 0.1);
+      const on = 1;   // present on the hard cut in
       if (on <= 0) continue;
       const col = f.her ? K.coral : K.green;
       brackets(E, c, fx, fy, fw, fh, { color: col, alpha: on, len: 20, lw: 2 });
@@ -260,14 +266,14 @@ function tableFront(E, c, t, pl) {
   }
   // her question, as the session prompt: "HER >" + the words in coral serif on their onsets
   const Lq = L[0];
-  if (Lq) promptLine(E, c, t, Lq.ws, P ? { x: R.x + 30 * S, y: R.y + 120 * S, maxW: R.w - 60 * S, size: 92, lines: 3 } : { x: E.W * 0.06, y: E.H * 0.2, maxW: E.W * 0.9, size: 92, lines: 1 }, T.actually);
+  if (Lq) promptLine(E, c, t, Lq.ws, P ? { x: R.x + 20 * S, y: R.y + 210 * S, maxW: R.w - 40 * S, size: 88, lines: 3 } : { x: E.W * 0.06, y: E.H * 0.2, maxW: E.W * 0.9, size: 92, lines: 1 }, T.actually);
   if (P || !DT) return;
   // side panels: SESSION facts (left) and the log printing on 16ths (right)
   const a = 1, py = E.H * 0.37, ph = E.H * 0.33;
   panel(E, c, E.W * 0.03, py, E.W * 0.185, ph, { title: "session", titleSize: 15, titleH: 38, alpha: a, dot: K.green });
   const rows = [["SESSION", "date_01"], ["TABLE", "04"], ["GUESTS", "2"], ["HUMANS", "1"], ["ORDERS", "1 matcha"], ["BILL", "pending"]];
   rows.forEach(([k, v], i) => {
-    const ra = E.clamp((lt - 0.08 - i * E.spb / 4) / 0.05) * a, yy = py + (70 + i * 39) * S;
+    const ra = a, yy = py + (70 + i * 39) * S;   // a full dashboard on the first frame
     mono(E, c, k, E.W * 0.03 + 22 * S, yy, { size: 16, color: K.grey, alpha: ra });
     mono(E, c, v, E.W * 0.03 + 128 * S, yy, { size: 17, weight: 600, color: k === "HUMANS" ? K.coral : K.ink, alpha: ra, upper: false });
   });
@@ -348,9 +354,12 @@ function buildFront(E, c, t, G, pl) {
   const ws = L[1]?.ws ?? [];
   const out = t > T.dive ? E.clamp((t - T.dive) / 0.12) : 0;
   if (ws.length >= 5 && out < 1) {
-    const x = P ? R.x + 24 * S : E.W * 0.045, y1 = P ? R.y + 70 * S : E.H * 0.2, size = P ? 92 : 112;
+    const x = P ? R.x + 24 * S : E.W * 0.045, y1 = P ? R.y + 200 * S : E.H * 0.2, size = P ? 92 : 112;
+    const push = 1 + 0.025 * E.clamp((t - ws[0].s) / 2.2);
+    c.save(); c.translate(x, y1); c.scale(push, push); c.translate(-x, -y1);
     hypeWords(E, c, t, [ws[0], ws[1], ws[2]], ["WE", "BUILD", "AGENTS."], x, y1, size, [K.white, K.white, K.green], 1 - out);
     hypeWords(E, c, t, [ws[3], ws[4]], ["FOR", "AGENTS."], x, y1 + size * 1.02 * S, size, [K.white, K.green], 1 - out);
+    c.restore();
   }
   if (!P) drawLog(E, c, LOG, t, E.W * 0.035, E.H * 0.84, { rows: 3, size: 17, lh: 30, alpha: 0.8 });
 }
@@ -376,18 +385,18 @@ function askFront(E, c, t, G, pl) {
   const S = E.SCALE, P = E.ORIENT === "portrait", R = E.SAFE, p = pl[0], Lq = L[2];
   // red pen: circle "those agents" (a node inside the graph, followed as the zoom grows it)
   if (G && t >= T.agentsQ - 0.05) {
-    const lvl = Math.floor(Math.max(0, G.u)) + 1, r = cardRect(G, lvl, 2);
+    const lvl = Math.floor(Math.max(0, G.u)) + 1, r = cardRect(G, lvl, P ? 0 : 2);
     B.penCircle(c, r.cx, r.cy, r.w * 0.66, r.h * 0.7, t, T.agentsQ, { width: 7 * S, dur: 0.3, seed: 7 });
   }
   // her question on a dark prompt plate (the graph behind it keeps zooming)
-  const bx = P ? R.x + 10 * S : E.W * 0.505, by = P ? R.y + 40 * S : E.H * 0.075, bw = P ? R.w - 20 * S : E.W * 0.455, bh = P ? 330 * S : 280 * S;
+  const bx = P ? R.x + 10 * S : E.W * 0.505, by = P ? R.y + 170 * S : E.H * 0.075, bw = P ? R.w - 20 * S : E.W * 0.455, bh = P ? 300 * S : 280 * S;
   if (Lq && t >= Lq.ws[0].s - 0.6) {
     panel(E, c, bx, by, bw, bh, { fill: "rgba(19,21,18,0.94)", border: K.line, title: "her.ask()", titleSize: 17, dot: K.coral });
     promptLine(E, c, t, Lq.ws, { x: bx + 34 * S, y: by + (P ? 110 : 100) * S, maxW: bw - 50 * S, size: P ? 80 : 84, lines: 2 }, -1);
   }
   if (!P) drawLog(E, c, LOG, t, E.W * 0.6, E.H * 0.935, { rows: 1, size: 17, lh: 30, alpha: 0.75 });
   // caption: depth / agents / shipped
-  if (G) caption(E, c, t, G, P ? R.x + 20 * S : E.W * 0.6, P ? R.y + R.h * 0.39 : E.H * 0.885);
+  if (G) caption(E, c, t, G, P ? R.x + 20 * S : E.W * 0.6, P ? R.y + 520 * S : E.H * 0.885);
 }
 
 function caption(E, c, t, G, x, y) {
@@ -403,7 +412,7 @@ function waitFront(E, c, t, G, pl) {
   const x = P ? R.x + 24 * S : E.W * 0.045;
   // his line: ...THEY'RE ON THE  /  WAITLIST. (hero, lands with the flip)
   if (ws.length >= 4) {
-    const y1 = P ? R.y + 70 * S : E.H * 0.22;
+    const y1 = P ? R.y + 200 * S : E.H * 0.22;
     hypeWords(E, c, t, [ws[0], ws[1], ws[2]], ["…THEY'RE", "ON", "THE"], x, y1, P ? 70 : 84, [K.white, K.white, K.white]);
     const w4 = ws[3], a = E.clamp((t - w4.s + 0.034) / 0.034);
     if (a > 0) {
@@ -420,13 +429,13 @@ function waitFront(E, c, t, G, pl) {
   // the odometer: AGENTS ON WAITLIST, slams in on "waitlist" and keeps rolling (linear, never stops)
   if (t >= T.wait - 0.034) {
     const a = E.clamp((t - T.wait + 0.034) / 0.05), sc = 0.92 + 0.08 * E.spring(t - T.wait - 0.05, 420, 0.45);
-    const ox = x, oy = P ? R.y + 420 * S : E.H * 0.58;
+    const ox = x, oy = P ? R.y + 446 * S : E.H * 0.58;
     const val = ODO_RATE * Math.max(0, t - T.wait) + 2187;
     c.save(); c.globalAlpha = a; c.translate(ox, oy); c.scale(sc, sc); c.translate(-ox, -oy);
     mono(E, c, "AGENTS ON WAITLIST  ▲", ox, oy + 6 * S, { size: P ? 24 : 22, weight: 700, color: K.grey });
     odometer(E, c, val, ox, oy + 30 * S, { digits: 9, cw: P ? 70 : 64, ch: P ? 106 : 96, size: P ? 68 : 62, gap: 5, commaW: 18, color: K.ink });
     c.restore();
   }
-  if (t < T.wait && G) caption(E, c, t, G, x, P ? R.y + R.h * 0.62 : E.H * 0.6);
+  if (t < T.wait && G) caption(E, c, t, G, x, P ? R.y + 470 * S : E.H * 0.6);
   if (!P) drawLog(E, c, LOG, t, x, E.H * 0.80, { rows: 3, size: 17, lh: 30, alpha: 0.85 });
 }

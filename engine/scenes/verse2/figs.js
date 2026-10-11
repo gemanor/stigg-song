@@ -128,7 +128,7 @@ export function figTeam(E, c, t, r, tR, tM, o = {}) {
     if (i < 2) avatar(c, cx, cy, R, S, 3 + i * 7);
     else macMini(c, cx, cy, R * 2.3, S, E.beat(t).phase < 0.5);
     c.restore();
-    const ls = Math.min(46 * S, gap * 0.25);
+    const ls = Math.min(46 * S, gap * 0.21);
     E.drawText(c, labels[i], cx, cy + R + ls * 1.2, { font: FONT.serif, italic: true, size: ls, color: i === 2 ? C.coral : C.ink, align: "center", baseline: "alphabetic", alpha: a });
   }
   const a0 = clamp((t - tR + 0.066) / 0.06);
@@ -183,7 +183,7 @@ export function browser(c, x, y, w, h, S, bar) {
   c.fillRect(x, y, w, bar);
   c.fillStyle = C.inkA(0.12);
   c.fillRect(x, y + bar, w, Math.max(1, 1.5 * S));
-  for (let i = 0; i < 3; i++) { c.fillStyle = ["#FF776D", "#E8E8E4", "#E8E8E4"][i]; c.beginPath(); c.arc(x + 30 * S + i * 26 * S, y + bar / 2, 7 * S, 0, 6.2832); c.fill(); }
+  for (let i = 0; i < 3; i++) { c.fillStyle = "#DADAD5"; c.beginPath(); c.arc(x + 30 * S + i * 26 * S, y + bar / 2, 7 * S, 0, 6.2832); c.fill(); }
   c.fillStyle = C.white;
   rrect(c, x + w * 0.3, y + bar * 0.22, w * 0.4, bar * 0.56, bar * 0.28); c.fill();
   c.fillStyle = C.inkA(0.18);
@@ -241,9 +241,10 @@ export function priceTag(E, c, t, t0, x, y0, len, txt, size, label) {
 }
 // clapperboard: claps shut on tClap; drawn at (x, y) top-left of the board, width w
 export function slate(E, c, t, tClap, x, y, w, S) {
-  if (t < tClap - 0.15) return;
-  const h = w * 0.62, a = clamp((t - tClap + 0.15) / 0.06), open = 1 - ease.inCubic(clamp((t - tClap + 0.12) / 0.12));
-  const rise = (1 - ease.outCubic(clamp((t - tClap + 0.15) / 0.14))) * h * 0.6;
+  // 4-frame anticipation: rises in open, the stick claps shut exactly on the onset
+  if (t < tClap - 0.066) return;
+  const h = w * 0.62, a = clamp((t - tClap + 0.066) / 0.03), open = 1 - ease.inCubic(clamp((t - tClap + 0.04) / 0.04));
+  const rise = (1 - ease.outCubic(clamp((t - tClap + 0.066) / 0.06))) * h * 0.5;
   c.save();
   c.globalAlpha = a;
   c.translate(x, y + rise);

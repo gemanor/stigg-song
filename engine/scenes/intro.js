@@ -10,9 +10,11 @@
 //   0.70   HER "Hey."                the typing bubble resolves into her coral serif line      FRONT
 //   0.83-1.72 "What are you doing tonight?"  words type on at their onsets; "THE DATE · 0 TOKENS"
 //   2.30   (cut, match on action)    2-shot party_wide 1x: his can push starts on the cut       PLATE        S2 can
-//   2.42   HIM "Hold" 2.49 "my"      green target brackets lock on the can; HOLD MY ink tag    FRONT
-//   3.02   "Celsius."                CELSIUS. green tag slapped under it; the line's burn       FRONT
-//                                    (tags + leader tracked to his index finger -> the can)
+//   2.42   HIM "Hold" 2.49 "my"      green target brackets lock on the can; HOLD MY white sticker FRONT
+//   3.02   "Celsius."                CELSIUS. green sticker slapped under it + the line's burn   FRONT
+//                                    The stickers hang on a leader from the CAN itself (colour
+//                                    track, assets/intro/can_track.json): at clip 2.4-2.55 he hands
+//                                    it over and the stickers go with it -> she ends up holding it
 //   3.95   (cut)                     him_cu_talk medium, palm-up shrug                         PLATE        S3 date
 //   4.04-4.62 "I can't go on a"      HIS green "sent" bubble beside his face (tail tracked to  MID (matte)
 //   4.71   "date."                   his mouth), words type on; DATE. drops a second row;
@@ -20,12 +22,14 @@
 //   5.12   (punch-in jump cut)       same clip, tighter (portrait: the poster framing again)    PLATE        S4 title
 //   5.18 "I'm" 5.54 "an" 5.60 "AI" 5.86 "founder."   the title breaks the chat format: each word shoots
 //                                    out from BEHIND his head (matte) into the poster masthead;
-//                                    camera punch per word; the snare build starts
+//                                    the snare build starts (no camera punch in the skit)
 //   6.60   (cut on downbeat)         her_cu_talk close-up, skeptical                           PLATE        S5 what
 //   7.03 "...You're" 7.34 "a"        coral serif, set on the giant "?"'s baseline               FRONT
 //   7.40   "what?"                   the "?" IS the hero: ~1100 px coral serif behind her       MID (matte)
 //   7.80-8.40                        snare build: "?" trembles + creeps in, bokeh swells (the door opens)
-//   8.30                             accent: "?" kick + bokeh flare; hard cut to the drop at 8.40
+//   8.24-8.40                        accent: crash zoom into the "?" + bokeh flare -> hard cut to the drop
+// Portrait: type in the band under the HUD, characters below it (clip cut edges kept off-canvas), her bubble left
+// of his face; S4 reuses the poster framing (party_wide 4.40-5.88) with the masthead re-slamming.
 import * as B from "../brand.js";
 import * as K from "./intro/kit.js";
 
@@ -84,18 +88,22 @@ function costTag(E, c, t, ws, x, y, o = {}) {
   if (v <= 0) return;
   E.drawText(c, `−${K.fmt(v)} TOKENS`, x, y, { ...MONO, size: (o.size ?? 28) * E.SCALE, color: o.color ?? B.C.green, align: o.align ?? "left", alpha: o.alpha ?? 1 });
 }
-// I'M AN AI / FOUNDER masthead, left-aligned at x0; line 2 fitted to maxW. Per-word alpha/scale/offset for slams.
+// I'M AN AI / FOUNDER masthead, left-aligned at x0; line 2 fitted to maxW. Words are set one by one with explicit
+// 0.3 em word spaces (at -0.035 em tracking a plain space reads "I'MANAI" on a phone). Per-word alpha/scale/offset.
+const GAP = 0.3;
+function wordsWidth(E, c, words, size) {
+  return words.reduce((a, w) => a + E.measure(c, w, { ...HERO, size }), 0) + GAP * size * (words.length - 1);
+}
 function masthead(E, c, L, o = {}) {
-  const S = E.SCALE, l2 = o.l2 ?? "FOUNDER";
+  const S = E.SCALE, l2 = o.l2 ?? "FOUNDER", words = ["I’M", "AN", "AI"];
   const f2 = E.fitSize(c, l2, { ...HERO, size: 900 * S }, L.maxW);
-  const f1 = Math.min(f2 * 0.84, E.fitSize(c, "I’M AN AI", { ...HERO, size: 900 * S }, L.maxW));
+  const f1 = Math.min(f2 * 0.84, (L.maxW / wordsWidth(E, c, words, 100)) * 100);
   const al = o.al ?? [1, 1, 1, 1], sc = o.s ?? [1, 1, 1, 1], dx = o.dx ?? [0, 0, 0, 0];
-  const words = ["I’M ", "AN ", "AI"];
   let x = L.x0;
   words.forEach((wd, i) => {
     const ww = E.measure(c, wd, { ...HERO, size: f1 });
-    if (al[i] > 0) E.drawText(c, wd.trim(), x + dx[i], L.l1y, { ...HERO, size: f1, color: B.C.white, align: "left", baseline: "alphabetic", alpha: al[i], s: sc[i] });
-    x += ww;
+    if (al[i] > 0) E.drawText(c, wd, x + dx[i], L.l1y, { ...HERO, size: f1, color: B.C.white, align: "left", baseline: "alphabetic", alpha: al[i], s: sc[i] });
+    x += ww + GAP * f1;
   });
   if (al[3] > 0) {
     const grd = c.createLinearGradient(0, -f2 * 0.74, 0, 0); // local coords: drawText translates to (x, baseline)
@@ -124,10 +132,10 @@ function posterLayout(E) {
   }
   // portrait: type in the band under the HUD, him below (his cap grazes FOUNDER), the clip's cut edge off-canvas
   return {
-    plate: { u: 0.705, v: 0.22, X: 0.57 * W, Y: 0.518 * H, h: 0.625 * H, crop: [0.43, 0, 0.57, 1] },
+    plate: { u: 0.705, v: 0.22, X: 0.66 * W, Y: 0.518 * H, h: 0.625 * H, crop: [0.43, 0, 0.57, 1] },
     x0: R.x + 14 * S, l1y: 0.333 * H, l2y: 0.432 * H, maxW: R.w - 30 * S,
     loc: { x: R.x + 16 * S, y: 0.248 * H },
-    bub: { x: R.x + 22 * S, y: R.y + R.h - 8 * S, maxW: R.w * 0.9 },
+    bub: { x: R.x + 22 * S, y: 0.6 * H, maxW: 0.43 * W, fs: 58, rows: [[0], [1, 2, 3], [4, 5]] }, // left of his face
     zc: [0.5 * W, 0.45 * H],
   };
 }
@@ -145,26 +153,27 @@ function poster(E, t, o = {}) {
   dateline(E, c, L);
   masthead(E, c, L, o.mast);
   c.setTransform(1, 0, 0, 1, 0, 0);
+  // landscape: the bubble / cost tag never overlap him, so they ride in the same pass (one texture upload less)
+  const front = () => (o.front ? o.front(L) : herBubble(E, c, t, L.bub));
+  if (!K.P(E)) front();
   g.commit();
   E.blitG2D(E, g, 1);
   const po = K.placePlate(E, vPW, { ...L.plate, X: cx + (L.plate.X - cx) * k, Y: cy + (L.plate.Y - cy) * k, h: L.plate.h * k });
   E.drawPlate(E, vPW, { ...po, matte: true });
-  g.clear();
-  if (o.front) o.front(L);
-  else herBubble(E, c, t, L.bub);
-  g.commit();
-  E.blitG2D(E, g, 1);
+  if (K.P(E)) { g.clear(); front(); g.commit(); E.blitG2D(E, g, 1); }
 }
 
 // HER: "Hey. What are you doing tonight?" as a chat bubble (anchored at Bx.x, Bx.y = bubble bottom)
 function herBubble(E, c, t, Bx) {
+  // Bx: {x, y (bubble bottom), maxW, fs?, rows? (word-index groups; one row on landscape)}
   const S = E.SCALE, ws = W_.slice(0, 6), t0 = ws[0].s;
-  const pad = 32 * S, fs = 78 * S;
-  const line = ws.map((x) => x.w).join(" ");
-  const k2 = Math.min(1, (Bx.maxW - pad * 2) / E.measure(c, line, { ...SERIF, size: fs }));
+  const pad = 32 * S, fs0 = (Bx.fs ?? 78) * S, rows = Bx.rows ?? [[0, 1, 2, 3, 4, 5]];
+  const rowTxt = rows.map((r) => r.map((i) => ws[i].w).join(" "));
+  const k2 = Math.min(1, ...rowTxt.map((r) => (Bx.maxW - pad * 2) / E.measure(c, r, { ...SERIF, size: fs0 })));
+  const fs = fs0 * k2, lh = fs * 1.08;
   const typing = t < t0 - 0.05;
-  const bw = typing ? 176 * S : E.measure(c, line, { ...SERIF, size: fs * k2 }) + pad * 2;
-  const bh = typing ? 96 * S : fs * k2 * 1.05 + pad * 1.5;
+  const bw = typing ? 176 * S : Math.max(...rowTxt.map((r) => E.measure(c, r, { ...SERIF, size: fs }))) + pad * 2;
+  const bh = typing ? 96 * S : lh * rows.length + pad * 1.4;
   const p = typing ? 1 : 0.92 + 0.08 * E.spring(t - (t0 - 0.05), 300, 0.45); // UI never scales from 0
   const x = Bx.x, y = Bx.y - bh;
   c.save();
@@ -180,18 +189,20 @@ function herBubble(E, c, t, Bx) {
     }
     c.globalAlpha = 1;
   } else {
-    let xx = x + pad;
-    const yy = y + pad * 0.7 + fs * k2 * 0.78;
-    ws.forEach((wd) => {
-      const ww = E.measure(c, wd.w + " ", { ...SERIF, size: fs * k2 });
-      const a = K.clamp((t - (wd.s - 0.05)) / 0.05);
-      if (a > 0) E.drawText(c, wd.w, xx, yy, { ...SERIF, size: fs * k2, color: B.C.coral, align: "left", baseline: "alphabetic", alpha: a });
-      xx += ww;
+    rows.forEach((r, ri) => {
+      let xx = x + pad;
+      const yy = y + pad * 0.7 + fs * 0.78 + ri * lh;
+      r.forEach((i) => {
+        const wd = ws[i], ww = E.measure(c, wd.w + " ", { ...SERIF, size: fs });
+        const a = K.clamp((t - (wd.s - 0.05)) / 0.05);
+        if (a > 0) E.drawText(c, wd.w, xx, yy, { ...SERIF, size: fs, color: B.C.coral, align: "left", baseline: "alphabetic", alpha: a });
+        xx += ww;
+      });
     });
   }
   c.restore();
   const lab = typing ? "THE DATE IS TYPING…" : "THE DATE  ·  0 TOKENS";
-  E.drawText(c, lab, x + 4 * S, y - 26 * S, { ...MONO, size: 26 * S, color: B.C.coral, align: "left" });
+  E.drawText(c, lab, x + 4 * S, y - 26 * S, { ...MONO, size: (K.P(E) ? 22 : 26) * S, color: B.C.coral, align: "left" });
 }
 
 // ======================================================================================== S2 CAN: HOLD MY CELSIUS.
@@ -204,11 +215,13 @@ function canBrackets(c, x, y, w, h, l, lw, col, a) {
   c.stroke(); c.restore();
 }
 function tag(E, c, txt, x, y, size, o) {
-  // a sticker: solid plate + type, rotated about its baseline-left
-  const tw = E.measure(c, txt, { ...HERO, size });
+  // a sticker: solid plate + type (words set with 0.28 em gaps), rotated about its baseline-left
+  const ws = txt.split(" "), gp = 0.28 * size;
+  const tw = ws.reduce((a, w) => a + E.measure(c, w, { ...HERO, size }), 0) + gp * (ws.length - 1);
   c.save(); c.globalAlpha = o.a; c.translate(x, y); c.rotate(o.rot ?? 0); c.scale(o.s ?? 1, o.s ?? 1);
   c.fillStyle = o.bg; c.fillRect(-0.12 * size, -0.86 * size, tw + 0.24 * size, size * 1.03);
-  E.drawText(c, txt, 0, -0.1 * size, { ...HERO, size, color: o.ink, align: "left", baseline: "alphabetic" });
+  let xx = 0;
+  for (const w of ws) { E.drawText(c, w, xx, -0.1 * size, { ...HERO, size, color: o.ink, align: "left", baseline: "alphabetic" }); xx += E.measure(c, w, { ...HERO, size }) + gp; }
   c.restore();
   return tw;
 }
@@ -248,7 +261,7 @@ function can(E, t) {
     c.beginPath(); c.moveTo(cx, lead0); c.lineTo(cx, lead1); c.stroke(); c.restore();
   }
   const pH = K.popIn(E, t, wH.s), pM = K.popIn(E, t, wM.s);
-  if (pH.a > 0) tag(E, c, pM.a > 0 ? "HOLD MY" : "HOLD", tx, t1y, fs1, { a: pH.a, s: pM.a > 0 ? pM.s : pH.s, rot: 0.02, bg: B.C.ink, ink: B.C.white });
+  if (pH.a > 0) tag(E, c, pM.a > 0 ? "HOLD MY" : "HOLD", tx, t1y, fs1, { a: pH.a, s: pM.a > 0 ? pM.s : pH.s, rot: 0.02, bg: B.C.white, ink: B.C.ink });
   const pC = K.popIn(E, t, wC.s, { from: 1.12, k: 420, z: 0.45 });
   if (pC.a > 0) tag(E, c, "CELSIUS.", tx - 0.01 * sx, t2y, fs2, { a: pC.a, s: pC.s, rot: -0.035, bg: B.C.green, ink: B.C.ink });
   costTag(E, c, t, [wH, wM, wC], tx - 0.01 * sx, t2y + fs2 * 0.17 + 40 * S);
@@ -269,8 +282,9 @@ function date(E, t) {
   const [mx, my] = E.plateToScreen(E, vHC, mu, po);
   const f1 = (P ? 72 : 98) * S, f2 = (P ? 132 : 228) * S, pad = (P ? 30 : 44) * S;
   // landscape: one line + DATE. ; portrait: I CAN'T / GO ON A / DATE.
-  const rows = P ? [["I ", "CAN’T"], ["GO ", "ON ", "A"]] : [["I ", "CAN’T ", "GO ", "ON ", "A"]];
-  const rw = rows.map((r) => r.reduce((a, x) => a + E.measure(c, x, { ...HERO, size: f1 }), 0));
+  const rows = P ? [["I", "CAN’T"], ["GO", "ON", "A"]] : [["I", "CAN’T", "GO", "ON", "A"]];
+  const gp = 0.28 * f1;
+  const rw = rows.map((r) => r.reduce((a, x) => a + E.measure(c, x, { ...HERO, size: f1 }), 0) + gp * (r.length - 1));
   const wD = E.measure(c, "DATE.", { ...HERO, size: f2 });
   const gD = E.ease.outCubic(K.clamp((t - (ws[5].s - 0.05)) / 0.1));
   const bw = Math.max(...rw, wD) + pad * 2;
@@ -293,7 +307,7 @@ function date(E, t) {
       r.forEach((part) => {
         const a = K.clamp((t - (ws[wi].s - 0.05)) / 0.05);
         if (a > 0) E.drawText(c, part.trim(), xx, yy, { ...HERO, size: f1, color: B.C.ink, align: "left", baseline: "alphabetic", alpha: a });
-        xx += E.measure(c, part, { ...HERO, size: f1 });
+        xx += E.measure(c, part, { ...HERO, size: f1 }) + gp;
         wi++;
       });
     });
@@ -345,29 +359,28 @@ function title(E, t) {
     back(E, c, t, { seed: 23, boost: 0.35 * E.envAvg("snare", t, 0.25) });
     B.rules(c, L.l1y - 300 * S, L.l2y + 34 * S, E.W, { color: B.C.greenA(0.3), lw: Math.max(1, S) });
     masthead(E, c, L, { al: ts.al, s: ts.sc, dx: ts.dx, l2: "FOUNDER." });
+    costTag(E, c, t, ws, L.x0 + 4 * S, L.l2y + 58 * S); // clear of him: same pass
     g.commit(); E.blitG2D(E, g, 1);
     E.drawPlate(E, vHC, { ...po, matte: true });
-    g.clear();
-    costTag(E, c, t, ws, L.x0 + 4 * S, L.l2y + 58 * S);
-    g.commit(); E.blitG2D(E, g, 1);
   }
-  let pk = 0;
-  for (const w of ws) if (t >= w.s) pk = Math.max(pk, Math.exp(-(t - w.s) / 0.09));
-  E.post.punch = 0.022 * pk;
-}
+}  // no camera punch in the skit (STYLE: kicks drive punch, drop and choruses only); the words slide and pop instead
+
 
 // ======================================================================================== S5 WHAT: ...You're a what?
 function what(E, t) {
   const S = E.SCALE, c = g.ctx, P = K.P(E), R = E.SAFE;
-  const po = K.placePlate(E, vHR, P ? { u: 0.31, v: 1.0, X: E.W * 0.36, Y: E.H, h: E.H * 0.693 } : { u: 0.3, v: 0.35, X: E.W * 0.26, Y: E.H * 0.42, h: E.H * 1.08 });
+  const pl = P ? { u: 0.31, v: 1.0, X: E.W * 0.36, Y: E.H, h: E.H * 0.693 } : { u: 0.3, v: 0.35, X: E.W * 0.26, Y: E.H * 0.42, h: E.H * 1.08 };
   const ws = W_.slice(19, 22);
   const build = K.clamp((t - 7.8) / 0.6);
   const acc = t >= 8.3 ? Math.exp(-(t - 8.3) / 0.06) : 0;
-  g.clear();
-  back(E, c, t, { seed: 31, boost: 1.4 * E.ease.inQuad(build) + 0.8 * acc });
-  // the giant "?" is the hero of "what?": it lands with the word (landscape: on the line's baseline)
   const fs = (P ? 88 : 128) * S, qs = (P ? 800 : 1080) * S;
   const qx = P ? E.W * 0.74 : E.W * 0.8, base = P ? 0.615 * E.H : E.H * 0.855;
+  // last frames: a crash zoom into the "?" (the door opens -> hard cut to the drop)
+  const kz = 1 + 0.75 * E.ease.inCubic(K.clamp((t - 8.24) / 0.16)), zx = qx, zy = base - qs * 0.3;
+  g.clear();
+  back(E, c, t, { seed: 31, boost: 1.4 * E.ease.inQuad(build) + 0.8 * acc });
+  K.camCtx(c, kz, zx, zy);
+  // the giant "?" is the hero of "what?": it lands with the word (landscape: on the line's baseline)
   const pQ = K.popIn(E, t, ws[2].s, { from: 1.35, k: 240, z: 0.42 });
   if (pQ.a > 0) {
     const sn = E.env("snare", t);
@@ -375,10 +388,12 @@ function what(E, t) {
     const sc = pQ.s * (1 + 0.06 * E.ease.inCubic(build) + 0.06 * acc);
     E.drawText(c, "?", qx + tremble, base, { ...SERIF, size: qs, color: B.C.coral, align: "center", baseline: "alphabetic", alpha: pQ.a, s: sc, rot: 0.05 * build });
   }
+  c.setTransform(1, 0, 0, 1, 0, 0);
   g.commit(); E.blitG2D(E, g, 1);
-  E.drawPlate(E, vHR, { ...po, matte: true });
+  E.drawPlate(E, vHR, { ...K.placePlate(E, vHR, K.camPlate(pl, kz, zx, zy)), matte: true });
   // FRONT: the line, flowing into the "?"
   g.clear();
+  K.camCtx(c, kz, zx, zy);
   const qw = E.measure(c, "?", { ...SERIF, size: qs });
   const txt = ["…You’re ", "a ", "what"];
   const widths = txt.map((x) => E.measure(c, x, { ...SERIF, size: fs }));
@@ -392,5 +407,6 @@ function what(E, t) {
   });
   B.penUnderline(c, xx - widths[2] - fs * 0.05, ly + fs * 0.16, xx - fs * 0.02, t, ws[2].s + 0.12, { width: (P ? 6 : 7) * S, dur: 0.22 });
   E.drawText(c, "THE DATE  ·  0 TOKENS", lx + 4 * S, ly - fs * 1.0, { ...MONO, size: (P ? 22 : 26) * S, color: B.C.coral, align: "left", alpha: K.clamp((t - ws[0].s) / 0.2) });
+  c.setTransform(1, 0, 0, 1, 0, 0);
   g.commit(); E.blitG2D(E, g, 1);
 }

@@ -6,7 +6,7 @@
 // her_pays (6 s): his hand takes the cup at 1.58-1.85 s, the cup leaves the frame by 2.3 s, the phone tap lights the
 // terminal's green light at 3.583 s (f87 faint, f88 full). Played at 1x from 1.275 s, so the grab lands on "Hold" and
 // the green light is full on the chime.
-import { B, slot, clipT, unionBox, frameBox, smoothPt, groundA, label, rippleR, pixelCount, pixelCountSize, CORAL_LINE, clamp, lerp, ease } from "./lib.js";
+import { B, slot, clipT, unionBox, frameBox, smoothPt, groundA, label, rippleR, pixelCount, pixelCountSize, CORAL_LINE, punchScreen, camOn, clamp, lerp, ease } from "./lib.js";
 import { surfaces } from "./surf.js";
 
 export const HP = { t0: 145.466, tap: 147.816, t1: 148.37 };
@@ -34,10 +34,12 @@ function lay(E) {
       toast: { x: 0.955 * E.W, y: 0.065 * E.H, rows: 11, cell: Math.max(2, Math.round(4 * S)), align: "right" },
       ap: { x: 0.715 * E.W, y: 0.37 * E.H, rows: 16, cell },
     };
+  // portrait: frame her body (not the hand-off reach), big and centred; the cup leaves off the right edge
   return {
-    tgt: { h: 0.4 * E.H, y1: 0.86 * E.H, x0: 0.0 * E.W },
-    cute: { x: R.x + R.w * 0.66, y: R.y + R.h * 0.13, size: 190 * S },
-    hold: { x: R.x + R.w * 0.38, y: R.y + R.h * 0.33, size: 84 * S },
+    box: [0.06, 0.02, 0.42, 1.0],
+    tgt: { h: 0.527 * E.H, y0: 0.323 * E.H, cx: 0.45 * E.W },
+    cute: { x: R.x + R.w * 0.62, y: R.y + R.h * 0.14, size: 180 * S },
+    hold: { x: R.x + R.w * 0.2, y: R.y + R.h * 0.275, size: 78 * S },
     toast: { x: R.x + R.w * 0.5, y: R.y + 6 * S, rows: 10, cell: Math.max(2, Math.round(3 * S)), align: "center" },
     ap: { x: R.x + R.w * 0.5, y: R.y + R.h * 0.12, rows: 11, cell },
   };
@@ -45,14 +47,17 @@ function lay(E) {
 
 export function render(E, t, rt) {
   const S = E.SCALE, [g1, g2] = surfaces(E), c = g1.ctx, f = g2.ctx, v = s.v, L = lay(E);
-  const lt = v ? clipT(v, KEYS, t) : 0, opts = v ? frameBox(E, v, box, L.tgt) : null;
+  const lt = v ? clipT(v, KEYS, t) : 0, opts = v ? frameBox(E, v, L.box ?? box, L.tgt) : null;
   const [tx, ty] = v ? E.plateToScreen(E, v, TERMINAL, opts) : [0.2 * E.W, 0.85 * E.H];
   const r = rippleR(E, t, HP.tap, tx, ty, 0.62), paid = t >= HP.tap;
+  // one slow linear push across the whole take (it must never read as a hold), centred on her face
+  const P = v ? E.plateToScreen(E, v, [0.33, 0.3], opts) : [0.3 * E.W, 0.4 * E.H], kc = 1 + 0.05 * clamp((t - HP.t0) / (HP.t1 - HP.t0));
 
   // ---------------- BACK + MID: the blocked void, and look A wherever her tap has reached
   g1.clear();
   c.fillStyle = B.C.void;
   c.fillRect(0, 0, E.W, E.H);
+  c.save(); camOn(c, P, kc);
   if (r > 0) {
     c.save(); c.beginPath(); c.arc(tx, ty, r, 0, 6.2832); c.clip();
     groundA(c, E, t, { gridA: 0.5 });
@@ -60,27 +65,31 @@ export function render(E, t, rt) {
   }
   c.save();
   if (r > 0) { c.beginPath(); c.rect(0, 0, E.W, E.H); c.arc(tx, ty, r, 0, 6.2832); c.clip("evenodd"); }
-  B.pixelText(c, "0 TOKENS · USAGE BLOCKED", L.toast.x, L.toast.y, { rows: L.toast.rows, cell: L.toast.cell, color: B.C.coral, line: CORAL_LINE, align: L.toast.align });
+  let tr = L.toast.rows; // fit the status line to the safe band at any --scale (cells round to whole px)
+  while (tr > 7 && B.pixelSize("0 TOKENS · USAGE BLOCKED", { rows: tr, cell: L.toast.cell }).w > E.SAFE.w * 0.96) tr--;
+  B.pixelText(c, "0 TOKENS · USAGE BLOCKED", L.toast.x, L.toast.y, { rows: tr, cell: L.toast.cell, color: B.C.coral, line: CORAL_LINE, align: L.toast.align });
   c.restore();
   if (paid) {
     // the meter rolls 0 -> 1,000,000 (brand.tokensAt), revealed by the ripple
     c.save(); c.beginPath(); c.arc(tx, ty, r, 0, 6.2832); c.clip();
     const o = { rows: L.ap.rows, cell: L.ap.cell, color: B.C.green, line: B.C.cell };
     const sz = pixelCountSize("+1,000,000", o), x = L.ap.x - sz.w / 2;
-    label(E, c, "TOP-UP APPROVED", x, L.ap.y - 40 * S, { size: 30, color: B.C.green, tracking: 0.14 });
+    label(E, c, "TOP-UP APPROVED", x, L.ap.y - 46 * S, { size: E.ORIENT === "landscape" ? 46 : 40, color: B.C.green, tracking: 0.1 });
     pixelCount(c, "+" + B.fmtInt(B.tokensAt(E, t)), x, L.ap.y, o);
-    label(E, c, "PAID BY: HER  ·  1 TAP", x, L.ap.y + sz.h + 38 * S, { size: 22, weight: 600, color: B.C.whiteA(0.62) });
+    label(E, c, "PAID BY: HER  ·  1 TAP", x, L.ap.y + sz.h + 44 * S, { size: 30, weight: 600, color: B.C.whiteA(0.7) });
     c.restore();
   }
+  c.restore();
   g1.commit();
   E.renderer.setRenderTarget(rt);
   E.blitG2D(E, g1, 1);
 
   // ---------------- the cut-out
-  if (v) E.drawPlate(E, v, { ...opts, matte: true });
+  if (v) E.drawPlate(E, v, { ...punchScreen(E, v, opts, P, kc), matte: true });
 
   // ---------------- FRONT
   g2.clear();
+  f.save(); camOn(f, P, kc);
   const out = paid ? 1 - clamp((t - HP.tap) / 0.1) : 1; // her line clears for the payment
   if (out > 0) {
     const wc = W.cute;
@@ -118,6 +127,7 @@ export function render(E, t, rt) {
       f.restore();
     }
   }
+  f.restore();
   g2.commit();
   E.blitG2D(E, g2, 1);
 

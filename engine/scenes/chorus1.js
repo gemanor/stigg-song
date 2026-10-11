@@ -72,9 +72,9 @@ export default K.makeScene({
         const o = { ...K.COND, color: INK, align: "left", baseline: "alphabetic" };
         if (port) { o.size = K.fit(F, c, "I'M", { ...o, size: 500 * S }, R.w * 0.9); K.slamText(F, c, "I'M", R.x + R.w * 0.04, F.PT + o.size * K.CAP.cond, w(0, 0).s, o); }
         else { o.size = K.fit(F, c, "I'M", { ...o, size: 0.98 * H }, 0.4 * W); K.slamText(F, c, "I'M", 0.04 * W, 0.94 * H, w(0, 0).s, o); }
+        K.burnTag(F, c, w(0, 0), port ? R.x + R.w * 0.62 : 0.05 * W, port ? F.PT + 40 * S : 0.2 * H, { color: INK, unit: " TOKENS", size: 34 });
       });
       F.plate(v, op);
-      F.front((c) => K.burnTag(F, c, w(0, 0), port ? R.x + R.w * 0.62 : 0.05 * W, port ? F.PT + 40 * S : 0.2 * H, { color: INK, unit: " TOKENS", size: 34 }));
       K.punch(F, 0.03);
     } });
 
@@ -98,9 +98,9 @@ export default K.makeScene({
           K.slamText(F, c, "AN", 0.285 * W, 0.92 * H, w(0, 1).s, { ...o, align: "right" });
           K.slamText(F, c, "AI", 0.715 * W, 0.92 * H, w(0, 2).s, { ...o, align: "left" });
         }
+        K.fistBursts(F, c, v, lt, op, kL1, C.white);
       });
       F.plate(v, op);
-      F.front((c) => K.fistBursts(F, c, v, lt, op, kL1, C.white));
       K.punch(F, 0.03);
     } });
 
@@ -125,12 +125,10 @@ export default K.makeScene({
           small(F, c, 0.035 * W, 0.33 * H, 128 * S);
         }
         K.shadow(c, W / 2, port ? 0.985 * H : 0.975 * H, port ? 0.3 * W : 0.2 * W, "light");
-      });
-      F.plate(v, op);
-      F.front((c) => {
         K.fistBursts(F, c, v, lt, op, kL1, C.white);
         K.burnTag(F, c, fw, port ? R.x + R.w * 0.6 : 0.79 * W, port ? F.PT + 40 * S : 0.3 * H, { color: INK, unit: " TOKENS", size: 34 });
       });
+      F.plate(v, op);
       K.punch(F, 0.03);
       function small(F, c, x, y, size) { // "I'M AN AI" — the line so far, small and tight
         F.E.drawText(c, "I'M AN AI", x, y, { ...K.HERO, size, color: INK, align: "left", baseline: "alphabetic" });
@@ -143,8 +141,8 @@ export default K.makeScene({
       F.back((c) => {
         K.groundA(F, c, { gridA: 0.35 });
         K.wallTiers(F, c, gw.s, port ? { base: 250, rows: 16, speed: 520, bottom: 1.02, shrink: 0.88, fade: 0.05 } : { base: 330, rows: 10, speed: 640, bottom: 1.08 });
+        K.gangReadout(F, c, gw);
       });
-      F.front((c) => K.gangReadout(F, c, gw));
       K.punch(F, 0.035);
     } });
 
@@ -173,15 +171,15 @@ export default K.makeScene({
         // row 3: TONIGHT. (accent)
         const ts = port ? K.fit(F, c, "TONIGHT.", { ...hero, size: sz[2] * S }, R.w * 0.95) : sz[2] * S;
         K.slamText(F, c, "TONIGHT.", x0, y3, ws[4].s, { ...hero, size: ts, color: C.white });
-      });
-      F.plate(v, op);
-      F.front((c) => {
-        // tracked chip on his open palm (pose 16 = his right wrist, 20 = index)
-        const p = K.lmScreen(E, v, lt, 16, op);
-        const u = K.ease.outBack(clamp((t - 45.18) / 0.16));
-        if (p && t >= 45.18 - 0.02) chip(F, c, p[0] + 20 * S, p[1] - (port ? 50 : 70) * S, "TONIGHT · BUSY", Math.max(0.92, u), u);
         K.burnTag(F, c, ws[1], port ? R.x + R.w * 0.6 : 0.55 * W, port ? F.PT + 20 * S : 0.25 * H, { color: INK, size: 30, unit: " TOKENS" });
         K.burnTag(F, c, ws[4], port ? R.x + R.w * 0.6 : 0.6 * W, port ? F.PT + 240 * S : 0.6 * H, { color: INK, size: 30, unit: " TOKENS" });
+      });
+      F.plate(v, op);
+      // tracked chip on his open palm (pose 16 = his right wrist), over the cut-out from the 45.18 beat
+      if (t >= 45.16) F.front((c) => {
+        const p = K.lmScreen(E, v, lt, 16, op);
+        const u = K.ease.outBack(clamp((t - 45.18) / 0.16));
+        if (p) chip(F, c, p[0] + 20 * S, p[1] - (port ? 50 : 70) * S, "TONIGHT · BUSY", Math.max(0.92, u), u);
       });
       K.punch(F, 0.025);
     } });
@@ -197,9 +195,6 @@ export default K.makeScene({
       F.back((c) => {
         K.groundA(F, c);
         hisLine(F, c, lay); // "I CAN'T COME OUT / TONIGHT." in his type, small, white
-      });
-      F.plate(v, op);
-      F.front((c) => {
         const { y1, cantX0, cantX1, size } = lay;
         B.penUnderline(c, cantX0, y1 + size * 0.13, cantX1, t, 46.14, { width: 10 * S, seed: 4, dur: 0.14 });
         B.penUnderline(c, cantX0 + 10 * S, y1 + size * 0.25, cantX1 - 8 * S, t, 47.08, { width: 8 * S, seed: 7, dur: 0.14 });
@@ -207,6 +202,7 @@ export default K.makeScene({
         const k = K.slam(t, 47.56, { from: 1.25 });
         if (k) E.drawText(c, "HER WORDS COST 0 TOKENS", lay.nx + 6 * S, lay.ny + lay.ns * 0.8, { ...K.MONO, size: (port ? 22 : 30) * S, color: C.coral, align: "left", s: k.sc });
       });
+      F.plate(v, op);
       E.post.punch = Math.max(E.post.punch, 0.018 * E.pulse("downbeats", t, 0.1));
     } });
 
@@ -254,9 +250,6 @@ export default K.makeScene({
         }
         fillWord(F, c, "FOUNDER!", x0, y2, ws[3], { ...o, size: s2 }, C.white, false);
         K.shadow(c, port ? 0.5 * W : 0.2 * W, port ? 0.995 * H : 0.985 * H, port ? 0.3 * W : 0.15 * W, "light");
-      });
-      F.plate(v, op);
-      F.front((c) => {
         // finger-gun muzzle lines on the pops (pose 19/20 = index fingers)
         for (const kn of kDance) {
           if (t < kn[0] - 0.02 || t > kn[0] + 0.3) continue;
@@ -268,6 +261,7 @@ export default K.makeScene({
         K.burnTag(F, c, ws[0], port ? R.x + R.w * 0.6 : 0.37 * W, port ? F.PT + 10 * S : 0.17 * H, { color: INK, unit: " TOKENS", size: 30 });
         K.burnTag(F, c, ws[3], port ? R.x + R.w * 0.6 : 0.8 * W, port ? F.PT + 330 * S : 0.5 * H, { color: INK, unit: " TOKENS", size: 30 });
       });
+      F.plate(v, op);
       K.punch(F, 0.03);
     } });
 
@@ -277,8 +271,8 @@ export default K.makeScene({
       F.back((c) => {
         K.groundA(F, c, { gridA: 0.3 });
         K.wallWave(F, c, gw.s - 0.05, { cols: port ? 2 : 4, rows: port ? 11 : 7, base: 170, dur: 0.48 });
+        K.gangReadout(F, c, gw);
       });
-      F.front((c) => K.gangReadout(F, c, gw));
       K.punch(F, 0.035);
     } });
 

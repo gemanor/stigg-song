@@ -178,3 +178,7 @@ export function canAt(lt) {
   }
   return n ? [u / n, v / n] : null;
 }
+
+// a 2D camera (scale k about screen point (cx, cy)) applied consistently to plates and Canvas2D layers
+export const camPlate = (o, k, cx, cy) => ({ ...o, X: cx + (o.X - cx) * k, Y: cy + (o.Y - cy) * k, h: o.h * k });
+export const camCtx = (c, k, cx, cy) => c.setTransform(k, 0, 0, k, cx * (1 - k), cy * (1 - k));

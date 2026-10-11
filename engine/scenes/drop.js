@@ -5,27 +5,34 @@
 //          14.22 THE DROP (kick + bass) · 17.76 break before verse 1 (its "I" is at 18.01; never shown here)
 //   t       word / event          visual                                                       layer     cut
 //   8.40    (hard cut in)          LOOK C: flat #92E759. him_chant 0.0 (one fist high, can low)   PLATE     D1a
-//   8.44    "I'm"                  I'M slams, giant condensed ink, behind him (matte), punch      MID
+//   8.44    "I'm"                  I'M slams, giant condensed ink, behind him (matte); punch on   MID
+//                                  every beat (8.52 9.00 9.46: the bass hits)
 //   8.72/8.75 "an" "AI"            jump cut waist-up (pumps warped onto beats); AN / AI slam       MID       D1b
 //   9.10    "FOUN-"                jump cut chest-up; FOUN fills the box                           MID       D1c
 //   9.46    "-DER!" (beat)         pull back full body; FOUN / DER! completes the word             MID       D1d
-//   9.94    (beat, cut)            LOOK A: the BURN LEDGER prints his chant like a usage log on   FRONT     D2
+//   9.94    (beat, cut)            LOOK A: the BURN LEDGER prints his chant like a usage log on   MID       D2
 //                                  16ths (I'M −1,912 · AN −2,073 · AI −2,622 · FOUNDER! −1,844);
 //                                  him pumping on the right, pumps warped onto 10.42 / 10.90 / 11.38
 //   10.42   (downbeat)             TOTAL −8,451 slams in pixel-grid green, behind him              MID
-//   10.90   (beat)                 BALANCE line + drain bar                                        FRONT
+//   10.90   (beat)                 BALANCE line + drain bar (all ledger graphics sit clear of him) MID
 //   11.38   (beat)                 the ledger jolts: anticipation for the gang
 //   11.54   GANG "Founder!"        LOOK C: STADIUM WALL: 7 marquee rows of FOUNDER! (alternate     MID       D3
-//                                  directions) + a crowd of identical founders pumping in sync
+//                                  directions) + a crowd of identical founders pumping in sync +
+//                                  a jumbotron: ONE WORD · THE WHOLE CROWD −8,663 (the HUD meter hides)
 //   12.10   "I'm" 12.46 "an" 12.585 "AI" 12.88 "FOUN-" 13.27 "-DER!"                              D4
 //                                  LOOK A: the chant is MADE OF TOKENS: pixel cells fly in and
 //                                  assemble each syllable (the breakdown: a suspended slow drift)
-//   13.60   (line ends)            the cells burn: they stream into P1's TOKENS bar                FRONT     D5
-//                                  VS CARD slides in: green P1 panel | coral P2 panel
-//   13.76   (beat)                 panels lock; P1 / P2 tags
-//   14.22   (DROP downbeat)        "VS" slams (flash + punch); THE FOUNDER / THE DATE name plates
+//   13.60   (line ends)            the cells blow apart (tokens burned) as the VS CARD slams in:   FRONT     D5
+//                                  green P1 panel | coral P2 panel, speed lines; P1 = him_chant 0.75-4.60
+//                                  (pumps; the can is gone), P2 = her_unimpressed 0-3.8 (eye-roll, then sip)
+//   13.76   (beat)                 panels lock; top bars: P1 TOKENS (reads tokensAt; the HUD meter hides)
+//                                  vs P2 PATIENCE
+//   14.22   (DROP downbeat)        "VS" slams (flash + punch, pulses on beats); THE FOUNDER / THE DATE
 //   14.70   PRE-SEED · 15.18 ICED MATCHA · 15.66 RUNWAY: 3 WEEKS (her eye-roll) ·
-//   16.12   PATIENCE: LOW (her bar drains) · 16.60 SLEEP: NO · 17.08 FIGHT! (accent to the end)
+//   16.12   PATIENCE: LOW (her bar drains while she sips) · 16.60 SLEEP: NO · 17.08 FIGHT! (holds to the cut)
+//           the camera ping-pongs to whoever gets the stat on that beat; text stays put as UI
+// Portrait: every block restacks inside the safe band (type above him, faces inside the band, clip cut edges
+// off-canvas); the VS card keeps the side-by-side split with its text in two columns above the fighters.
 import * as B from "../brand.js";
 import * as K from "./intro/kit.js";
 
@@ -48,7 +55,7 @@ const chantLT = (t) => {
   if (t < T1) return 1.3 + 1.25 * (t - 9.0); //                       0.95 -> 2.47: peaks 1.3 @ 9.00, 1.9 @ 9.48
   if (t < T2) return pw(t, [[9.94, 2.55], [10.42, 3.1], [10.9, 3.75], [11.38, 4.4]]); // -> 4.62 @ 11.54
   if (t < T3) return 1.9 + (t - T2); //                               clones: 1.9 -> 2.46 (peak on "FOUNDER!")
-  return 0.75 + 1.0395 * (t - T4); //                                 VS card: 0.75 -> 4.70 (no can)
+  return 0.75 + 1.0132 * (t - T4); //                                 VS card: 0.75 -> 4.60 (the can pops back at 4.667)
 };
 const herLT = (t) => Math.max(0, t - T4); //                          0 -> 3.8: side-eye, eye-roll 1.0-2.25, sip 2.5+
 
@@ -103,7 +110,7 @@ function slam(E, c, txt, bx, t, s, o = {}) {
   if (t < s - 0.067) return; // anticipation: at most 4 frames before the onset
   const f = fillBox(E, c, txt, bx, o), d = t - (s - 0.05);
   const sc = 1 + (o.from ?? 0.18) * (1 - E.spring(Math.max(0, d), 420, 0.5));
-  const a = K.clamp(d / 0.034 + 0.4);
+  const a = o.solid ? 1 : K.clamp(d / 0.034 + 0.4);
   const cx = bx.x + bx.w / 2, cy = bx.y + bx.h / 2;
   c.save();
   c.translate(cx, cy); c.scale(sc, sc); c.translate(-cx, -cy); // the slam, about the box centre
@@ -131,13 +138,14 @@ function chant1(E, t) {
   const lt = chantLT(t);
   const fr = P
     ? [{ u: 0.78, v: 0.967, X: 0.55 * W, Y: 0.985 * H, h: 0.56 * H }, { u: 0.78, v: 0.6, X: 0.55 * W, Y: H, h: 0.95 * H }, { u: 0.775, v: 0.5, X: 0.55 * W, Y: H, h: 1.15 * H }, { u: 0.78, v: 0.967, X: 0.55 * W, Y: 0.985 * H, h: 0.56 * H }][sb]
-    : [{ u: 0.78, v: 0.967, X: 0.7 * W, Y: 0.985 * H, h: 1.0 * H }, { u: 0.78, v: 0.6, X: 0.72 * W, Y: 1.0 * H, h: 1.7 * H }, { u: 0.775, v: 0.45, X: 0.72 * W, Y: 1.0 * H, h: 2.05 * H }, { u: 0.78, v: 0.967, X: 0.71 * W, Y: 0.985 * H, h: 1.0 * H }][sb];
+    : [{ u: 0.78, v: 0.967, X: 0.7 * W, Y: 0.985 * H, h: 1.0 * H }, { u: 0.78, v: 0.6, X: 0.72 * W, Y: 1.0 * H, h: 1.7 * H }, { u: 0.775, v: 0.45, X: 0.77 * W, Y: 1.0 * H, h: 2.05 * H }, { u: 0.78, v: 0.967, X: 0.71 * W, Y: 0.985 * H, h: 1.0 * H }][sb];
   const po = K.placePlate(E, vCH, fr);
   g.clear();
   K.ground(E, c, B.C.green);
   // the type box: left of him on landscape, above him on portrait
-  const bx = P ? { x: R.x + 10 * S, y: R.y + 150 * S, w: R.w - 20 * S, h: 0.43 * H - (R.y + 150 * S) + 0.2 * H } : { x: 0.035 * W, y: 0.12 * H, w: 0.53 * W, h: 0.8 * H };
-  if (sb === 0) slam(E, c, "I’M", bx, t, CH1[0].s, { from: 0.25 });
+  const pb = [0.43, 0.49, 0.515, 0.43][sb] * H; // portrait: the box ends just above his head in each framing
+  const bx = P ? { x: R.x + 10 * S, y: R.y + 150 * S, w: R.w - 20 * S, h: pb - (R.y + 150 * S) } : { x: 0.035 * W, y: 0.12 * H, w: 0.53 * W, h: 0.8 * H };
+  if (sb === 0) slam(E, c, "I’M", bx, t, CH1[0].s, { from: 0.1, solid: true }); // the hard cut-in frame is already loaded
   else if (sb === 1) {
     const h1 = bx.h * 0.36, gap = bx.h * 0.04;
     slam(E, c, "AN", { x: bx.x, y: bx.y, w: bx.w * 0.6, h: h1 }, t, CH1[1].s);
@@ -151,7 +159,7 @@ function chant1(E, t) {
   g.commit(); E.blitG2D(E, g, 1);
   // contact shadow under the full-body frames (a drawn graphic)
   E.drawPlate(E, vCH, { ...po, matte: true });
-  punchOn(E, t, CH1.map((x) => x.s), 0.035, 0.1);
+  punchOn(E, t, BEATS, 0.032, 0.1); // camera punch on the beats (the bass hits); the syllables slam on their onsets
 }
 
 // ======================================================================================== D2 the burn ledger (look A)
@@ -159,7 +167,7 @@ function ledger(E, t) {
   const S = S_(E), c = g.ctx, P = K.P(E), W = E.W, H = E.H, R = E.SAFE;
   E.hud.theme = "dark"; E.hud.sub = false; // the chant line was set big in D1; the ledger itemizes it
   const lt = chantLT(t);
-  const po = K.placePlate(E, vCH, P ? { u: 0.78, v: 0.967, X: 0.62 * W, Y: 0.99 * H, h: 0.5 * H } : { u: 0.78, v: 0.967, X: 0.79 * W, Y: 0.985 * H, h: 0.95 * H });
+  const po = K.placePlate(E, vCH, P ? { u: 0.78, v: 0.967, X: 0.66 * W, Y: 1.0 * H, h: 0.44 * H } : { u: 0.78, v: 0.967, X: 0.79 * W, Y: 0.985 * H, h: 0.95 * H });
   const rows = [["I’M", CH1[0].w], ["AN", CH1[1].w], ["AI", CH1[2].w], ["FOUNDER!", CH1[3].w]];
   const total = rows.reduce((a, r) => a + K.costOf(E, r[1]), 0);
   const x0 = P ? R.x + 24 * S : 0.06 * W, y0 = P ? R.y + 190 * S : 0.2 * H;
@@ -174,10 +182,7 @@ function ledger(E, t) {
     B.pixelText(c, `−${K.fmt(total)}`, x0, ty, { rows: rowsPx, cell, reveal: tw, seed: 5 });
     E.drawText(c, "TOKENS BURNED BY ONE SENTENCE", x0 + 4 * S, ty + rowsPx * cell + 46 * S, { ...MONO, size: (P ? 22 : 28) * S, color: B.C.whiteA(0.7), align: "left", alpha: tw });
   }
-  g.commit(); E.blitG2D(E, g, 1);
-  E.drawPlate(E, vCH, { ...po, matte: true });
-  // FRONT: the usage log printing on 16ths
-  g.clear();
+  // the usage log printing on 16ths (left of him: same pass as the ground)
   const jolt = t >= 11.38 ? Math.exp(-(t - 11.38) / 0.08) * Math.sin((t - 11.38) * 90) * 8 * S : 0;
   c.save(); c.translate(jolt, 0);
   E.drawText(c, "USAGE LOG  ·  CHANT_01  ·  LIVE", x0, y0, { ...MONO, size: fs * 0.72, color: B.C.green, align: "left" });
@@ -207,6 +212,7 @@ function ledger(E, t) {
   }
   c.restore();
   g.commit(); E.blitG2D(E, g, 1);
+  E.drawPlate(E, vCH, { ...po, matte: true });
   punchOn(E, t, [10.42], 0.02, 0.1);
 }
 
@@ -231,6 +237,20 @@ function stadium(E, t) {
     for (let x = -unit - off; x < W + unit; x += unit) E.drawText(c, "FOUNDER!", x, y, { ...COND, size: fs, color: r % 3 === 1 ? B.C.white : B.C.ink, align: "left", baseline: "alphabetic" });
     c.restore();
   }
+  // the jumbotron: one word from the whole crowd, and what it cost (reads the meter)
+  const jw = (P ? 0.84 : 0.4) * W, jh = (P ? 0.15 : 0.25) * H, jx = (W - jw) / 2, jy = P ? E.SAFE.y + 150 * S : 0.035 * H;
+  const jp = K.popIn(E, t, s0, { from: 0.94, k: 420, z: 0.55 });
+  if (jp.a > 0) {
+    c.save(); c.globalAlpha = jp.a; c.translate(W / 2, jy + jh / 2); c.scale(jp.s, jp.s); c.translate(-W / 2, -(jy + jh / 2));
+    c.fillStyle = B.C.ink; c.fillRect(jx, jy, jw, jh);
+    c.strokeStyle = B.C.green; c.lineWidth = 3 * S; c.strokeRect(jx, jy, jw, jh);
+    B.crosshairs(c, jx, jy, jw, jh, { len: 26 * S, inset: 10 * S, cross: 6 * S, color: B.C.greenA(0.8) });
+    const burn = K.runBurn(E, t, [GANG]), cell = Math.max(2, Math.round((P ? 7 : 9) * S));
+    E.drawText(c, "ONE WORD  ·  THE WHOLE CROWD", W / 2, jy + 40 * S, { ...MONO, size: (P ? 20 : 24) * S, color: B.C.whiteA(0.75), align: "center" });
+    B.pixelText(c, `−${K.fmt(Math.max(burn, 1))}`, W / 2, jy + 70 * S, { rows: P ? 13 : 15, cell, align: "center" });
+    E.drawText(c, `BALANCE ${K.fmt(B.tokensAt(E, t))}`, W / 2, jy + jh - 26 * S, { ...MONO, size: (P ? 20 : 24) * S, color: B.C.green, align: "center" });
+    c.restore();
+  }
   g.commit(); E.blitG2D(E, g, 1);
   // the crowd: identical founders pumping in sync (one clip, many cut-outs), back row smaller
   const rowsC = P ? [{ n: 4, h: 0.3, y: 0.78 }, { n: 3, h: 0.42, y: 1.0 }] : [{ n: 7, h: 0.5, y: 0.8 }, { n: 5, h: 0.78, y: 1.02 }];
@@ -242,123 +262,199 @@ function stadium(E, t) {
       E.drawPlate(E, vCH, { ...po, matte: true });
     }
   });
-  punchOn(E, t, [s0], 0.04, 0.12);
+  E.hud.meter = false; // the jumbotron shows the bigger burn for this half-second
+  punchOn(E, t, BEATS, 0.03, 0.1);
 }
 
 // ======================================================================================== D4 the chant made of tokens (look A)
+function tokenLayout(E) {
+  const S = S_(E), P = K.P(E), W = E.W, H = E.H, R = E.SAFE;
+  const rws = P ? 13 : 18;
+  if (!P) {
+    const unitW = B.pixelSize("FOUNDER!", { rows: rws, cell: 1 }).w;
+    const cell = Math.max(2, Math.floor((0.86 * W) / unitW));
+    const fw = unitW * cell, lh = rws * cell, xL = (W - fw) / 2, y1 = 0.5 * H - lh * 1.32;
+    return { P, rws, cell, fw, lh, xL, y1, y2: y1 + lh * 1.5, y3: null };
+  }
+  // portrait: I'M AN AI on one line, then FOUN / DER! stacked bigger
+  const w1 = B.pixelSize("I’M", { rows: rws, cell: 1 }).w + B.pixelSize("AN", { rows: rws, cell: 1 }).w + B.pixelSize("AI", { rows: rws, cell: 1 }).w + 12;
+  const cell1 = Math.max(2, Math.floor((R.w - 30 * S) / w1));
+  const w2 = Math.max(B.pixelSize("FOUN", { rows: rws, cell: 1 }).w, B.pixelSize("DER!", { rows: rws, cell: 1 }).w);
+  const cell = Math.max(2, Math.floor((R.w - 30 * S) / w2));
+  const lh1 = rws * cell1, lh = rws * cell, xL = R.x + 15 * S;
+  const y1 = R.y + 0.27 * R.h, y2 = y1 + lh1 * 1.45, y3 = y2 + lh * 1.2;
+  return { P, rws, cell, cell1, fw: R.w - 30 * S, lh, lh1, xL, y1, y2, y3 };
+}
+function drawTokenLine(E, c, t, L, o = {}) {
+  const rv = o.reveal ?? ((s) => K.clamp((t - (s - 0.06)) / 0.11));
+  const c1 = L.P ? L.cell1 : L.cell;
+  // line 1: I'M AN AI with explicit word gaps (6 cells)
+  const words = [["I’M", CH2[0].s], ["AN", CH2[1].s], ["AI", CH2[2].s]];
+  let x = L.xL;
+  words.forEach(([w, s], i) => {
+    const r = rv(s);
+    if (r > 0) B.pixelText(c, w, x, L.y1, { rows: L.rws, cell: c1, reveal: r, seed: 11 + i, color: B.C.white, line: B.C.dgrey, alpha: o.alpha ?? 1 });
+    x += B.pixelSize(w, { rows: L.rws, cell: c1 }).w + c1 * 6;
+  });
+  const r3 = rv(CH2[3].s), r4 = rv(CH2[4].s);
+  const fw = B.pixelSize("FOUN", { rows: L.rws, cell: L.cell }).w;
+  if (r3 > 0) B.pixelText(c, "FOUN", L.xL, L.y2, { rows: L.rws, cell: L.cell, reveal: r3, seed: 21, alpha: o.alpha ?? 1 });
+  if (r4 > 0) B.pixelText(c, "DER!", L.P ? L.xL : L.xL + fw + L.cell, L.P ? L.y3 : L.y2, { rows: L.rws, cell: L.cell, reveal: r4, seed: 22, alpha: o.alpha ?? 1 });
+}
 function tokens(E, t) {
-  const S = S_(E), c = g.ctx, P = K.P(E), W = E.W, H = E.H, R = E.SAFE;
+  const S = S_(E), c = g.ctx, P = K.P(E), W = E.W, H = E.H;
   E.hud.theme = "dark"; E.hud.sub = false;
   g.clear();
   groundA(E, c, t, { grid: 0.4 });
-  // suspended drift: the breakdown floats (slow zoom toward the lines)
+  const L = tokenLayout(E);
+  // suspended drift: the breakdown floats (slow push toward the line)
   const k = 1 + 0.05 * E.ease.inOutQuad(K.clamp((t - T3) / 1.5));
-  c.setTransform(k, 0, 0, k, (W / 2) * (1 - k), (H / 2) * (1 - k));
-  const cell = Math.round((P ? 7 : 11) * S), rws = P ? 14 : 18;
-  const y1 = P ? R.y + 0.28 * R.h : 0.2 * H, y2 = y1 + rws * cell * 1.45;
-  const xL = P ? R.x + 10 * S : 0.07 * W;
-  const rv = (s) => K.clamp((t - (s - 0.06)) / 0.11);
-  // line 1: I'M AN AI (word by word), line 2: FOUN + DER!
-  let x = xL;
-  [["I’M ", CH2[0].s], ["AN ", CH2[1].s], ["AI", CH2[2].s]].forEach(([w, s], i) => {
-    const sz = B.pixelSize(w.trim(), { rows: rws, cell });
-    if (rv(s) > 0) B.pixelText(c, w.trim(), x, y1, { rows: rws, cell, reveal: rv(s), seed: 11 + i, color: B.C.white, line: B.C.dgrey });
-    x += sz.w + (w.endsWith(" ") ? cell * 7 : 0);
-  });
-  const fw = B.pixelSize("FOUN", { rows: rws, cell }).w;
-  if (rv(CH2[3].s) > 0) B.pixelText(c, "FOUN", xL, y2, { rows: rws, cell, reveal: rv(CH2[3].s), seed: 21 });
-  if (rv(CH2[4].s) > 0) B.pixelText(c, "DER!", xL + fw + cell, y2, { rows: rws, cell, reveal: rv(CH2[4].s), seed: 22 });
-  c.setTransform(1, 0, 0, 1, 0, 0);
-  // running cost of the line
+  c.setTransform(k, 0, 0, k, (W / 2) * (1 - k), ((L.y1 + (L.P ? L.y3 : L.y2) + L.lh) / 2) * (1 - k));
+  // After Tokens banner furniture around the block
+  const m = 30 * S, top = L.y1 - m * 1.6, bot = (L.P ? L.y3 : L.y2) + L.lh + m * 1.3;
+  B.rules(c, top, bot, W, { color: B.C.greenA(0.45), lw: Math.max(1, S) });
+  B.crosshairs(c, L.xL - m * 1.5, top, L.fw + m * 3, bot - top, { len: 34 * S, inset: 12 * S, cross: 7 * S });
+  E.drawText(c, "CHANT_02  ·  EVERY WORD IS BILLED", L.xL, top - 26 * S, { ...MONO, size: (P ? 20 : 24) * S, color: B.C.whiteA(0.6), align: "left" });
+  drawTokenLine(E, c, t, L);
   const cost = K.runBurn(E, t, CH2.filter((x) => x.w).map((x) => x.w));
-  if (cost > 0) E.drawText(c, `−${K.fmt(cost)} TOKENS`, xL, y2 + rws * cell * 1.4, { ...MONO, size: (P ? 24 : 30) * S, color: B.C.green, align: "left" });
+  if (cost > 0) E.drawText(c, `−${K.fmt(cost)} TOKENS`, L.xL + L.fw, bot + 44 * S, { ...MONO, size: (P ? 26 : 32) * S, color: B.C.green, align: "right" });
+  c.setTransform(1, 0, 0, 1, 0, 0);
   g.commit(); E.blitG2D(E, g, 1);
 }
 
 // ======================================================================================== D5 VS card
+// Landscape: green P1 | coral P2 split on a diagonal. Portrait: P1 on top, P2 below (faces inside the safe band).
+function vsLayout(E) {
+  const S = S_(E), W = E.W, H = E.H, R = E.SAFE;
+  if (!K.P(E)) {
+    return {
+      P: false,
+      split: [[0.545 * W, 0], [0.455 * W, H]],
+      him: { u: 0.78, v: 0.967, X: 0.32 * W, Y: 0.985 * H, h: 0.86 * H },
+      her: { u: 0.2, v: 0.978, X: 0.665 * W, Y: 0.985 * H, h: 0.86 * H },
+      bars: [{ x: 0.05 * W, y: 0.06 * H, w: 0.38 * W, right: false }, { x: 0.57 * W, y: 0.06 * H, w: 0.38 * W, right: true }],
+      vs: [0.5 * W, 0.5 * H, 300 * S], fight: [0.5 * W, 0.24 * H, 190 * S],
+      names: [[0.04 * W, 0.93 * H, "left"], [0.96 * W, 0.93 * H, "right"]], nf: 92 * S,
+      stats: [[0.04 * W, 0.3 * H, "left"], [0.96 * W, 0.3 * H, "right"], [0.04 * W, 0.44 * H, "left"], [0.96 * W, 0.44 * H, "right"], [0.04 * W, 0.58 * H, "left"]],
+      sf: 58 * S, lf: 24 * S, sd: 60 * S,
+    };
+  }
+  // portrait: the same split, fighters standing on the canvas bottom (faces just inside the band), text in two
+  // columns above them
+  const cl = R.x + 12 * S, cr = R.x + R.w - 12 * S;
+  return {
+    P: true,
+    split: [[0.535 * W, 0], [0.465 * W, H]],
+    him: { u: 0.78, v: 0.967, X: 0.25 * W, Y: 0.995 * H, h: 0.5 * H },
+    her: { u: 0.2, v: 0.978, X: 0.75 * W, Y: 0.995 * H, h: 0.5 * H },
+    bars: [{ x: cl, y: R.y + 16 * S, w: 0.465 * W - cl - 26 * S, right: false }, { x: 0.535 * W + 26 * S, y: R.y + 16 * S, w: cr - 0.535 * W - 26 * S, right: true }],
+    vs: [0.5 * W, 0.4 * H, 190 * S], fight: [0.5 * W, 0.465 * H, 120 * S],
+    names: [[cl, 0.525 * H, "left"], [cr, 0.505 * H, "right"]], nf: 50 * S,
+    stats: [[cl, R.y + 150 * S, "left"], [cr, R.y + 150 * S, "right"], [cl, R.y + 245 * S, "left"], [cr, R.y + 245 * S, "right"], [cl, R.y + 340 * S, "left"]],
+    sf: 44 * S, lf: 19 * S, sd: 46 * S,
+  };
+}
+// the camera ping-pongs to whoever gets a stat on that beat (eased 0.24 s), then pulls back for FIGHT!
+const FOCUS = [[13.6, 0], [14.7, 1], [15.18, 2], [15.66, 1], [16.12, 2], [16.6, 1], [17.08, 0]];
+function vsCam(E, t, L) {
+  const W = E.W, H = E.H, P = L.P;
+  const pt = (f) => (f === 0 ? [0.5 * W, 0.5 * H, 1] : f === 1 ? [L.him.X, P ? 0.55 * H : 0.5 * H, P ? 1.05 : 1.075] : [L.her.X, P ? 0.55 * H : 0.5 * H, P ? 1.05 : 1.075]);
+  let i = 0;
+  while (i < FOCUS.length - 1 && t >= FOCUS[i + 1][0] - 0.03) i++;
+  const a = pt(i ? FOCUS[i - 1][1] : 0), b = pt(FOCUS[i][1]), u = E.ease.outCubic(K.clamp((t - (FOCUS[i][0] - 0.03)) / 0.24));
+  return [K.lerp(a[2], b[2], u), K.lerp(a[0], b[0], u), K.lerp(a[1], b[1], u)];
+}
 function vs(E, t) {
-  const S = S_(E), c = g.ctx, P = K.P(E), W = E.W, H = E.H;
-  E.hud.theme = "light"; E.hud.sub = false; E.hud.meter = false; E.hud.corners = false;
+  const S = S_(E), c = g.ctx, W = E.W, H = E.H, L = vsLayout(E);
+  E.hud.theme = "light"; E.hud.sub = false; E.hud.meter = false; E.hud.corners = false; // P1's TOKENS bar is the meter here
   const tin = E.ease.outCubic(K.clamp((t - T4) / 0.16)); // panels slide in 13.60 -> 13.76
+  const off = (1 - tin) * W * 0.6;
+  const [ck, ccx, ccy] = vsCam(E, t, L);
   g.clear();
   K.ground(E, c, B.C.ink);
-  // split: green P1 | coral P2 along a diagonal seam
-  const sx0 = 0.545 * W, sx1 = 0.455 * W, off = (1 - tin) * W * 0.6;
-  c.fillStyle = B.C.green;
-  c.beginPath(); c.moveTo(-off, 0); c.lineTo(sx0 - off, 0); c.lineTo(sx1 - off, H); c.lineTo(-off, H); c.closePath(); c.fill();
-  c.fillStyle = B.C.coral;
-  c.beginPath(); c.moveTo(sx0 + off, 0); c.lineTo(W + off, 0); c.lineTo(W + off, H); c.lineTo(sx1 + off, H); c.closePath(); c.fill();
-  // speed lines streaming outward
+  K.camCtx(c, ck, ccx, ccy);
+  const [[ax, ay], [bx2, by2]] = L.split;
+  c.fillStyle = B.C.green; c.beginPath();
+  c.moveTo(-off, 0); c.lineTo(ax - off, 0); c.lineTo(bx2 - off, H); c.lineTo(-off, H);
+  c.closePath(); c.fill();
+  c.fillStyle = B.C.coral; c.beginPath();
+  c.moveTo(ax + off, 0); c.lineTo(W + off, 0); c.lineTo(W + off, H); c.lineTo(bx2 + off, H);
+  c.closePath(); c.fill();
+  // speed lines streaming away from the seam
   c.save(); c.lineWidth = 3 * S;
   for (let i = 0; i < 26; i++) {
-    const h1 = E.hash1(i * 3.1), h2 = E.hash1(i * 5.7 + 2), y = h1 * H, len = (120 + 260 * h2) * S;
-    const sp = (900 + 900 * h2) * S, side = i % 2 ? 1 : -1;
-    const ph = ((t * sp + h2 * W) % (W * 0.6));
-    const x = side < 0 ? sx1 - ph : sx0 + ph;
+    const h1 = E.hash1(i * 3.1), h2 = E.hash1(i * 5.7 + 2), len = (120 + 260 * h2) * S, side = i % 2 ? 1 : -1;
+    const sp = (900 + 900 * h2) * S, ph = (t * sp + h2 * W) % (W * 0.6);
     c.strokeStyle = side < 0 ? B.C.inkA(0.12) : B.C.whiteA(0.22);
+    const y = h1 * H, x = side < 0 ? Math.min(ax, bx2) - ph : Math.max(ax, bx2) + ph;
     c.beginPath(); c.moveTo(x, y); c.lineTo(x + side * len, y); c.stroke();
   }
   c.restore();
+  // the chant's tokens burn: the pixel cells blow apart as the card slams in
+  if (t < T4 + 0.3) {
+    const TL = tokenLayout(E), u = K.clamp((t - T4) / 0.3), k = 1.05;
+    c.save(); c.setTransform(k, 0, 0, k, (W / 2) * (1 - k), ((TL.y1 + (TL.P ? TL.y3 : TL.y2) + TL.lh) / 2) * (1 - k));
+    drawTokenLine(E, c, t, TL, { reveal: () => 1 - E.ease.outCubic(u), alpha: 1 - u });
+    c.restore();
+  }
+  c.setTransform(1, 0, 0, 1, 0, 0);
   g.commit(); E.blitG2D(E, g, 1);
   // fighters
-  const poH = K.placePlate(E, vCH, { u: 0.78, v: 0.967, X: 0.3 * W - off, Y: 0.985 * H, h: 0.86 * H });
-  const poU = K.placePlate(E, vHU, { u: 0.2, v: 0.978, X: 0.71 * W + off, Y: 0.985 * H, h: 0.86 * H });
+  const poH = K.placePlate(E, vCH, K.camPlate({ ...L.him, X: L.him.X - off }, ck, ccx, ccy));
+  const poU = K.placePlate(E, vHU, K.camPlate({ ...L.her, X: L.her.X + off }, ck, ccx, ccy));
   E.drawPlate(E, vCH, { ...poH, matte: true });
   E.drawPlate(E, vHU, { ...poU, matte: true });
-  // FRONT: top bars, VS, names, stats
+  // FRONT: bars, VS, names, stats
   g.clear();
-  const bar = (x, y, w, h, f, col, lab, val, right) => {
-    c.fillStyle = B.C.ink; c.fillRect(x - 4 * S, y - 4 * S, w + 8 * S, h + 8 * S);
-    c.fillStyle = B.C.line; c.fillRect(x, y, w, h);
+  const bar = (b, f, col, lab, val) => {
+    const bh = 30 * S, { x, y, w, right } = b;
+    c.fillStyle = B.C.ink; c.fillRect(x - 4 * S, y - 4 * S, w + 8 * S, bh + 8 * S);
+    c.fillStyle = B.C.line; c.fillRect(x, y, w, bh);
     c.fillStyle = col;
-    if (right) c.fillRect(x + w * (1 - f), y, w * f, h); else c.fillRect(x, y, w * f, h);
-    E.drawText(c, lab, right ? x + w : x, y + h + 30 * S, { ...MONO, size: 22 * S, color: B.C.ink, align: right ? "right" : "left" });
-    E.drawText(c, val, right ? x : x + w, y + h + 30 * S, { ...MONO, size: 22 * S, color: B.C.ink, align: right ? "left" : "right" });
+    if (right) c.fillRect(x + w * (1 - f), y, w * f, bh); else c.fillRect(x, y, w * f, bh);
+    const ly = y + bh + (L.P ? 22 : 30) * S, fz = (L.P ? 18 : 22) * S;
+    E.drawText(c, lab, right ? x + w : x, ly, { ...MONO, size: fz, color: B.C.ink, align: right ? "right" : "left" });
+    E.drawText(c, val, right ? x : x + w, ly, { ...MONO, size: fz, color: B.C.ink, align: right ? "left" : "right" });
   };
-  const tok = B.tokensAt(E, t);
-  const pat = 1 - 0.86 * K.clamp((t - 16.12) / 0.45);
-  const by = 0.06 * H, bw = 0.38 * W, bh = 30 * S;
+  const tok = B.tokensAt(E, t), pat = 1 - 0.86 * K.clamp((t - 16.12) / 0.45);
   if (tin > 0.5) {
-    bar(0.05 * W, by, bw, bh, tok / 1e6, B.C.green, "P1 · TOKENS", K.fmt(tok), false);
-    bar(0.95 * W - bw, by, bw, bh, pat, B.C.coral, "P2 · PATIENCE", pat < 0.2 ? "LOW" : `${Math.round(pat * 100)}%`, true);
+    bar(L.bars[0], tok / 1e6, B.C.green, "P1 · TOKENS", K.fmt(tok));
+    bar(L.bars[1], pat, B.C.coral, "P2 · PATIENCE", pat < 0.2 ? "LOW" : `${Math.round(pat * 100)}%`);
   }
-  // VS
   const tV = 14.22;
   if (t >= tV - 0.067) {
-    const d = t - (tV - 0.05), sc = 1 + 0.6 * (1 - E.spring(Math.max(0, d), 300, 0.45));
-    const vsz = 300 * S;
-    c.save(); c.translate(W / 2, H * 0.5); c.scale(sc, sc); c.rotate(-0.08);
-    E.drawText(c, "VS", 0, vsz * 0.36, { font: B.FONT.black, weight: 400, size: vsz, color: B.C.white, align: "center", baseline: "alphabetic", stroke: 16 * S, strokeColor: B.C.ink, skewX: -0.18 });
+    const d = t - (tV - 0.05), sc = (1 + 0.6 * (1 - E.spring(Math.max(0, d), 300, 0.45))) * (1 + 0.05 * E.pulse("beats", t, 0.1));
+    const [vx, vy, vsz] = L.vs;
+    K.camCtx(c, ck, ccx, ccy); // the VS rides the camera with the art; bars, names and stats are UI and stay put
+    c.save(); c.translate(vx, vy); c.scale(sc, sc); c.rotate(-0.08);
+    E.drawText(c, "VS", 0, vsz * 0.36, { font: B.FONT.black, weight: 400, size: vsz, color: B.C.white, align: "center", baseline: "alphabetic", stroke: 16 * S * (vsz / (300 * S)), strokeColor: B.C.ink, skewX: -0.18 });
     c.restore();
-    // names
-    const nf = 92 * S;
-    const nm = (txt, x, al, s0) => {
-      const p = K.popIn(E, t, s0, { from: 0.92 });
-      if (p.a > 0) E.drawText(c, txt, x, 0.93 * H, { ...HERO, size: nf, color: B.C.ink, align: al, baseline: "alphabetic", alpha: p.a, skewX: -0.14, s: p.s });
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    const nm = (txt, n) => {
+      const p = K.popIn(E, t, tV, { from: 0.92 }), [x, y, al] = L.names[n];
+      if (p.a > 0) E.drawText(c, txt, x, y, { ...HERO, size: L.nf, color: B.C.ink, align: al, baseline: "alphabetic", alpha: p.a, skewX: -0.14, s: p.s });
     };
-    nm("THE FOUNDER", 0.04 * W, "left", tV);
-    nm("THE DATE", 0.96 * W, "right", tV);
+    nm("THE FOUNDER", 0); nm("THE DATE", 1);
   }
-  // stats on beats
-  const stat = (lab, val, x, y, al, s0) => {
+  const stat = (lab, val, n, s0) => {
     if (t < s0 - 0.067) return;
-    const p = K.popIn(E, t, s0, { from: 0.92 });
-    E.drawText(c, lab, x, y, { ...MONO, size: 24 * S, color: B.C.inkA(0.7), align: al, alpha: p.a });
-    E.drawText(c, val, x, y + 62 * S, { ...HERO, size: 64 * S, color: B.C.ink, align: al, baseline: "alphabetic", alpha: p.a, s: p.s });
+    const p = K.popIn(E, t, s0, { from: 0.92 }), [x, y, al] = L.stats[n];
+    E.drawText(c, lab, x, y, { ...MONO, size: L.lf, color: B.C.inkA(0.7), align: al, alpha: p.a });
+    E.drawText(c, val, x, y + L.sd, { ...HERO, size: L.sf, color: B.C.ink, align: al, baseline: "alphabetic", alpha: p.a, s: p.s });
   };
-  stat("STAGE", "PRE-SEED", 0.04 * W, 0.3 * H, "left", 14.7);
-  stat("DRINK", "ICED MATCHA", 0.96 * W, 0.3 * H, "right", 15.18);
-  stat("RUNWAY", "3 WEEKS", 0.04 * W, 0.44 * H, "left", 15.66);
-  stat("PATIENCE", "LOW", 0.96 * W, 0.44 * H, "right", 16.12);
-  stat("SLEEP", "NO", 0.04 * W, 0.58 * H, "left", 16.6);
-  // FIGHT!
+  stat("STAGE", "PRE-SEED", 0, 14.7);
+  stat("DRINK", "ICED MATCHA", 1, 15.18);
+  stat("RUNWAY", "3 WEEKS", 2, 15.66);
+  stat("PATIENCE", "LOW", 3, 16.12);
+  stat("SLEEP", "NO", 4, 16.6);
   const tF = 17.08;
   if (t >= tF - 0.067) {
-    const d = t - (tF - 0.05), sc = 1 + 0.5 * (1 - E.spring(Math.max(0, d), 320, 0.45));
-    c.save(); c.translate(W / 2, H * 0.24); c.scale(sc, sc); c.rotate(-0.05);
-    E.drawText(c, "FIGHT!", 0, 0, { font: B.FONT.black, weight: 400, size: 190 * S, color: B.C.white, align: "center", stroke: 12 * S, strokeColor: B.C.ink, skewX: -0.16 });
+    const d = t - (tF - 0.05), sc = 1 + 0.5 * (1 - E.spring(Math.max(0, d), 320, 0.45)), [fx, fy, fz] = L.fight;
+    c.save(); c.translate(fx, fy); c.scale(sc, sc); c.rotate(-0.05);
+    E.drawText(c, "FIGHT!", 0, 0, { font: B.FONT.black, weight: 400, size: fz, color: B.C.white, align: "center", stroke: 12 * S * (fz / (190 * S)), strokeColor: B.C.ink, skewX: -0.16 });
     c.restore();
   }
+  c.setTransform(1, 0, 0, 1, 0, 0);
   g.commit(); E.blitG2D(E, g, 1);
   punchOn(E, t, [tV], 0.045, 0.14);
   punchOn(E, t, [13.76, 14.7, 15.18, 15.66, 16.12, 16.6, 17.08], 0.018, 0.08);

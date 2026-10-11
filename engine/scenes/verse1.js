@@ -46,15 +46,19 @@ import * as D from "./verse1/deck.js";
 
 const { C, B, clamp, lerp, oc, io } = K;
 let KK, v = {};
-const CLIPS = { pitch: "him_pitch", cu: "him_cu_talk", vc: "vc_plunge", dance: "him_dance" };
+const CLIPS = { pitch: "him_pitch", lip: "him_lipsync", vc: "vc_plunge", dance: "him_dance" };
+const LIP0 = 17.3, LIP1 = 17.3 + 7.9; // him_lipsync slot (clip t = song t - 17.30), never shifted
+const T_FUND = 25.18; // cut to the cold plunge on the beat, before the lip-sync slot runs out (25.22)
+// him_lipsync framing inside a circle: centre on his chin, radius in clip-height units
+const LIP_UV = [0.66, 0.58], LIP_R = 0.34;
 
 // ---------------------------------------------------------------------------------------------- shot table
 function shot(E, t) {
   const O = D.O;
   if (t < 18.013) return { s: "TITLE", pres: "A" };
-  if (t < O.burned) return { s: "COMP", pres: "A" };
-  if (t < O.my5) return { s: "BURN" };
-  if (t < O.closed) return { s: "TEAM" };
+  if (t < O.burned) return { s: "COMP", bub: "COMP" };
+  if (t < O.my5) return { s: "BURN", bub: "BURN" };
+  if (t < T_FUND) return { s: "TEAM" };
   if (t < O.he11) return { s: "FUND" };
   if (t < O.but12) return { s: "FINGERS" };
   if (t < O.matcha) return { s: "WIRE" };
@@ -62,7 +66,7 @@ function shot(E, t) {
   return { s: "PLAN", pres: "D" };
 }
 const SL = () => ({ TITLE: D.TITLE, COMP: D.COMP, BURN: D.BURN, TEAM: D.TEAM, FUND: D.FUND, FINGERS: D.FINGERS, WIRE: D.WIRE, MARKET: D.MARKET, PLAN: D.PLAN });
-const CUT_TIMES = () => [18.013, D.O.burned, D.O.my5, D.O.closed, D.O.he11, D.O.but12, D.O.matcha, D.O.i16];
+const CUT_TIMES = () => [18.013, D.O.burned, D.O.my5, T_FUND, D.O.he11, D.O.but12, D.O.matcha, D.O.i16];
 
 // clip-local times
 function localTimes(E, t, sh) {
@@ -70,7 +74,7 @@ function localTimes(E, t, sh) {
   if (sh.pres === "A") lt.pitch = 0.25 + (t - 17.4);
   if (sh.pres === "B") lt.pitch = 1.0 + (t - O.matcha);
   if (sh.pres === "D") lt.dance = 3.0 + (t - O.plan); // finger-gun peak (≈3.0) on "plan"
-  if (sh.s === "TEAM") lt.cu = 0.25 + (t - O.my5);
+  if (sh.bub || sh.s === "TEAM") lt.lip = t - LIP0; // lip-synced slot
   if (sh.s === "FUND" || sh.s === "FINGERS" || sh.s === "WIRE") lt.vc = 0.4 + (t - O.closed); // 0.4-4.05 (clean < 5.2)
   for (const k in lt) lt[k] = K.inClip(v[k], lt[k]);
   return lt;
@@ -81,23 +85,30 @@ function presFrame(U, which, t) {
   const { W0, H0, P, R } = U;
   if (which === "D") {
     // him_dance full body, scaled down for headroom (cap is 8 px from the clip's top edge)
-    if (P) { const w = 1500; return { x: R.x + 260 - 0.485 * w, y: 1060, w, h: (w * 9) / 16 }; }
+    if (P) { const w = 1500; return { x: R.x + 260 - 0.485 * w, y: 975, w, h: (w * 9) / 16 }; }
     const w = 1700;
     return { x: 400 - 0.485 * w, y: 150, w, h: (w * 9) / 16 };
   }
   if (P) {
-    const w = which === "B" ? 1700 : 1600;
-    return { x: R.x + 250 - 0.2 * w, y: which === "B" ? 860 : 880, w, h: (w * 9) / 16 };
+    // portrait: lower third, face above the house subtitle; the chart sits behind him
+    const w = which === "B" ? 1700 : 1500;
+    return { x: which === "B" ? -25 : 15, y: which === "B" ? 820 : 835, w, h: (w * 9) / 16 };
   }
   if (which === "B") { const w = 2050; return { x: -205, y: 175, w, h: (w * 9) / 16 }; }
   const w = 1920;
   return { x: -150, y: 150, w, h: 1080 };
 }
+// founder bubble (Loom-style webcam circle) per shot, units
+function bubbleSpec(U, which) {
+  const P = U.P, R = U.R;
+  if (which === "COMP") return P ? { cx: R.x + R.w - 175, cy: 1085, r: 195, fill: C.pale, ring: C.ink, name: "founder (host)" } : { cx: 440, cy: 640, r: 292, fill: C.pale, ring: C.ink, name: "founder (host)" };
+  return P ? { cx: R.x + 150, cy: 990, r: 128, fill: C.pale, ring: C.green, name: null } : { cx: 200, cy: 826, r: 152, fill: C.pale, ring: C.green, name: null };
+}
 // title card placement (units): the slide drawn at z inside a dark stage
 function titleXf(U) {
   const { W0, H0, P } = U;
-  if (P) return { ox: 40, oy: 250, z: 1000 / W0 };
-  return { ox: 330, oy: 112, z: 0.79 };
+  if (P) return { ox: 0, oy: 0, z: 1, card: { x: 40, y: 240, w: 1000, h: 1060 } };
+  return { ox: 330, oy: 112, z: 0.79, card: { x: 330, y: 112, w: 1920 * 0.79, h: 1080 * 0.79 } };
 }
 
 export default {
@@ -129,21 +140,31 @@ export default {
       c.fillRect(0, 0, U.W0, U.H0);
       B.hairGrid(c, 0, 0, U.W0, U.H0, { step: 96, alpha: 0.6 });
       // card
-      const cw = U.W0 * xf.z, chh = U.H0 * xf.z;
+      const cd = xf.card;
       c.fillStyle = C.paper;
-      c.fillRect(xf.ox, xf.oy, cw, chh);
-      B.crosshairs(c, xf.ox - 20, xf.oy - 20, cw + 40, chh + 40, { color: C.greenA(0.6), len: 30, inset: 10, cross: 6 });
+      c.fillRect(cd.x, cd.y, cd.w, cd.h);
+      B.crosshairs(c, cd.x - 20, cd.y - 20, cd.w + 40, cd.h + 40, { color: C.greenA(0.6), len: 30, inset: 10, cross: 6 });
+      c.save();
+      c.beginPath();
+      c.rect(cd.x, cd.y, cd.w, cd.h);
+      c.clip();
       c.setTransform(S * xf.z, 0, 0, S * xf.z, S * xf.ox, S * xf.oy);
     } else {
       c.fillStyle = C.paper;
       c.fillRect(0, 0, U.W0, U.H0);
     }
+    // TEAM/BENCH headshot = the lip-synced slot
+    if (sh.s === "TEAM" && v.lip) st.head = { v: v.lip, lt: lt.lip, key: "lip", uvC: LIP_UV, ruv: LIP_R, sing: true, level: K.voice(E, t, "HIM") };
     slide.back(E, c, st);
+    if (isTitle) c.restore();
+    const bub = sh.bub && v.lip ? bubbleSpec(U, sh.bub) : null;
+    if (bub) { c.setTransform(S, 0, 0, S, 0, 0); K.bubbleBack(c, bub.cx, bub.cy, bub.r, { fill: bub.fill }); }
     gA.commit();
     E.blitG2D(E, gA, 1);
 
     // ------------------------------------------------------------------ PLATES
     slide.plates(E, st);
+    if (bub) K.headshot(E, v.lip, "lipB", bub.cx, bub.cy, bub.r, LIP_UV, LIP_R, { popUp: 1.62, popW: 0.66 });
     let Fp = null;
     const pv = sh.pres === "D" ? v.dance : v.pitch;
     if (sh.pres && pv) {
@@ -151,9 +172,9 @@ export default {
       let clip = null;
       if (isTitle) {
         // he steps out of the slide: cut at the card's bottom edge
-        const cardB = xf.oy + U.H0 * xf.z;
+        const cardB = xf.card.y + xf.card.h;
         clip = { x: -1e4, y: -1e4, w: 2e4, h: cardB + 1e4 };
-        Fp = P ? { x: 40 + 250 - 0.2 * 1500, y: 1720 - 0.62 * 843, w: 1500, h: 843 } : { x: -60, y: 185, w: 1700, h: 956 };
+        Fp = P ? { x: 15, y: 835, w: 1500, h: 843.75 } : { x: -60, y: 185, w: 1700, h: 956.25 };
       }
       K.plate(E, pv, Fp, { clip });
     }
@@ -180,7 +201,8 @@ export default {
         K.M(E, f, "CLICK", hx + 40 + 30 * u, hy - 40, { size: 20, color: C.ink, weight: 800, alpha: 1 - u });
       }
     }
-    if (P && sh.pres && !isTitle) {
+    if (bub) K.bubbleFront(E, f, bub.cx, bub.cy, bub.r, { ring: bub.ring, lw: bub.r * 0.028 + 2, popW: 0.66, level: K.voice(E, t, "HIM"), name: bub.name, dot: true, nameSize: 26 });
+    if (P && sh.pres && sh.pres !== "D" && !isTitle) {
       // portrait: a stage band hides the clip's thigh-line cut
       f.fillStyle = C.ink;
       f.fillRect(0, 1730, U.W0, U.H0 - 1730);

@@ -126,7 +126,7 @@ export function defLayout(E, c, toks, size, maxW, lhK = 1.08) {
   const out = [];
   for (const k of toks) {
     const ww = E.measure(c, k.txt, font);
-    if (x > 0 && x + ww > maxW) { x = 0; y += lh; }
+    if (x > 0 && (k.br || x + ww > maxW)) { x = 0; y += lh; }
     out.push({ ...k, x, y, ww });
     x += ww + sp;
     wMax = Math.max(wMax, x - sp);

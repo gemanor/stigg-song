@@ -283,3 +283,16 @@ export function punch(E, v, opts, uv, k) {
   const r = E.plateRect(E, v, opts), [px, py] = E.plateToScreen(E, v, uv, opts);
   return { ...opts, zoom: opts.zoom * k, x: (px + (r.cx - px) * k - E.W / 2) / E.SCALE, y: (py + (r.cy - py) * k - E.H / 2) / E.SCALE };
 }
+
+// A slow camera push for quiet holds (nothing on screen may freeze). The plate is scaled by k around the screen point
+// P (punchScreen); 2D layers drawn inside camOn(c, P, k) get the same transform, so graphics placed from the
+// UNPUNCHED plate layout (tracked points included) stay locked to the footage.
+export function punchScreen(E, v, opts, P, k) {
+  const r = E.plateRect(E, v, opts);
+  return { ...opts, zoom: opts.zoom * k, x: (P[0] + (r.cx - P[0]) * k - E.W / 2) / E.SCALE, y: (P[1] + (r.cy - P[1]) * k - E.H / 2) / E.SCALE };
+}
+export function camOn(c, P, k) {
+  c.translate(P[0], P[1]);
+  c.scale(k, k);
+  c.translate(-P[0], -P[1]);
+}

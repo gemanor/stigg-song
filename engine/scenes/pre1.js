@@ -32,7 +32,9 @@ import * as D from "./verse1/deck.js";
 
 const { C, B, clamp, lerp, oc, io, hsh } = K;
 let KK, v = {};
-const CLIPS = { walk: "her_walkin_point", un: "her_unimpressed", cu: "him_cu_talk", vc: "vc_plunge", her: "her_cu_talk" };
+const CLIPS = { lip: "her_lipsync", walk: "her_walkin_point", cu: "him_cu_talk", vc: "vc_plunge", her: "her_cu_talk" };
+const LIP0 = 32.7, LIP1 = 32.7 + 7.3; // her_lipsync slot (clip t = song t - 32.70), never shifted
+const LIP_UV = [0.52, 0.6], LIP_R = 0.36;
 const GAP = 180;
 
 // ------------------------------------------------------------------------------------------- timing
@@ -40,15 +42,12 @@ const T_CLOSE = 38.04, T_TEAR = 40.88;
 // her_walkin_point: only the clean ranges (lead's footage notes: a second cup 0.25-3.25, her cup vanishes ≈3.9).
 // 32.80-33.26 local 3.39-3.85 (stops, side-eye) while she "moves in"; 33.26 punch-in cut to 4.0 (skeptical frown),
 // 0.8x so the point (4.75) lands at 34.20 as the camera pans to the WIRE slide; 35.66 cut to her_unimpressed.
-const T_IN = 32.8, T_PUNCH = 33.26, T_UN = 35.66;
-function walkLocal(t) {
-  if (t < T_PUNCH) return 3.39 + (t - T_IN);
-  return 4.0 + (t - T_PUNCH) * 0.8;
-}
+const T_IN = 32.8, T_POINT = 36.6, T_BIG = 39.94; // her bubble (lip-sync) -> full-body point at the VC -> close-up
+const walkLocal = (t) => 4.56 + (t - T_POINT); // her_walkin_point 4.56-6.0: the point (4.75) lands at 36.79
 // camera keyframes: [t, slide index, zoom, screen-x of slide centre (units, landscape)]
 function camKeys(U) {
   const P = U.P;
-  const zx = P ? 0.86 : 0.8, cx = P ? U.W0 / 2 : 1130;
+  const zx = P ? 0.66 : 0.76, cx = P ? U.W0 / 2 : 1240;
   return [
     [32.8, 0, 1, U.W0 / 2],
     [33.02, 0, 1, U.W0 / 2],
@@ -68,7 +67,8 @@ function camAt(U, t) {
   const idx = lerp(a[1], b[1], u), z = lerp(a[2], b[2], u), sxc = lerp(a[3], b[3], u);
   // world x of the screen centre
   const camX = idx * (U.W0 + GAP) + U.W0 / 2 - (sxc - U.W0 / 2) / z;
-  return { camX, camY: U.H0 / 2, z };
+  // portrait: the slides' content band (slide y 469-1049) rides high, her bubble lives under it
+  return { camX, camY: U.H0 / 2, z, oyP: U.P ? lerp(0, 300 - z * 469, clamp((1 - z) / (1 - 0.66))) : null };
 }
 const SLIDES = () => [D.PLAN, D.TEAM, D.WIRE, D.FUND];
 // frozen build time per slide (final state as he presented it)
@@ -107,11 +107,13 @@ export default {
 
 function localTimes(t) {
   const lt = {};
+  if (t < LIP1 - 0.05) lt.lip = t - LIP0; // lip-synced slot
   if (t < T_CLOSE) {
-    if (t < T_UN) lt.walk = K.inClip(v.walk, walkLocal(t));
-    else lt.un = K.inClip(v.un, 1.0 + (t - T_UN)); // eye-roll 1.0-2.25, then sips (2.5+)
-    lt.cu = K.inClip(v.cu, 0.6 + (t - 32.8) * 0.35); // headshot idles (bored stare, 0.5-2.0)
+    if (t >= T_POINT) lt.walk = K.inClip(v.walk, walkLocal(t));
+    lt.cu = K.inClip(v.cu, 0.6 + (t - 32.8) * 0.35); // his headshot idles in his TEAM slide (bored stare, 0.5-2.0)
     lt.vc = Math.min(5.2, K.inClip(v.vc, 1.2 + (t - 34.3))); // vc_plunge 0-5.2 only
+  } else if (t < T_BIG) {
+    // (her lip-sync close-up)
   } else if (t < T_TEAR) {
     lt.her = K.inClip(v.her, 3.1 + (t - T_CLOSE)); // talks 3.25-4.25, knowing smirk 4.5-6.0
   } else {
@@ -123,25 +125,24 @@ function localTimes(t) {
 // ============================================================================================ A · the deck walk
 function slideXf(U, cam, i) {
   const x = i * (U.W0 + GAP);
-  return { ox: (x - cam.camX) * cam.z + U.W0 / 2, oy: (0 - cam.camY) * cam.z + U.H0 / 2, z: cam.z };
+  return { ox: (x - cam.camX) * cam.z + U.W0 / 2, oy: cam.oyP != null ? cam.oyP : (0 - cam.camY) * cam.z + U.H0 / 2, z: cam.z };
 }
-// her framing in the deck walk: "Move In" from the left (she is inserted into his deck like a slide object), a punch-in
-// cut on 33.26, and a bigger knees-up framing for her_unimpressed (a different clip, so a different size)
-function herFrame(U, t) {
-  const P = U.P;
-  if (t >= T_UN) {
-    if (P) { const w = 1900; return { x: U.R.x + 230 - 0.2 * w, y: 1920 - 0.86 * (w * 9 / 16), w, h: w * 9 / 16, clip: "un" }; }
-    const w = 2050;
-    return { x: 300 - 0.2 * w, y: 1080 - 0.86 * (w * 9 / 16), w, h: w * 9 / 16, clip: "un" };
-  }
-  const punch = t >= T_PUNCH ? 1.07 : 1;
-  const mv = 1 - K.oq((t - T_IN) / 0.32);
-  if (P) { const w = 1500 * punch; return { x: U.R.x + 200 - 0.24 * w - mv * 900, y: 1800 - 0.97 * (w * 9 / 16), w, h: w * 9 / 16, clip: "walk" }; }
-  const w = 1650 * punch;
-  return { x: 330 - 0.24 * w - mv * 900, y: 1046 - 0.975 * (w * 9 / 16), w, h: w * 9 / 16, clip: "walk" };
+// HER in the deck walk: her lip-synced bubble takes over HIS bubble spot, moving in from the left like a slide object;
+// 36.60-38.04 a cutaway to her full body pointing at the frozen VC (her_walkin_point 4.56-6.0).
+function herBubble(U, t) {
+  const P = U.P, R = U.R, mv = 1 - K.oq((t - T_IN) / 0.32);
+  if (P) return { cx: R.x + R.w / 2 - mv * 1100, cy: 1160, r: 230 };
+  return { cx: 410 - mv * 900, cy: 640, r: 292 };
+}
+function walkFrame(U) {
+  if (U.P) { const w = 1500; return { x: 230 - 0.22 * w, y: 950 - 0.14 * (w * 9 / 16), w, h: w * 9 / 16 }; }
+  const w = 1700;
+  return { x: 330 - 0.24 * w, y: 1046 - 0.975 * (w * 9 / 16), w, h: w * 9 / 16 };
 }
 function renderDeck(E, t, U, lt) {
   const S = E.SCALE, O = D.O, cam = camAt(U, t), SL = SLIDES(), BT = buildT(O);
+  // his TEAM headshot in HER pass: the idle close-up (he isn't singing now; the lip-sync slot is long over)
+  const head = v.cu ? { v: v.cu, lt: lt.cu, key: "cu", uvC: [0.662, 0.6], ruv: 0.3, sing: false } : null;
   // ---------------------------------------------------------------- BACK: light table + visible slides
   const gA = KK.gA, c = gA.ctx;
   gA.clear();
@@ -153,7 +154,7 @@ function renderDeck(E, t, U, lt) {
     const xf = slideXf(U, cam, i), w = U.W0 * xf.z;
     if (xf.ox > U.W0 || xf.ox + w < 0) return;
     vis.push(i);
-    const st = { t, tb: BT[i], U, xf, v, lt, live: true, air: airP(E, t) };
+    const st = { t, tb: BT[i], U, xf, v, lt, live: true, air: airP(E, t), head };
     c.setTransform(S, 0, 0, S, 0, 0);
     // card + hairline border
     c.fillStyle = C.paper;
@@ -167,23 +168,25 @@ function renderDeck(E, t, U, lt) {
     sl.back(E, c, st);
     c.restore();
   });
+  if (t < T_POINT && v.lip) { const b = herBubble(U, t); c.setTransform(S, 0, 0, S, 0, 0); K.bubbleBack(c, b.cx, b.cy, b.r, { fill: C.pale }); }
   gA.commit();
   E.blitG2D(E, gA, 1);
   // ---------------------------------------------------------------- PLATES: slide footage, then HER
   for (const i of vis) {
     const xf = slideXf(U, cam, i);
-    const st = { t, tb: BT[i], U, xf, v, lt, live: true, noVC: true, clipR: { x: xf.ox, y: xf.oy, w: U.W0 * xf.z, h: U.H0 * xf.z } };
+    const st = { t, tb: BT[i], U, xf, v, lt, live: true, noVC: true, head, clipR: { x: xf.ox, y: xf.oy, w: U.W0 * xf.z, h: U.H0 * xf.z } };
     SL[i].plates(E, st);
   }
-  const Fh = herFrame(U, t), vh = v[Fh.clip], lh = lt[Fh.clip];
-  if (vh) K.plate(E, vh, Fh);
+  const walk = t >= T_POINT && v.walk, bub = !walk && v.lip ? herBubble(U, t) : null, Fw = walk ? walkFrame(U) : null;
+  if (bub) K.headshot(E, v.lip, "herB", bub.cx, bub.cy, bub.r, LIP_UV, LIP_R, { popUp: 1.62, popW: 0.62 });
+  if (walk) K.plate(E, v.walk, Fw);
   // ---------------------------------------------------------------- FRONT: slide fronts, red pen, cursor, her tag
   const gB = KK.gB, f = gB.ctx;
   gB.clear();
   let tip = null;
   for (const i of vis) {
     const xf = slideXf(U, cam, i);
-    const st = { t, tb: BT[i], U, xf, v, lt, live: true };
+    const st = { t, tb: BT[i], U, xf, v, lt, live: true, head };
     f.save();
     f.setTransform(S, 0, 0, S, 0, 0);
     f.beginPath();
@@ -196,23 +199,23 @@ function renderDeck(E, t, U, lt) {
     f.restore();
   }
   f.setTransform(S, 0, 0, S, 0, 0);
-  // her contact shadow (under the cut-out's feet; drawn faint so it reads as floor contact, not a drop shadow)
-  if (vh) {
-    const a = K.pose(vh, lh, 27), b = K.pose(vh, lh, 28);
-    if (a && b && Fh.clip === "walk") {
-      const pa = K.fpt(Fh, a), pb = K.fpt(Fh, b), cx = (pa[0] + pb[0]) / 2, cy = Math.max(pa[1], pb[1]) + 26;
+  if (bub) K.bubbleFront(E, f, bub.cx, bub.cy, bub.r, { ring: C.coral, lw: bub.r * 0.028 + 2, popW: 0.62, level: K.voice(E, t, "HER"), name: "her (host)", dot: true, nameSize: 26 });
+  if (walk) {
+    // contact shadow (a faint floor ellipse under her sneakers), then her collaborator tag tracked to her head
+    const lw = lt.walk, a = K.pose(v.walk, lw, 27), b = K.pose(v.walk, lw, 28);
+    if (a && b) {
+      const pa = K.fpt(Fw, a), pb = K.fpt(Fw, b), cx = (pa[0] + pb[0]) / 2, cy = Math.max(pa[1], pb[1]) + 26;
       f.save();
-      f.globalCompositeOperation = "destination-over"; // behind everything already in the FRONT layer
+      f.globalCompositeOperation = "destination-over";
       f.fillStyle = C.inkA(0.16);
       f.beginPath();
       f.ellipse(cx, cy, Math.abs(pa[0] - pb[0]) / 2 + 70, 16, 0, 0, 6.283);
       f.fill();
       f.restore();
     }
-    // collaborator tag tracked to her head
-    const nose = K.pose(vh, lh, 0), top = K.box(vh, lh);
+    const nose = K.pose(v.walk, lw, 0), top = K.box(v.walk, lw);
     if (nose && top) {
-      const [hx] = K.fpt(Fh, nose), hy = K.fpt(Fh, [0, top[1]])[1];
+      const [hx] = K.fpt(Fw, nose), hy = K.fpt(Fw, [0, top[1]])[1];
       collabTag(E, f, hx + 40, hy - 26, "her · suggesting", t);
     }
   }
@@ -248,8 +251,8 @@ function pen(E, c, t, U, i, st) {
     if (t >= O.air - 0.03 && t < O.air + 0.2) tip = [nx + 200 * clamp((t - O.air) / 0.2) - 100, ny];
   } else if (i === 3) {
     // FUND: strike COLD PLUNGE -> "freezer", arrow into the VC
-    const L = D.FUND.lay(U), s = P ? 52 : 66, vx = L.x + (P ? 110 : 130);
-    const w = K.measure(E, c, "COLD PLUNGE", { size: s, tracking: -0.035 }), y = L.venueY - s * 0.36;
+    const L = D.FUND.lay(U), A0 = D.FUND.anchors(st), s = A0.venueS, vx = A0.venueX;
+    const w = K.measure(E, c, "COLD", { size: s, tracking: -0.035 }) + s * 0.26 + K.measure(E, c, "PLUNGE", { size: s, tracking: -0.035 }), y = L.venueY - s * 0.36;
     B.penStrike(c, vx, y, vx + w, t, O.freeze - 0.04, { width: pW, dur: 0.14, seed: 5 });
     if (t >= O.freeze - 0.04 && t < O.freeze + 0.1) tip = [lerp(vx, vx + w, (t - O.freeze + 0.04) / 0.14), y];
     const nx = vx + w * 0.55, ny = L.venueY - s - (P ? 30 : 40);
@@ -302,7 +305,7 @@ function collabTag(E, c, x, y, label, t, small = false) {
 
 // ============================================================================================ B · "anywhere?" + C · the tear
 function herCuFrame(U, t) {
-  if (U.P) { const w = 2000; return { x: U.R.x + U.R.w * 0.55 - 0.7 * w, y: 1920 - 0.98 * (w * 9 / 16), w, h: w * 9 / 16 }; }
+  if (U.P) { const w = 2000; return { x: U.R.x + U.R.w * 0.5 - 0.7 * w, y: 700, w, h: w * 9 / 16 }; }
   // before the poster: right side, big; revealed behind the rip: centred a touch, slightly smaller
   if (t >= T_TEAR) { const w = 1880; return { x: 960 - 0.72 * w + 0.03 * w, y: 1080 - 0.985 * (w * 9 / 16), w, h: w * 9 / 16 }; }
   const w = 1920;
@@ -374,10 +377,16 @@ function tracePoly(c, poly) {
   c.closePath();
 }
 
+function lipCloseFrame(U) {
+  // her lip-sync close-up, mirrored to the right third; the left stays clear for the type
+  if (U.P) { const w = 1500; return { x: U.R.x + U.R.w * 0.5 - 0.48 * w, y: 695, w, h: (w * 9) / 16 }; }
+  const w = 2000;
+  return { x: 1360 - 0.48 * w, y: 60, w, h: (w * 9) / 16 };
+}
 function renderClose(E, t, U, lt) {
   const S = E.SCALE, O = D.O, P = U.P;
   if (!PIECES) buildPieces(U);
-  const poster = t >= O.anywhere - 0.066; // the a cappella poster: paper + type in FRONT of her (she's behind his deck)
+  const close = t < T_BIG; // 38.04-39.94: her singing close-up beside the words
   const torn = t >= T_TEAR;
   const list = torn ? leaves(t) : null;
   const paper = (ctx) => {
@@ -385,33 +394,36 @@ function renderClose(E, t, U, lt) {
     ctx.fillRect(-200, -200, U.W0 + 400, U.H0 + 400);
     B.hairGrid(ctx, 0, 0, U.W0, U.H0, { step: 96, color: C.inkA(0.05) });
   };
-  const type = (ctx) => drawAnywhere(E, ctx, t, U);
+  const type = (ctx) => drawAnywhere(E, ctx, t, U, close);
   // ---------------------------------------------------------------- BACK
   const gA = KK.gA, c = gA.ctx;
   gA.clear();
   c.setTransform(S, 0, 0, S, 0, 0);
-  if (!poster) paper(c);
+  if (close) paper(c);
   else { c.fillStyle = C.green; c.fillRect(0, 0, U.W0, U.H0); }
   gA.commit();
   E.blitG2D(E, gA, 1);
-  // ---------------------------------------------------------------- PLATE: her (mirrored close-up, right side)
-  const Fh = herCuFrame(U, t);
-  if (v.her && (!poster || torn)) K.plate(E, v.her, Fh, { mirror: true });
+  // ---------------------------------------------------------------- PLATES
+  const Fl = lipCloseFrame(U), Fh = herCuFrame(U, t);
+  if (close && v.lip) K.plate(E, v.lip, Fl, { mirror: true });
+  if (torn && v.her) K.plate(E, v.her, Fh, { mirror: true });
   // ---------------------------------------------------------------- FRONT
   const gB = KK.gB, f = gB.ctx;
   gB.clear();
   f.setTransform(S, 0, 0, S, 0, 0);
-  // collaborator tag tracked to her head (before the poster, and again once the rip reveals her; under the paper)
-  if (v.her && (!poster || torn)) {
-    const nose = K.pose(v.her, lt.her, 0);
+  // collaborator tag tracked to her head (close-up, and again once the rip reveals her; under the flying paper)
+  const tagClip = close ? [v.lip, lt.lip, Fl] : torn ? [v.her, lt.her, Fh] : null;
+  if (tagClip && tagClip[0]) {
+    const nose = K.pose(tagClip[0], tagClip[1], 0);
     if (nose) {
-      const [hx, hy] = K.fpt(Fh, nose, true);
+      const [hx, hy] = K.fpt(tagClip[2], nose, true);
       const lab = t >= T_TEAR + 0.96 ? "her · presenting" : "her · suggesting";
       const lw = K.measure(E, f, lab, { font: B.FONT.mono, weight: 700, size: 28, tracking: 0.04 }) + 56;
-      collabTag(E, f, hx - (P ? 170 : 260) - lw, hy - (P ? 170 : 230), lab, t);
+      if (P) collabTag(E, f, U.R.x + U.R.w - lw, hy - 330, lab, t);
+      else collabTag(E, f, hx - (close ? 250 : 260) - lw, hy - (close ? 400 : 230), lab, t);
     }
   }
-  if (!poster) type(f);
+  if (close) type(f);
   else if (!torn) { paper(f); type(f); }
   else withPieces(f, S, U, t, list, (ctx) => { paper(ctx); type(ctx); }, true);
   gB.commit();
@@ -442,13 +454,14 @@ function withPieces(c, S, U, t, list, draw, edges) {
     c.restore();
   }
 }
-// "than take me anywhere?": three small coral words land, then ANYWHERE? fills the frame
-function drawAnywhere(E, c, t, U) {
+// "than take me anywhere?": three coral words land; "any / where?" stacks beside her close-up; at 39.94 the one-line
+// poster fills the frame while she holds the note (a cappella), her held note drawn as a growing pen underline.
+function drawAnywhere(E, c, t, U, close) {
   const O = D.O, P = U.P, R = U.R;
   const words = [["than", O.than], ["take", O.take], ["me", O.me]];
-  const sz = P ? 96 : 120;
+  const sz = P ? 84 : close ? 110 : 96;
   let x = P ? R.x + 30 : 120;
-  const y = P ? R.y + 230 : 250;
+  const y = P ? (close ? 520 : R.y + 230) : close ? 270 : 230;
   for (const [w, on] of words) {
     if (t >= on - 0.066) {
       const k = K.slam(t, on, 1.3);
@@ -461,22 +474,49 @@ function drawAnywhere(E, c, t, U) {
       x += ww;
     }
   }
-  // ANYWHERE? (lands on the onset; a cappella push while she holds the note)
   const on = O.anywhere;
-  if (t >= on - 0.066) {
-    const str = "anywhere?", base = P ? 300 : 470;
-    const size = K.fit(E, c, str, { font: B.FONT.serif, weight: 400, size: base, tracking: -0.02, italic: true }, (P ? R.w : U.W0 - 120));
-    const k = K.slam(t, on, 1.22) * (1 + 0.035 * clamp((t - on) / 1.6));
-    const breathe = 1 + 0.03 * E.envAvg("vocal", t, 0.12) * (t < T_TEAR ? 1 : 0);
-    const cx = P ? R.x + R.w / 2 : U.W0 / 2, cy = P ? R.y + 560 : 640;
+  if (t < on - 0.066) return;
+  const ser = { font: B.FONT.serif, weight: 400, italic: true, color: C.coral, tracking: -0.02 };
+  if (close && P) {
+    // portrait: one line above her head
+    const s2 = K.fit(E, c, "anywhere?", { ...ser, size: 200 }, R.w - 40), k = K.slam(t, on, 1.25);
     c.save();
-    c.translate(cx, cy);
+    c.translate(R.x + R.w / 2, 670);
     c.scale(k, k);
-    E.drawText(c, str, 0, 0, { font: B.FONT.serif, weight: 400, italic: true, size, color: C.coral, align: "center", baseline: "middle", tracking: -0.02 });
-    // her held note: a pen underline that keeps drawing while she holds it
-    const held = clamp((t - on - 0.2) / (T_TEAR - on - 0.2));
-    const w = K.measure(E, c, str, { font: B.FONT.serif, weight: 400, size, tracking: -0.02, italic: true });
-    if (held > 0) B.penUnderline(c, -w * 0.48, size * 0.42, w * 0.46, held, 0, { dur: 1, width: P ? 10 : 14, seed: 9 });
+    E.drawText(c, "anywhere?", 0, 0, { ...ser, size: s2, align: "center", baseline: "alphabetic" });
     c.restore();
+    return;
   }
+  if (close) {
+    // two lines left of her face, never on it
+    const s2 = P ? 210 : 300, x0 = P ? R.x + 20 : 96, y1 = P ? R.y + 470 : 600, y2 = y1 + s2 * 0.86;
+    const k = K.slam(t, on, 1.25);
+    c.save();
+    c.translate(x0, y1);
+    c.scale(k, k);
+    E.drawText(c, "any", 0, 0, { ...ser, size: s2, align: "left", baseline: "alphabetic" });
+    c.restore();
+    const k2 = K.slam(t, on + 0.14, 1.25);
+    if (t >= on + 0.14 - 0.066) {
+      c.save();
+      c.translate(x0, y2);
+      c.scale(k2, k2);
+      E.drawText(c, "where?", 0, 0, { ...ser, size: s2, align: "left", baseline: "alphabetic" });
+      c.restore();
+    }
+    return;
+  }
+  const str = "anywhere?", base = P ? 300 : 470;
+  const size = K.fit(E, c, str, { font: B.FONT.serif, weight: 400, size: base, tracking: -0.02, italic: true }, P ? R.w : U.W0 - 120);
+  const k = K.slam(t, T_BIG, 1.12) * (1 + 0.035 * clamp((t - T_BIG) / 0.94));
+  const cx = P ? R.x + R.w / 2 : U.W0 / 2, cy = P ? R.y + 560 : 640;
+  c.save();
+  c.translate(cx, cy);
+  c.scale(k, k);
+  E.drawText(c, str, 0, 0, { ...ser, size, align: "center", baseline: "middle" });
+  // her held note: a pen underline that keeps drawing while she holds it
+  const held = clamp((t - T_BIG + 0.05) / (T_TEAR - T_BIG));
+  const w = K.measure(E, c, str, { font: B.FONT.serif, weight: 400, size, tracking: -0.02, italic: true });
+  if (held > 0) B.penUnderline(c, -w * 0.48, size * 0.42, w * 0.46, held, 0, { dur: 1, width: P ? 10 : 14, seed: 9 });
+  c.restore();
 }
