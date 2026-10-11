@@ -34,14 +34,15 @@ Director asked (mid-run) to review lyrics before any song generation. Takes A-C 
 | 15 dialogue lines (Liam/Jessica) | elevenlabs-tts-v4-turbo | see assets/vo/lines.json | 120 |
 | party ambience 14 s | elevenlabs-sound-effects-v2 | asset_9J4YjGZ6xurHgFnvz8uqgsPr | 30 |
 | 4 natural re-reads of the opening | elevenlabs-tts-v4-turbo | asset_wMyNa31hcP2wug8odorG8cME, asset_M8yz2pY1c2bGzEXo7LRCkRSg, asset_hVwGitXPEeeLvgNgQRHfiTXA, asset_idXRJkR9YsGSQPp2aBcPAzev | 32 |
+| on-theme re-reads of the opening, 2 takes x 4 lines (C/D) | elevenlabs-tts-v4-turbo | C1 asset_QNB4ZrcXLVcXH66ZU95T8Bkt · D1 asset_tan6q3ydWeU4LV2LHSGH8FQA · C2 asset_ozAhDsv4wd7v9jXU4q3XtjzL · D2 asset_g28RL32mUDXjZJAtDVViowYb · C3 asset_vYpLakk6Ry1YMhVt9uijEXLG · D3 asset_mefAhF8rnzATWzWv5fCimZTh · C4 asset_qFRHmevZTwFPjQa5yVoukWGP · D4 asset_1sG6sKCSLK1oHrfAnsRRchbq | 64 |
+| new closing scene, 2 takes x 2 lines ("who's paying for our date?" / "out of tokens") | elevenlabs-tts-v4-turbo | E1 asset_DRqqrvezvyGuDHejwSdrnw7w · **E3 asset_zAnTnJ8b34C3ZFYDhXh8ch8C (used)** · **E2 asset_KE4GFsua5QGunKSKrBVKeNe1 (used)** · E4 asset_mngtznRX2dzppjTR5H8NYrnX | 32 |
 
-Running total ≈ 1,437 CU (song 1,386 · characters 51).
+Running total ≈ 1,533 CU (song + dialogue 1,482 · characters 51). Master v4: intro C at tempo 1.06, new closing scene, 2:28.75.
+
+Cross-check with the Scenario usage API (2026-10-11 15:05 UTC): project total 1,675.75 CU net of the 2 refunded extend jobs = this log's 1,533 + 142.75 CU from jobs not launched by this session (2026-10-06: music-v2-5 job_Dd1HEGr3bDEDddsM3WtufF1K 90, lyria-3-5 job_n55Znvu8DyPLQvG35578cuPA and job_bcLCUZvg1gttdedZUxwcnEfs 16 + 16, an assistant message 4.75; 2026-10-11 11:32: lyria-3-5 job_bR9fLUJb4dqQSJjMk2r8tJTR 16, a test run with the original draft lyrics).
 
 ### Video pricing (dry runs, Starter plan)
 - GPT Image 2.5 Sunburst style frame 1536x864 high: 13 CU
 - Gemini Omni 1.1 Flash img2video: 6 s 720p = 120 CU · 10 s 1080p = 200 CU (Starter OK)
 - MiniMax H3 Max Turbo I2V: 6 s 768P = 48 CU (Starter OK)
 - Seedance 2.5 / LTX lip-sync / MiniMax H3 / Wan 3.0 / Kling V3: Pro only
-| on-theme re-reads of the opening, 2 takes x 4 lines (C/D) | elevenlabs-tts-v4-turbo | C1 asset_QNB4ZrcXLVcXH66ZU95T8Bkt · D1 asset_tan6q3ydWeU4LV2LHSGH8FQA · C2 asset_ozAhDsv4wd7v9jXU4q3XtjzL · D2 asset_g28RL32mUDXjZJAtDVViowYb · C3 asset_vYpLakk6Ry1YMhVt9uijEXLG · D3 asset_mefAhF8rnzATWzWv5fCimZTh · C4 asset_qFRHmevZTwFPjQa5yVoukWGP · D4 asset_1sG6sKCSLK1oHrfAnsRRchbq | 64 |
-
-Running total ≈ 1,501 CU. Intro now: tight gaps, rubberband tempo 1.06, head trimmed so the first line starts at 0.7 s; song 2:30.

@@ -5,7 +5,7 @@ It's a duet with spoken dialogue:
 - **HIM** is the founder: oblivious, deadpan, earnest.
 - **HER** roasts him and translates his founder-speak into plain English. In the end she turns out to be the real founder.
 
-Status: **waiting for the director's notes. No song generation until they're in.**
+Status: **lyrics approved. Master v4 (`audio/im_an_ai_founder_v4.mp3`, intro C, new closing scene) is waiting for the director's sign-off. No video spend until then.**
 
 Delivery:
 - HIM: flat, bored talk-sing, like a guy reading his own X bio.
@@ -79,23 +79,23 @@ HER: …Oh my god.
 
 [FINAL CHORUS — key lift, HER mocking along]
 
-[OUTRO SKIT — music filters down]
+[OUTRO SKIT — the beat keeps going, then dies on "tokens"]
 HIM:  Anyway. Gotta go. See you after tokens.
-HER:  Cute. Hold my matcha.
-HER:  I'm an AI founder too. Series B.
-HIM:  …So what are you doing tonight?
-HER:  Board meeting.
-[glitch → END CARD: SEE YOU AFTER TOKENS → Stigg]
+HER:  So… who's paying for our date?
+HIM:  …Sorry. I'm out of— (the music cuts dead) tokens.
+HER:  (in the silence) Cute. Hold my matcha.        ← she pays
+[glitch → END CARD: NEVER RUN OUT OF TOKENS. → Stigg logo · "The usage runtime for AI products"]
 ```
 
-Alternative outro tag, closer to Stigg's "usage runtime" story (director's pick):
-`HER: I'm an AI founder too. We actually charge for our tokens.`
+End-card slogan (text only, not voiced). Director's prompt: "never stay out of tokens".
+- **NEVER RUN OUT OF TOKENS.** (pick: the punchline flipped into the promise)
+- Alternatives: "Don't burn tokens. Bill them." · "Make every token count."
 
 ## Where each reference comes from (verified, Oct 2026)
 
 | Line | Source |
 |---|---|
-| "No dating till Series B" / "Girlfriend? Series B" / the outro | A real SF saying a co-founder popularised (SF Chronicle, Jan 2026, on AI people being the hot ticket in SF dating) |
+| "No dating till Series B" / "Girlfriend? Series B" | A real SF saying a co-founder popularised (SF Chronicle, Jan 2026, on AI people being the hot ticket in SF dating) |
 | "Matcha's at a record high, there's a shortage in Japan" | 2026 record first-harvest tencha prices (Uji auction ¥17,250/kg, July 2026, highest since 1996); tight supply into 2027 |
 | "Hold my matcha" (HER) | Matcha is still a growing café category in 2026. Men using it as a prop was the 2025 "performative male" meme, so she holds the authentic one |
 | "token budget", "quarter-million" | Nvidia's CEO, Mar 2026: he'd be alarmed if a $500K engineer didn't burn $250K of tokens. Token leaderboards / "tokenmaxxing" |

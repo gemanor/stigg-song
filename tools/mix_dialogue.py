@@ -1,7 +1,8 @@
 """Mix the voice-acted dialogue into the song's instrumental windows.
 
-usage: .venv/bin/python tools/mix_dialogue.py <song.mp3> <out_prefix>
-Writes <out_prefix>.wav (48 kHz stereo master) + <out_prefix>.mp3 + <out_prefix>_cues.json (every line's sung/spoken onset).
+usage: .venv/bin/python tools/mix_dialogue.py <song.mp3> <out_prefix> [L|N|C|D intro] [intro/outro tempo]
+  master v4: tools/mix_dialogue.py assets/gen/song_v3/beds_s1201.mp3 audio/im_an_ai_founder_v4 C 1.06
+Writes <out_prefix>.wav (48 kHz stereo master) + <out_prefix>_cues.json (every line's spoken onset). Encode the mp3 with ffmpeg.
 Each cue: (file, speech_onset_in_song, duck_db). The bridge Q&A is cut from two takes and quantised to the beat grid.
 """
 import sys, json, numpy as np, librosa, soundfile as sf, scipy.signal as ss
@@ -76,13 +77,13 @@ for i in range(8):
         cues.append(('HIM', A[i], ay, at - 0.04, -6))
         t = at + (ab - aa) + 0.25
 
-# OUTRO (bed 138.15-147.7 then a hard stop into silence)
+# OUTRO (bed 138.15-147.63 then a hard stop into silence): the song runs out of tokens on "tokens"
 place('L11_him_gottago', 'Anyway. Gotta go. See you after tokens.', 'HIM', 138.70, -8)
-place('L12_her_holdmatcha', 'Cute. Hold my matcha.', 'HER', 142.60, -8)
-info = lines['assets/vo/L13_her_seriesb.mp3']
-place('L13_her_seriesb', "I'm an AI founder too. Series B.", 'HER', 147.70 - (info['off'] - info['on']), -8)  # 'Series B.' lands on the stop
-place('L14_him_tonight', '...So what are you doing tonight?', 'HIM', 148.90, 0)
-place('L15_her_boardmeeting', 'Board meeting.', 'HER', 151.75, 0)
+place('E3_her_whopays', "So... who's paying for our date?", 'HER', 142.62, -8, TEMPO)
+MUSIC_STOP = 147.63   # the bed cuts dead on the next downbeat
+info = lines['assets/vo/E2_him_outoftokens.mp3']
+place('E2_him_outoftokens', "...Sorry. I'm out of tokens.", 'HIM', MUSIC_STOP + 0.02 - (info['tokens_t'] - info['on']), -8)  # /t/ of "tokens" 20 ms after the cut
+place('L12_her_holdmatcha', 'Cute. Hold my matcha.', 'HER', 149.10, 0)   # in the silence: she pays
 
 end = max(c[3] + len(c[2]) / SR for c in cues) + 1.2
 N = int(end * SR)
