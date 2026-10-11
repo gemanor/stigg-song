@@ -593,5 +593,25 @@
   "on": 0.195,
   "off": 0.965,
   "dur": 1.36
+ },
+ "assets/vo/N01_her_tonight.mp3": {
+  "on": 0.155,
+  "off": 1.89,
+  "dur": 2.24
+ },
+ "assets/vo/N02_him_celsius.mp3": {
+  "on": 0.22,
+  "off": 1.245,
+  "dur": 1.6
+ },
+ "assets/vo/N03_him_cantdate.mp3": {
+  "on": 0.13,
+  "off": 2.96,
+  "dur": 3.28
+ },
+ "assets/vo/N04_her_whatt.mp3": {
+  "on": 0.175,
+  "off": 1.26,
+  "dur": 1.52
  }
 }

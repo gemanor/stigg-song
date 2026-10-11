@@ -24,3 +24,21 @@ Director asked (mid-run) to review lyrics before any song generation. Takes A-C 
 ### Reference assets (identity)
 - HIM sheet asset_jEr8bX8XwUSWJpKLEhxoLKjq · HIM front crop asset_f56ULW38mdefcTbKSStDjLZi · HIM face crop asset_4BxStcwBSBwmDfMsAMgK3CLZ
 - HER sheet asset_YA5LAp8nvfeDzMsiUzrwStTx · HER front crop asset_85EPc4FpCvABr72gFoszhHu8 · HER face crop asset_LBebiDxEovTojQScwGYdBv5R
+
+## Round 3 — song repair + dialogue (2026-10-11)
+| what | model | asset | CU |
+|---|---|---|---|
+| repair attempts with sung/spoken dialogue (failed: garbled) x2 | elevenlabs-music-extend-v2-5 | asset_B9ShLrbDQTzuGtk3NAJDdNT4, asset_zjB1VhgPfCrnW8REKPQe3mqh | 360 |
+| instrumental-bed repaint x2 (2 more failed on 200-char line limit, refunded) | elevenlabs-music-extend-v2-5 | **asset_2C4ziGwAtp74LuXqDq3G4DbH (seed 1201, used)**, asset_KaHvPiRR4zpj2MDHavxKHTZn | 360 |
+| voice auditions (Liam, Jessica, Will, Laura) | elevenlabs-tts-v4-turbo | asset_d4weedsvNRorfak9iumpx91g, asset_UuUpwpiW7oybFdCFKiDyfodR, asset_W83HKK2HsbQQHFB2kA14TXRf, asset_HVVbCGCL8qktvoRZieixXDoR | 32 |
+| 15 dialogue lines (Liam/Jessica) | elevenlabs-tts-v4-turbo | see assets/vo/lines.json | 120 |
+| party ambience 14 s | elevenlabs-sound-effects-v2 | asset_9J4YjGZ6xurHgFnvz8uqgsPr | 30 |
+| 4 natural re-reads of the opening | elevenlabs-tts-v4-turbo | asset_wMyNa31hcP2wug8odorG8cME, asset_M8yz2pY1c2bGzEXo7LRCkRSg, asset_hVwGitXPEeeLvgNgQRHfiTXA, asset_idXRJkR9YsGSQPp2aBcPAzev | 32 |
+
+Running total ≈ 1,437 CU (song 1,386 · characters 51).
+
+### Video pricing (dry runs, Starter plan)
+- GPT Image 2.5 Sunburst style frame 1536x864 high: 13 CU
+- Gemini Omni 1.1 Flash img2video: 6 s 720p = 120 CU · 10 s 1080p = 200 CU (Starter OK)
+- MiniMax H3 Max Turbo I2V: 6 s 768P = 48 CU (Starter OK)
+- Seedance 2.5 / LTX lip-sync / MiniMax H3 / Wan 3.0 / Kling V3: Pro only
