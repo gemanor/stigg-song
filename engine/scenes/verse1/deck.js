@@ -297,7 +297,7 @@ export const BURN = {
       const a = clamp((tb - t0) / 0.06), lx = hx2 + (P ? -30 : 40), al = P ? "right" : "left";
       M(E, c, "INVESTOR LOVE", lx, hy2 + 4, { color: C.green, size: P ? 24 : 30, weight: 800, alpha: a, align: al });
       if (tb >= O.love - 0.066) {
-        const k = slam(tb, O.love, 1.45), size = P ? 76 : 104;
+        const k = slam(tb, O.love, 1.45), size = P ? 84 : 128;
         c.save();
         c.translate(lx, hy2 + 22 + size * CAP);
         c.scale(k, k);
@@ -366,7 +366,7 @@ export const TEAM = {
     // TEAM captions (exit on the magic move)
     const ca = 1 - clamp(m * 3);
     if (ca > 0) {
-      const sN = P ? 58 : 72, sR = P ? 22 : 26, cyL = L.him[1] + rad + (P ? 70 : 92), cyR = L.mini[1] + rad + (P ? 70 : 92);
+      const sN = P ? 62 : 86, sR = P ? 22 : 26, cyL = L.him[1] + rad + (P ? 74 : 100), cyR = L.mini[1] + rad + (P ? 74 : 100);
       c.save();
       c.globalAlpha = ca;
       T(E, c, "FOUNDER", L.him[0], cyL, { size: sN, align: "center", baseline: "alphabetic" });
@@ -543,7 +543,7 @@ export const FUND = {
     // venue row
     if (tb >= O.cold - 0.066) {
       M(E, c, "VENUE", L.x, L.venueY - (P ? 16 : 22), { size: P ? 22 : 26, color: C.inkA(0.6), weight: 800 });
-      const vx = L.x + (P ? 110 : 130), s = P ? 56 : 72;
+      const vx = L.x + (P ? 110 : 130), s = P ? 56 : 80;
       wordL(E, c, "COLD", vx, L.venueY, tb, O.cold, { size: s });
       wordL(E, c, "PLUNGE", vx + tw(E, c, "COLD", s) + s * 0.26, L.venueY, tb, O.plunge, { size: s });
     }
@@ -624,7 +624,7 @@ export const FUND = {
   },
   anchors(st) {
     const U = st.U, Fr = vcFrame(U), L = this.lay(U), P = U.P;
-    return { vcHead: fpt(Fr, [0.7, 0.24]), vcTub: fpt(Fr, [0.7, 0.8]), venue: [L.x, L.venueY], venueX: L.x + (P ? 110 : 130), venueS: P ? 56 : 72, seed: [L.x, L.seedY] };
+    return { vcHead: fpt(Fr, [0.7, 0.24]), vcTub: fpt(Fr, [0.7, 0.8]), venue: [L.x, L.venueY], venueX: L.x + (P ? 110 : 130), venueS: P ? 56 : 80, seed: [L.x, L.seedY] };
   },
 };
 

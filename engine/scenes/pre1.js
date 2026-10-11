@@ -132,9 +132,10 @@ function slideXf(U, cam, i) {
 // HER in the deck walk: her lip-synced bubble takes over HIS bubble spot, moving in from the left like a slide object;
 // 36.60-38.04 a cutaway to her full body pointing at the frozen VC (her_walkin_point 4.56-6.0).
 function herBubble(U, t) {
-  const P = U.P, R = U.R, mv = 1 - K.oq((t - T_IN) / 0.32);
-  if (P) return { cx: R.x + R.w / 2 - mv * 1100, cy: 1160, r: 230 };
-  return { cx: 410 - mv * 900, cy: 640, r: 292 };
+  // starts mostly on screen (a striking first frame: her face + his 404), slides the rest of the way in
+  const P = U.P, R = U.R, mv = 1 - K.oq((t - T_IN) / 0.26);
+  if (P) return { cx: R.x + R.w / 2 - mv * 420, cy: 1160, r: 230 };
+  return { cx: 410 - mv * 380, cy: 640, r: 292 };
 }
 function walkFrame(U) {
   if (U.P) { const w = 1500; return { x: 230 - 0.22 * w, y: 950 - 0.14 * (w * 9 / 16), w, h: w * 9 / 16 }; }

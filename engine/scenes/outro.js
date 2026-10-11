@@ -20,8 +20,8 @@
 //                                             (pose 20); a wink spark at the head of the take (pose 2)     tracked
 // S3  138.320 DB  (cut)                       her_whopays 0.6→4.4 s on a drawn tabletop (the clip ends in  BACK table, plate
 //                                             a hard table-edge cut at y≈906 px); slow 5% push
-//     138.93→140.38                           THE CHECK rides out from under her folder hand (pose 19) and MID tracked (under
-//                                             lands on "paying": itemised from brand.initMeter ("SEE YOU  her cut-out), clear
+//     138.44→139.46                           THE CHECK rides out from under her folder hand (pose 19) and MID tracked (under
+//                                             lands on "who's": itemised from brand.initMeter ("SEE YOU   her cut-out), clear
 //                                             AFTER TOKENS" ×9 145,657 …), TOTAL DUE 1,000,000 TOKENS, #402 of the HUD rows
 //     138.989 So... / 139.458 who's /         her line handwritten on the check (coral Instrument Serif,   MID (on the check)
 //     140.382 paying / 140.590 for /          write-on per word, ≥ 64 px in both canvases); 140.382 pen
@@ -227,7 +227,9 @@ function s3(E, t, rt) {
   }
   // MID: the check rides out from under her fingers (pose 19, her folder hand) on her line and lands exactly on
   // "paying" (the folder itself keeps sliding in the clip); her cut-out is drawn over it
-  const t0c = W[7].s - 0.06;
+  // it launches just after the cut and lands on "who's", so "So..." is written where it can be read (a launch on
+  // "So..." left the first word behind her hand and the folder for its onset)
+  const t0c = CUT.s3 + 0.12;
   if (t >= t0c) {
     // the landing spot keeps the paper clear of the HUD's top row through the push (white HUD type on white paper
     // vanishes); portrait: right of her head, between the HUD's top row and its progress line
@@ -235,7 +237,7 @@ function s3(E, t, rt) {
     const X1 = wide(E) ? 0.575 * E.W : R.x + R.w - cw - 4 * S, Y1 = wide(E) ? 0.1 * E.H : R.y + 172 * S;
     const tip = v ? (smoothPt(v, lt, 19) ?? smoothPt(v, lt, 15) ?? [0.64, 0.78]) : [0.64, 0.78];
     const [hx, hy] = v ? E.plateToScreen(E, v, tip, opts) : [0.62 * E.W, 0.8 * E.H];
-    const u = ease.outCubic(clamp((t - t0c) / (W[9].s - t0c)));
+    const u = ease.outCubic(clamp((t - t0c) / (W[8].s - t0c)));
     const x = lerp(hx - cw * 0.42, X1, u), y = lerp(hy - ch * 0.5, Y1, u), rot = lerp(-0.2, -0.028, u), k = lerp(0.62, 1, u);
     c.save();
     c.translate(x + cw / 2, y + ch / 2); c.rotate(rot); c.scale(k * sc, k * sc); c.translate(-chk.w / 2, -chk.h / 2);
