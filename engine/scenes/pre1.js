@@ -35,7 +35,7 @@ let KK, v = {};
 const CLIPS = { lip: "her_lipsync", walk: "her_walkin_point", cu: "him_cu_talk", vc: "vc_plunge", her: "her_cu_talk" };
 const LIP0 = 32.7, LIP1 = 32.7 + 7.3; // her_lipsync slot (clip t = song t - 32.70), never shifted
 const LIP_UV = [0.52, 0.6], LIP_R = 0.36;
-const GAP = 180;
+const GAP = 640; // wide enough that the neighbouring slides sit off-screen when a slide is in focus
 
 // ------------------------------------------------------------------------------------------- timing
 const T_CLOSE = 38.04, T_TEAR = 40.88;
