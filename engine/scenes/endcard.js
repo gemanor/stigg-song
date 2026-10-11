@@ -263,7 +263,9 @@ function lockup(E, b) {
     if (b) return { size: 168 * S, rows: 15, cell, l1: 0.175 * E.H, l2: 0.335 * E.H, meterY: 0.6 * E.H, logoY: 0.565 * E.H, tagY: 0.71 * E.H, bannerY: 0.83 * E.H, two: true };
     return { size: 190 * S, rows: 17, cell, l1: 0.2 * E.H, l2: 0.385 * E.H, meterY: 0.6 * E.H, logoY: 0.64 * E.H, tagY: 0.8 * E.H, bannerY: 0.835 * E.H, two: true };
   }
-  return { size: 120 * S, rows: 13, cell, l1: R.y + R.h * (b ? 0.07 : 0.1), l2: R.y + R.h * (b ? 0.2 : 0.235), l3: R.y + R.h * (b ? 0.33 : 0.37), meterY: R.y + R.h * 0.55, logoY: R.y + R.h * (b ? 0.53 : 0.6), tagY: R.y + R.h * (b ? 0.665 : 0.74), bannerY: R.y + R.h * 0.78, two: false };
+  // portrait a: the lockup is centred lower in the safe band (≈0.42 H) so the 9:16 poster doesn't hang off the top
+  if (b) return { size: 120 * S, rows: 13, cell, l1: R.y + R.h * 0.07, l2: R.y + R.h * 0.2, l3: R.y + R.h * 0.33, meterY: R.y + R.h * 0.55, logoY: R.y + R.h * 0.53, tagY: R.y + R.h * 0.665, bannerY: R.y + R.h * 0.78, two: false };
+  return { size: 120 * S, rows: 13, cell, l1: R.y + R.h * 0.235, l2: R.y + R.h * 0.37, l3: R.y + R.h * 0.505, meterY: R.y + R.h * 0.685, logoY: R.y + R.h * 0.735, tagY: R.y + R.h * 0.875, bannerY: R.y + R.h * 0.78, two: false };
 }
 function e56(E, t, rt, b) {
   const S = E.SCALE, R = E.SAFE, [g1] = surfaces(E), c = g1.ctx, L = lockup(E, b), stab = t >= CUT.e6;

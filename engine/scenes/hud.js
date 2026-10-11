@@ -51,13 +51,15 @@ export default {
         c.fillStyle = live && k === b.inBar ? B.C.green : ink;
         c.fillRect(right - (4 - k) * 14 * S + 5 * S, top + 26 * S, 9 * S, 9 * S);
       }
-      // bottom-left: progress + clock
+      // bottom-left: progress + clock (landscape only: on 9:16 that row sits where faces fall, above the platform UI)
       c.globalAlpha = H.alpha;
+      if (E.ORIENT === "landscape") {
       const p = clamp(t / E.dur), pw = 220 * S;
       c.fillStyle = dim; c.fillRect(left, bottom, pw, 2 * S);
       c.fillStyle = dark ? B.C.green : B.C.ink; c.fillRect(left, bottom, pw * p, 2 * S);
       c.font = `600 ${13 * S}px "JetBrains Mono"`; c.textAlign = "left"; c.fillStyle = dim;
       c.fillText(`${clock(t)} / ${clock(E.dur)}`, left + pw + 14 * S, bottom + 1 * S);
+      }
     }
     if (H.meter !== false) drawMeter(E, c, t, left, top, dark, ink, dim);
     c.restore();
@@ -83,7 +85,7 @@ function drawMeter(E, c, t, x, y, dark, ink, dim) {
   c.fillText(st.label, x, y + 8 * S);
   c.globalAlpha = E.hud.alpha;   // back to the HUD's own fade (a partial E.hud.alpha must dim the meter too)
   const val = B.fmtInt(v), cell = Math.max(2, Math.round(4 * S));
-  B.pixelText(c, val, x, y + 24 * S, { rows: 9, cell, color: warn ? B.C.coral : dark ? B.C.green : B.C.ink, line: warn ? "#7a2a26" : dark ? B.C.cell : "#3d4a33" });
+  B.pixelText(c, val, x, y + 24 * S, { rows: 9, cell, alpha: E.hud.alpha, color: warn ? B.C.coral : dark ? B.C.green : B.C.ink, line: warn ? "#7a2a26" : dark ? B.C.cell : "#3d4a33" });
   const by = y + 24 * S + 10 * cell + 12 * S, bw = 300 * S, bh = 6 * S, f = clamp(v / 1e6);
   c.fillStyle = dark ? B.C.line : B.C.inkA(0.18); c.fillRect(x, by, bw, bh);
   c.fillStyle = warn ? B.C.coral : dark ? B.C.green : B.C.ink; c.fillRect(x, by, bw * f, bh);

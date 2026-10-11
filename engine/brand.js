@@ -107,6 +107,7 @@ function pixelBitmap(text, rows, font) {
   let minY = h, maxY = 0, minX = w, maxX = 0;
   for (let yy = 0; yy < h; yy++) for (let xx = 0; xx < w; xx++) if (d[(yy * w + xx) * 4 + 3] > 110) { on.push(xx, yy); minY = Math.min(minY, yy); maxY = Math.max(maxY, yy); minX = Math.min(minX, xx); maxX = Math.max(maxX, xx); }
   const bm = { on: new Int16Array(on), cols: maxX - minX + 1, rows: maxY - minY + 1, ox: minX, oy: minY };
+  if (_pix.size >= 3000) _pix.delete(_pix.keys().next().value);   // counters make a new string every frame: keep the cache bounded
   _pix.set(key, bm);
   return bm;
 }
@@ -239,7 +240,9 @@ export function afterTokens(E, ctx, cx, cy, t, o = {}) {
     if (u > 0) E.drawText(ctx, p, xx, y0 + size * 0.86, { ...font, align: "left", alpha: u, sy: lerp(1.25, 1, ease.outBack(u)) });
     xx += pw;
   });
-  const ut = ws ? clamp((t - ws[3].s + 0.06) / 0.35) : 1;
+  // TOKENS' cells converge INTO the sung onset: legible at the onset (reveal ≈ 0.73), settled 0.08 s after it.
+  // o.lead = s the build starts before the onset (0.22), o.build = its length (0.30)
+  const ut = ws ? clamp((t - ws[3].s + (o.lead ?? 0.22)) / (o.build ?? 0.3)) : 1;
   if (ut > 0) pixelText(ctx, "TOKENS", cx, y0 + size * 1.25, { rows, cell, align: "center", reveal: ut, color: o.tokenColor ?? C.green, line: o.tokenLine ?? C.cell, seed: o.seed ?? 3 });
   const m = 26 * S;
   rules(ctx, y0 - m, y0 + H + m * 0.6, E.W, { color: o.ruleColor ?? C.greenA(0.45) });
