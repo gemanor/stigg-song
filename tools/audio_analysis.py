@@ -23,7 +23,7 @@ def save_json(obj, path, **kw):
         json.dump(obj, f, **kw)
 
 
-beats, downbeats = File2Beats(checkpoint_path='final0', device='cpu', dbn=False)(master)
+beats, downbeats = File2Beats(checkpoint_path=os.environ.get('BEAT_THIS_CKPT', 'tools/models/beat_this-final0.ckpt'), device='cpu', dbn=False)(master)
 beats = [float(b) for b in beats]; downbeats = [float(b) for b in downbeats]
 bpm = float(60 / np.median(np.diff(beats)))
 voc, sr = librosa.load(f'{stem_dir}/vocals.wav', sr=22050, mono=True)

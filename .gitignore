@@ -8,3 +8,8 @@ assets/audio_slices/
 analysis/whisper_*.json
 *.part*.mp4
 __pycache__/
+stems_explore/
+tools/models/
+audio/*.wav
+assets/gen/
+assets/vo/*.mp3

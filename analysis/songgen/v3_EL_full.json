@@ -1,0 +1,259 @@
+{
+ "sections": [
+  {
+   "text": "[Intro]\n{spoken dialogue over a muffled, low-pass filtered house-party beat}\n{female voice, spoken, flirty} Hey. What are you doing tonight?\n{male voice, spoken, flat deadpan} Hold my Celsius. I can't go on a date. I'm an AY-EYE founder.\n{female voice, spoken, incredulous} ...You're a what?",
+   "durationSeconds": 9,
+   "positiveStyles": [
+    "spoken dialogue",
+    "male and female voices",
+    "muffled party ambience",
+    "low-pass filtered beat",
+    "electroclash"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals"
+   ],
+   "contextAdherence": "high"
+  },
+  {
+   "text": "[Drop]\n{the filter opens and the beat drops hard, stadium gang-vocal chant, one note per syllable, crowd shouts back}\nI'M AN AY-EYE FOUNDER! (FOUNDER!)\nI'M AN AY-EYE FOUNDER! (FOUNDER!)",
+   "durationSeconds": 8,
+   "positiveStyles": [
+    "huge beat drop",
+    "stadium gang vocal chant",
+    "simple chant",
+    "call and response",
+    "electroclash",
+    "hyperpop",
+    "128 bpm"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals"
+   ],
+   "contextAdherence": "high"
+  },
+  {
+   "text": "[Verse 1]\n{male lead vocal, flat deadpan talk-sing, bored, very clear diction}\nI don't take a salary, I take a token budget.\nBurned a quarter-million, and my investors love it.\nMy co-founder's a Mac mini sitting on a shelf.\nIt never sleeps, it never eats. It's basically myself.\nClosed my seed in a cold plunge, it was over in a flash.\nHe couldn't feel his fingers, but he wired me the cash.\nMatcha's at a record high, there's a shortage in Japan.\nMy valuation's at a record high. I don't have a plan.",
+   "durationSeconds": 17,
+   "positiveStyles": [
+    "male lead vocal",
+    "deadpan talk-sing",
+    "clear diction",
+    "punchy 808 bass",
+    "tight trap hi-hats",
+    "blippy arpeggiated synth",
+    "electroclash",
+    "hyperpop",
+    "128 bpm"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals",
+    "female vocal"
+   ],
+   "contextAdherence": "high"
+  },
+  {
+   "text": "[Pre-Chorus]\n{female lead vocal, sweet and sarcastic, sung, rising synth sweep, snare roll build}\nSo your co-founder's a computer,\nand your money's made of air,\nand you'd rather freeze a VC\nthan take me anywhere?",
+   "durationSeconds": 8,
+   "positiveStyles": [
+    "female lead vocal",
+    "sarcastic sweet singing",
+    "rising synth sweep",
+    "snare roll build",
+    "hyperpop"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals",
+    "male vocal"
+   ],
+   "contextAdherence": "high"
+  },
+  {
+   "text": "[Chorus]\n{massive electroclash drop, male lead sings, gang vocals shout FOUNDER, a female voice answers mockingly}\nI'M AN AY-EYE FOUNDER! (FOUNDER!)\nI can't come out tonight.\n{female voice, mocking, sing-song} Of course you can't.\n{male lead} I'M AN AY-EYE FOUNDER! (FOUNDER!)\nSee you after tokens!\nI'M AN AY-EYE FOUNDER! (FOUNDER!)\nNo dating till Series B.\n{female voice, mocking, sing-song} Babe, you're pre-seed.\n{male lead} I'M AN AY-EYE FOUNDER! (FOUNDER!)\nSee you after tokens!",
+   "durationSeconds": 16,
+   "positiveStyles": [
+    "massive electroclash drop",
+    "detuned supersaw lead",
+    "four-on-the-floor kick",
+    "gang vocal shouts",
+    "male and female call and response",
+    "catchy chant",
+    "electroclash",
+    "hyperpop",
+    "128 bpm"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals"
+   ],
+   "contextAdherence": "high"
+  },
+  {
+   "text": "[Interlude]\n{beat drops to a lone kick drum, spoken dialogue}\n{female voice, spoken, curious} So what does your company actually do?\n{male voice, spoken, proud deadpan} We build agents. For agents.\n{female voice, spoken} And what do those agents do?\n{male voice, spoken, after a pause} ...They're on the waitlist.",
+   "durationSeconds": 9,
+   "positiveStyles": [
+    "spoken dialogue",
+    "lone kick drum",
+    "sub bass pulse",
+    "male and female voices"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals"
+   ],
+   "contextAdherence": "medium"
+  },
+  {
+   "text": "[Verse 2]\n{female lead vocal, sassy confident talk-rap, very clear diction, roasting him}\nWhen he says \"we're in stealth,\" it means there's nothing there.\nWhen he says \"autonomous agents,\" it's a cron job and a prayer.\nWhen he says \"a cracked team,\" that's his roommates and a Mac.\nWhen he says \"we're talking to Sequoia,\" they never wrote back.\nEighty grand on a film crew for a button on a page.\nEvery comment says \"insane.\" Nobody clicked it, babe.\nZyn in his lip, a cap that just says \"building,\" and a hoodie for a brand\nthat doesn't have a product, but the merch is in demand.",
+   "durationSeconds": 18,
+   "positiveStyles": [
+    "female lead vocal",
+    "sassy talk-rap",
+    "clear diction",
+    "808 bass",
+    "trap hi-hats",
+    "pitched vocal chops",
+    "electroclash",
+    "hyperpop"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals",
+    "male vocal"
+   ],
+   "contextAdherence": "high"
+  },
+  {
+   "text": "[Chorus]\n{bigger drop, handclaps, male lead sings, gang vocals shout FOUNDER, a female voice answers mockingly}\nI'M AN AY-EYE FOUNDER! (FOUNDER!)\nI can't come out tonight.\n{female voice, mocking, sing-song} Of course you can't.\n{male lead} I'M AN AY-EYE FOUNDER! (FOUNDER!)\nSee you after tokens!\nI'M AN AY-EYE FOUNDER! (FOUNDER!)\nNo dating till Series B.\n{female voice, mocking, sing-song} Babe, you're pre-seed.\n{male lead} I'M AN AY-EYE FOUNDER! (FOUNDER!)\nSee you after tokens!",
+   "durationSeconds": 16,
+   "positiveStyles": [
+    "bigger electroclash drop",
+    "handclaps",
+    "gang vocal shouts",
+    "male and female call and response",
+    "catchy chant",
+    "detuned supersaw lead",
+    "electroclash",
+    "hyperpop"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals"
+   ],
+   "contextAdherence": "high"
+  },
+  {
+   "text": "[Bridge]\n{half-time, sparse beat, rapid call and response: a female voice asks, a male voice answers flat and deadpan, rhythmic}\n{female} Revenue? {male} I annualized a Tuesday.\n{female} Users? {male} Waitlist.\n{female} Product? {male} Next model.\n{female} Co-founder? {male} Mac mini.\n{female} Salary? {male} Tokens.\n{female} Girlfriend? {male} Series B.\n{female} Five years? {male} Post-AGI.\n{female, exasperated} Oh my god.",
+   "durationSeconds": 16,
+   "positiveStyles": [
+    "half-time groove",
+    "sparse beat",
+    "rhythmic call and response",
+    "male and female voices",
+    "deadpan",
+    "snare roll at the end"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals"
+   ],
+   "contextAdherence": "medium"
+  },
+  {
+   "text": "[Final Chorus]\n{biggest drop, key lift, stacked gang vocals shout FOUNDER, male lead sings, the female voice mocks along}\nI'M AN AY-EYE FOUNDER! (FOUNDER!)\nI can't come out tonight.\n{female voice, mocking, sing-song} Of course you can't.\n{male lead} I'M AN AY-EYE FOUNDER! (FOUNDER!)\nSee you after tokens!\nI'M AN AY-EYE FOUNDER! (FOUNDER!)\nNo dating till Series B.\n{female voice, mocking, sing-song} Babe, you're pre-seed.\n{male lead} I'M AN AY-EYE FOUNDER! (FOUNDER!)\nSee you after tokens!",
+   "durationSeconds": 16,
+   "positiveStyles": [
+    "biggest drop",
+    "key lift",
+    "stacked gang vocals",
+    "handclaps",
+    "male and female call and response",
+    "detuned supersaw lead",
+    "electroclash",
+    "hyperpop"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals"
+   ],
+   "contextAdherence": "high"
+  },
+  {
+   "text": "[Outro]\n{synths filter down, spoken dialogue}\n{male voice, spoken, deadpan} Anyway. Gotta go. See you after tokens.\n{female voice, spoken, amused} Cute. Hold my matcha. I'm an AY-EYE founder too. Series B.\n{male voice, spoken, after a pause} ...So what are you doing tonight?\n{female voice, spoken, flat} Board meeting.\n{glitch stutter, abrupt stop}",
+   "durationSeconds": 11,
+   "positiveStyles": [
+    "spoken dialogue",
+    "filtered-down synths",
+    "glitch stutter ending",
+    "abrupt end"
+   ],
+   "negativeStyles": [
+    "acoustic",
+    "ballad",
+    "rock guitar",
+    "country",
+    "orchestral",
+    "slow tempo",
+    "mumbled vocals",
+    "long fade out"
+   ],
+   "contextAdherence": "high"
+  }
+ ],
+ "outputFormat": "mp3_48000_320",
+ "seed": 404
+}
