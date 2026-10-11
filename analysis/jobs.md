@@ -101,3 +101,18 @@ Model bake-off on one frame (HIM chant, chroma blue): **Gemini Omni 1.1 Flash wo
 Round 4 subtotal so far: 972 CU (frames 197 · clips 775). The footage agent appends the rest below.
 
 Footage agent (2026-10-11 16:14-16:45 UTC): 30 rows above from `clip him_pitch` on = 2,304 CU (frames 324 · clips 1,980). That is 145 CU for the 2 jobs already in flight (him_pitch clip, him_dance frames) plus 2,159 CU launched by the footage agent (cap 2,600). Regenerations used: 1 of 3 (duo_dance, identity drift). Round 4 total: 3,276 CU (frames 521 · clips 2,755). All 21 clips are logged in `analysis/footage.md`.
+
+### Lip-sync close-ups (lead, 2026-10-11 ~16:53 UTC)
+MiniMax H3 Max Lip Sync is available on Starter: about 32 CU/s at 1080P. `enableTranscription: true` burned garbled white captions into the frame, so it's rejected. Use it off.
+
+| what | model | job | asset(s) | CU |
+|---|---|---|---|---|
+| frame HIM frontal MCU ×2 | gpt-image-2-5-sunburst | job_fkcPj1mRbDiN4vtkwpU9ciD3 | **asset_kLNVJi2PKLp2aAx4rdMRLKbM**, asset_FSSZybWRKHDtEyXDzDZ2spfU | 25 |
+| audio slice his verse 1 (vocal stem 17.30-25.20) | upload | — | asset_eLcDZRa6yWaCdBScTgfkM3sv | 0 |
+| lip-sync HIM v1 (rejected: burned-in captions) | minimax-h3-max-lip-sync 1080P | job_9qSZYbcdtiJAKn2NYqFxR6up | asset_auTSiPkxtjnA7A2bVTWUVvDG | 255 |
+| lip-sync `him_lipsync` v2 (transcription off) | minimax-h3-max-lip-sync 1080P | job_hJBCykA1PVuafQkDYwc1Nxbm | **asset_oxtWLn5iBdGcRnj9NcByHd9s** | 255 |
+| frame HER frontal MCU ×2 | gpt-image-2-5-sunburst | job_MagkhTaznCDRyPHsXCPfZimC | **asset_RhJZVLdzB4pEVQhKb75P4neu**, asset_fGtJBA46NWZG1u5hCaKRkNt2 | 25 |
+| audio slice her pre-chorus (vocal stem 32.70-40.00) | upload | — | asset_hSgVMrg978psSdD1UPr6VZvB | 0 |
+| lip-sync `her_lipsync` | minimax-h3-max-lip-sync 1080P | job_RtWaAzR2nV1L4nf5R3KpAH3c | **asset_CwLuvVKtUiAZpxoam3WBqaRz** | 235 |
+
+Lip-sync subtotal 795 CU. **Round 4 total: 4,071 CU. This session's total (song + video): 5,604 CU.**
