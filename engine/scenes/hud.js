@@ -81,7 +81,7 @@ function drawMeter(E, c, t, x, y, dark, ink, dim) {
   c.fillStyle = warn ? B.C.coral : st.state === "topup" ? B.C.green : ink;
   c.globalAlpha *= blink;
   c.fillText(st.label, x, y + 8 * S);
-  c.globalAlpha = 1;
+  c.globalAlpha = E.hud.alpha;   // back to the HUD's own fade (a partial E.hud.alpha must dim the meter too)
   const val = B.fmtInt(v), cell = Math.max(2, Math.round(4 * S));
   B.pixelText(c, val, x, y + 24 * S, { rows: 9, cell, color: warn ? B.C.coral : dark ? B.C.green : B.C.ink, line: warn ? "#7a2a26" : dark ? B.C.cell : "#3d4a33" });
   const by = y + 24 * S + 10 * cell + 12 * S, bw = 300 * S, bh = 6 * S, f = clamp(v / 1e6);

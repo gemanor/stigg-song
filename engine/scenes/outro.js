@@ -8,11 +8,12 @@
 //       from "...Sorry." 142.593 hits exactly 0 at 143.996.
 //
 // PLAN  t        word / event                visual                                                    layer
-// S1  134.500 DB  (hard cut in)               date_table again, clip 4.00→5.92 s, slow push-in; a pool of  BACK grid, light
+// S1  134.500 DB  (hard cut in)               date_table again, clip 0.60→2.52 s (still pitching; skit 2   BACK grid, light
+//                                             uses 2.60→5.94), slow push-in; a pool of
 //                                             light + contact shadow under the table                      pool, shadow
 //     135.066     Anyway.                     ANYWAY. white Inter Tight 900, magazine-cover: heads overlap MID (matte)
 //                                             the letters' feet
-//     135.366     Gotta                       ANYWAY. clears 3× fast; GOTTA lands (his hands drop ≈135.6)  MID
+//     135.366     Gotta                       ANYWAY. clears 3× fast; GOTTA lands (mid-pitch: he bails)    MID
 //     136.066     go.                         GO. (green) lands; at go.'s end GOTTA GO. bolts off right    MID
 // S2  136.420 DB  (cut)                       him_gottago 0.0→1.9 s: finger gun over the shoulder + wink   plate
 //     137.066 See / 137.466 you /             SEE YOU AFTER TOKENS (brand.afterTokens, small + dry) where  MID, rules pass
@@ -50,11 +51,13 @@ import * as HP from "./outro/herpays.js";
 
 const CUT = { s1: 134.5, s2: 136.42, s3: 138.32, s4: 142.12, s5: B.EV.musicStop, s6: 145.466 };
 // clip keys (song t → clip t). Clips that haven't landed use stand-ins; retune when they arrive.
-// date_table: his hands drop at ~5.1 s ("Gotta go."). him_gottago: wink 0-1.0 s, finger gun held to 1.75 s.
+// date_table: 0.6-2.52 s, the head of the take that skit 2 (2.60-5.94) never shows: he is still pitching, mouth going,
+// big two-handed gestures, while she blinks slowly at ≈1.75 and ≈2.25 (= 136.15, just after "go."). him_gottago: wink
+// 0-1.0 s, finger gun held to 1.75 s.
 // her_whopays: slides 0-3.4 s, lifts her fingers 3.54 s, taps the folder 4.08 s (= 141.80). him_outoftokens: pocket
 // pat 0.5-1.9 s, then a crash zoom on the beat 143.56 to his shock face (3.12 s →).
 const K = {
-  s1: [[134.5, 4.0]],
+  s1: [[134.5, 0.6]],
   s2: [[136.42, 0.0]],
   s3: [[138.32, 0.6]],
   s4: [[142.12, 0.55]],

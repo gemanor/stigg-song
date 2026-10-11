@@ -294,10 +294,13 @@ export const BURN = {
       c.restore();
       const hx2 = u2 > 0 ? xB : xA, hy2 = u2 > 0 ? yB : yA;
       tri(c, hx2, hy2 - 8, 40, true, C.green);
-      const a = clamp((tb - t0) / 0.06), lx = hx2 + (P ? -30 : 40), al = P ? "right" : "left";
+      const size = P ? 84 : 128, lw = tw(E, c, "LOVE IT.", size, { tracking: -0.035 });
+      // the label block hangs right of the line head, or left of it when the card has no room on the right
+      const right = !P && hx2 + 40 + lw < pn.x + pn.w - 48;
+      const a = clamp((tb - t0) / 0.06), al = right ? "left" : "right", lx = right ? hx2 + 40 : hx2 - (P ? 30 : 44);
       M(E, c, "INVESTOR LOVE", lx, hy2 + 4, { color: C.green, size: P ? 24 : 30, weight: 800, alpha: a, align: al });
       if (tb >= O.love - 0.066) {
-        const k = slam(tb, O.love, 1.45), size = P ? 84 : 128;
+        const k = slam(tb, O.love, 1.45);
         c.save();
         c.translate(lx, hy2 + 22 + size * CAP);
         c.scale(k, k);
@@ -405,11 +408,13 @@ export const TEAM = {
       }
       c.restore();
       if (tb >= O.shelf - 0.066) {
-        const k = slam(tb, O.shelf, 1.3);
+        const k = slam(tb, O.shelf, 1.3), P = U.P;
         c.save();
         c.globalAlpha = ca;
-        c.translate(x + rad * 0.95, L.mini[1] - rad * 0.95);
-        c.rotate(0.08);
+        // landscape: tag on the circle's shoulder; portrait: under the caption (inside the safe band)
+        if (P) c.translate(x - 120, L.mini[1] + rad + 160);
+        else c.translate(x + rad * 0.95, L.mini[1] - rad * 0.95);
+        c.rotate(P ? -0.04 : 0.08);
         c.scale(k, k);
         pill(E, c, -10, -30, 60, "HQ: SHELF", { bg: C.ink, fg: C.green, icon: "dot" });
         c.restore();

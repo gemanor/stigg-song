@@ -101,7 +101,7 @@ export default {
     else renderClose(E, t, U, lt);
     // HUD
     E.hud.theme = "light";
-    if (P) E.hud.subY = 70;
+    if (P) E.hud.subY = 48; // portrait: the subtitle sits just under her chin, never across her face
     if (t >= O.than - 0.3) E.hud.sub = false; // the scene sets "than take me anywhere?" itself
     // the beat comes back: punches on the build kicks only
     if (t >= T_TEAR - 0.02) {
@@ -134,7 +134,7 @@ function slideXf(U, cam, i) {
 function herBubble(U, t) {
   // starts mostly on screen (a striking first frame: her face + his 404), slides the rest of the way in
   const P = U.P, R = U.R, mv = 1 - K.oq((t - T_IN) / 0.26);
-  if (P) return { cx: R.x + R.w / 2 - mv * 420, cy: 1160, r: 230 };
+  if (P) return { cx: R.x + R.w / 2 - mv * 420, cy: 1118, r: 226 };
   return { cx: 410 - mv * 380, cy: 640, r: 292 };
 }
 function walkFrame(U) {
@@ -220,8 +220,10 @@ function renderDeck(E, t, U, lt) {
     }
     const nose = K.pose(v.walk, lw, 0), top = K.box(v.walk, lw);
     if (nose && top) {
-      const [hx] = K.fpt(Fw, nose), hy = K.fpt(Fw, [0, top[1]])[1];
-      collabTag(E, f, hx + 40, hy - 26, "her · suggesting", t);
+      // beside her head (clear of the HUD meter in the top-left corner)
+      const [hx, hy] = K.fpt(Fw, nose), ht = K.fpt(Fw, [0, top[1]])[1];
+      if (U.P) collabTag(E, f, hx + 40, ht - 26, "her · suggesting", t);
+      else collabTag(E, f, hx + 110, Math.max(ht + 40, 190), "her · suggesting", t);
     }
   }
   if (tip) cursor(E, f, tip[0], tip[1], t);
