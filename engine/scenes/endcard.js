@@ -301,8 +301,9 @@ function e56(E, t, rt, b) {
     const ua = clamp((t - (CUT.e6 + 0.1)) / 0.12);
     E.drawText(c, "The usage runtime for AI products", E.W / 2, L.tagY + (1 - ua) * 10 * S, { font: B.FONT.hero, weight: 500, size: ts, tracking: -0.01, color: B.C.paper, align: "center", alpha: 0.88 * ua });
     if (b) banner(E, c, t, L.bannerY);
-    const fx = wide(E) ? 0.18 * E.W : R.x + 10 * S, fy = wide(E) ? L.l1 - size * 0.9 : L.l1 - size * 0.8;
-    B.crosshairs(c, fx, fy, E.W - 2 * fx, (b ? L.bannerY - 70 * S : L.tagY + 60 * S) - fy, { len: 40 * S, inset: 12 * S, cross: 8 * S, color: B.C.greenA(0.5) });
+    // the lockup's own After Tokens frame: corner crosshairs just outside the type's cap and the tagline
+    const fx = wide(E) ? 0.18 * E.W : R.x + 10 * S, fy = Math.max(R.y + 12 * S, L.l1 - size * 0.62 - 44 * S);
+    B.crosshairs(c, fx, fy, E.W - 2 * fx, (b ? L.bannerY - 36 * S : L.tagY + 60 * S) - fy, { len: 40 * S, inset: 12 * S, cross: 8 * S, color: B.C.greenA(0.5) });
   }
   blitBack(E, rt);
   E.hud.sub = false;
@@ -326,7 +327,7 @@ function banner(E, c, t, y) {
   const g = B.C.greenA(0.45);
   c.fillStyle = g; c.fillRect(0, Math.round(y), E.W, Math.max(1, S)); c.fillRect(0, Math.round(y + h), E.W, Math.max(1, S));
   const title = { font: B.FONT.hero, weight: 800, size: (wide(E) ? 60 : 54) * S, tracking: -0.035, color: B.C.white };
-  const aw = E.measure(c, "AFTER ", title), po = { rows: wide(E) ? 11 : 10, cell: Math.max(2, Math.round(4 * S)), color: B.C.green, line: B.C.cell, reveal: clamp((t - (CUT.e6 + 0.22)) / 0.45), seed: 4 };
+  const aw = E.measure(c, "AFTER ", title), po = { rows: 14, cell: Math.max(2, Math.round(3 * S)), color: B.C.green, line: B.C.cell, reveal: clamp((t - (CUT.e6 + 0.22)) / 0.45), seed: 4 };
   const pw = B.pixelSize("TOKENS", po).w, meta = "NOV 10 / SAN FRANCISCO";
   c.font = `400 ${24 * S}px "JetBrains Mono"`; c.letterSpacing = `${0.03 * 24 * S}px`;
   const mw = c.measureText(meta).width, corner = 70 * S, gap = 48 * S;

@@ -96,7 +96,7 @@ export function drawSticker(E, c, L, t, pl, o = {}) {
     for (let i = 0; i < r.toks.length; i++) {
       const s = r.toks[i].w.s, a = clamp((t - s + 0.066) / 0.05);
       if (a > 0) {
-        const p = E.popScale(t, s, { from: 1.42, k: 560, z: 0.42 });
+        const p = E.popScale(t, s, { from: 1.3, k: 560, z: 0.42 });
         E.drawText(c, r.toks[i].txt, x + r.ws[i] / 2, y + L.size * 0.035, { ...L.font, align: "center", baseline: "middle", color: L.grad, s: p, alpha: a });
       }
       x += r.ws[i] + L.sp;

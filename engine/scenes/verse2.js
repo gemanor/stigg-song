@@ -334,12 +334,14 @@ function renderPage(E, c, t, sh) {
       if (b) { const [fx] = E.plateToScreen(E, v, [(b[0] + b[2]) / 2, b[3]], plate); K.shadow(c, fx, fr.feet, (b[2] - b[0]) * v.meta.w * plate.zoom * (E.W / v.meta.w) * 0.55); }
     }
     if (sh.id === "P1b") F.figEmpty(E, c, t, w(1, 3).s, L.fig, { capIn: E.ORIENT === "portrait" });
+    // P1a: his quote sits BEHIND her (her raised "one" finger crosses in front of it, via the matte)
+    if (sh.id === "P1a") K.drawSticker(E, c, St, t, pl, { strikeT: en.strike, seed: en.id * 5, align: "left" });
   };
   const front = (c) => {
     const headA = sh.id === "P1a" ? K.tw(t, w(0, 0).s - 0.066, 0.1) : 1;
     K.drawLabel(E, c, hw, t, L.head.x, L.head.y, 40 * S, { alpha: headA });
     K.drawLabel(E, c, en.means, t, L.means.x, L.means.y, 40 * S, { alpha: K.tw(t, en.move - 0.066, 0.1) });
-    K.drawSticker(E, c, St, t, pl, { strikeT: en.strike, seed: en.id * 5, align: "left" });
+    if (sh.id !== "P1a") K.drawSticker(E, c, St, t, pl, { strikeT: en.strike, seed: en.id * 5, align: "left" });
     if (L.arrow && t >= en.strike + 0.1) B.penArrow(c, L.arrow[0], L.arrow[1], L.arrow[2], L.arrow[3], t, en.strike + 0.1, { width: 7 * S, dur: 0.14, bend: 0.25, seed: en.id, color: C.coral });
     K.drawHead(E, c, HD[i], t, en.strike + 0.02, L.hw.x, L.hw.y, { stack: !!L.hw.stack });
     K.drawDef(E, c, DF[i], t, L.def.x, L.def.y);
