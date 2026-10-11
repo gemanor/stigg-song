@@ -139,9 +139,11 @@ const FinalShader = {
       if(uGlitch>0.){ float row=floor(uv.y*38.); float g=h(vec2(row, floor(uFrame/2.))); if(g<uGlitch*0.6){ uv.x += (h(vec2(row,uFrame))-0.5)*0.12*uGlitch; } }
       vec2 d = (uv-0.5); float r2 = dot(d,d);
       vec3 col;
-      col.r = texture2D(tDiffuse, uv + d*uCA*(1.+r2*4.)).r;
-      col.g = texture2D(tDiffuse, uv).g;
-      col.b = texture2D(tDiffuse, uv - d*uCA*(1.+r2*4.)).b;
+      if (uCA > 0.) {
+        col.r = texture2D(tDiffuse, uv + d*uCA*(1.+r2*4.)).r;
+        col.g = texture2D(tDiffuse, uv).g;
+        col.b = texture2D(tDiffuse, uv - d*uCA*(1.+r2*4.)).b;
+      } else col = texture2D(tDiffuse, uv).rgb;
       col *= uExposure * uTint;
       if (uWarm < 0.5) {
         // grade 'neutral' (default): footage passes through untouched. Values <= 1 are identity (no grade, no tonemap, no clamp).
@@ -204,7 +206,7 @@ const POST_DEFAULT = {
 };
 
 // ---- engine object passed to scenes
-const HUD_DEFAULT = { alpha: 1, label: "", sub: true, corners: true };
+const HUD_DEFAULT = { alpha: 1, label: "", sub: true, corners: true, meter: true, theme: "dark", subY: null };
 const E = {
   THREE,
   core,
@@ -241,6 +243,8 @@ async function boot() {
   E.dur = A.duration;
   await Promise.all([
     document.fonts.load("900 100px Archivo"),
+    document.fonts.load('900 100px "Inter Tight"'),
+    document.fonts.load('600 100px "Inter Tight"'),
     document.fonts.load('100px "Archivo Black"'),
     document.fonts.load("100px Anton"),
     document.fonts.load('400 100px "JetBrains Mono"'),
@@ -307,6 +311,13 @@ async function renderTime(t, frameIdx = Math.round(t * E.fps)) {
   renderer.setClearColor(0x000000, 1);
   renderer.clear(true, true, true);
   active.forEach((l, i) => {
+    if (l.direct) {
+      // direct layer (timeline entry `direct: true`): draws straight into the frame buffer with normal "over" blending.
+      // Same pixels as the RT + composite path for normal blend at full opacity, minus two full-screen passes.
+      renderer.setRenderTarget(accum);
+      l.scene.render(E, t, accum, l);
+      return;
+    }
     const rt = getLayerRT(i);
     renderer.setRenderTarget(rt);
     renderer.setClearColor(0x000000, 0);
@@ -346,7 +357,11 @@ async function renderTime(t, frameIdx = Math.round(t * E.fps)) {
   U.uTint.value.set(...P.tint);
   U.uFade.value = P.fade;
   renderer.setRenderTarget(null);
-  composer.render();
+  if (bloom.enabled) composer.render();
+  else {
+    U.tDiffuse.value = accum.texture;
+    finalPass.fsQuad.render(renderer);
+  }
   return true;
 }
 window.renderFrame = (frameIdx, fps = 60) => {

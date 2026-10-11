@@ -19,8 +19,9 @@ export function launchOptions() {
     executablePath: process.env.CHROME_PATH || "/opt/pw-browsers/chromium",
     headless: true,
     args: [
-      "--use-gl=angle",
-      "--use-angle=swiftshader",
+      // Mesa llvmpipe through EGL: ~20% faster than ANGLE/SwiftShader here and pixel-identical for this engine.
+      // CHROME_GL=swiftshader switches back.
+      ...(process.env.CHROME_GL === "swiftshader" ? ["--use-gl=angle", "--use-angle=swiftshader"] : ["--use-gl=egl"]),
       "--enable-unsafe-swiftshader",
       "--ignore-gpu-blocklist",
       "--disable-background-timer-throttling",

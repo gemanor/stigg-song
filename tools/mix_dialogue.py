@@ -31,10 +31,12 @@ def stretch(y, tempo):
     z, _ = librosa.load(b, sr=SR, mono=True); os.remove(a); os.remove(b); return z
 
 cues = []  # (speaker, text, audio, onset_in_song, duck_db)
+srcs = []  # per cue: (source file, file time where its audio starts, tempo), so word times can be mapped back from the clean take
 def place(key, text, speaker, onset, duck, tempo=1.0):
     info = lines[f'assets/vo/{key}.mp3']
     y = load(f'assets/vo/{key}.mp3')[int(max(0, info['on'] - 0.06) * SR):int((info['off'] + 0.12) * SR)]
     cues.append((speaker, text, stretch(y, tempo), onset - 0.06 / tempo, duck))
+    srcs.append((f'assets/vo/{key}.mp3', max(0, info['on'] - 0.06), tempo))
 
 # INTRO: a party scene. Lines are timed backwards from the chant drop (~12.09) so "...You're a what?" lands right before it.
 intro_keys = {'L': ['L01_her_tonight', 'L02_him_celsius', 'L03_him_cantdate', 'L04_her_whatt'],
@@ -68,13 +70,13 @@ for i in range(8):
     qa, qb = splits['q'][i]
     qy = load('assets/vo/L09_her_questions.mp3', max(0, qa - 0.04), qb + 0.08)
     qt = next_beat(t)
-    cues.append(('HER', Q[i], qy, qt - 0.04, -6))
+    cues.append(('HER', Q[i], qy, qt - 0.04, -6)); srcs.append(('assets/vo/L09_her_questions.mp3', max(0, qa - 0.04), 1.0))
     t = qt + (qb - qa) + 0.10
     if i < 7:
         aa, ab = splits['a'][i]
         ay = load('assets/vo/L10_him_answers.mp3', max(0, aa - 0.04), ab + 0.08)
         at = next_beat(t)
-        cues.append(('HIM', A[i], ay, at - 0.04, -6))
+        cues.append(('HIM', A[i], ay, at - 0.04, -6)); srcs.append(('assets/vo/L10_him_answers.mp3', max(0, aa - 0.04), 1.0))
         t = at + (ab - aa) + 0.25
 
 # OUTRO (bed 138.15-147.63 then a hard stop into silence): the song runs out of tokens on "tokens"
@@ -85,9 +87,25 @@ info = lines['assets/vo/E2_him_outoftokens.mp3']
 place('E2_him_outoftokens', "...Sorry. I'm out of tokens.", 'HIM', MUSIC_STOP + 0.02 - (info['tokens_t'] - info['on']), -8)  # /t/ of "tokens" 20 ms after the cut
 place('L12_her_holdmatcha', 'Cute. Hold my matcha.', 'HER', 149.10, 0)   # in the silence: she pays
 
+# END CARD: she taps to pay (a chime), the music comes back on: 4 bars of the opening chant, cut on the next downbeat
+# with a short stab, then silence for the logo hold. Song-file times (untrimmed): pickup 12.06, downbeats 12.16 .. 19.76.
+END_CARD = len(sys.argv) <= 5 or sys.argv[5] != 'noreprise'
+CHIME_AT, REPRISE_AT, REP_A, REP_B, STAB = 151.45, 152.00, 12.06, 19.76, 0.32
 end = max(c[3] + len(c[2]) / SR for c in cues) + 1.2
+if END_CARD: end = REPRISE_AT + (REP_B - REP_A) + STAB + 1.6
 N = int(end * SR)
 music = np.zeros((2, N), np.float32); music[:, :min(N, song.shape[1])] = song[:, :N]
+if END_CARD:
+    seg = song[:, int(REP_A * SR):int((REP_B + STAB) * SR)].copy()
+    fi = int(0.008 * SR); seg[:, :fi] *= np.linspace(0, 1, fi)[None, :]
+    s0 = int((REP_B - REP_A) * SR); tail = seg.shape[1] - s0
+    seg[:, s0:] *= np.exp(-np.linspace(0, 7, tail))[None, :]   # the stab on the downbeat rings out fast
+    i0 = int(REPRISE_AT * SR); music[:, i0:i0 + seg.shape[1]] += seg
+    # payment chime: two soft bell partials (E6 then B6), generic, not any real product's sound
+    tt = np.arange(int(0.6 * SR)) / SR
+    def bell(f, t0): u = np.clip(tt - t0, 0, None); return (np.sin(2 * np.pi * f * u) + 0.25 * np.sin(4 * np.pi * f * u)) * np.exp(-u / 0.13) * (tt >= t0)
+    ch = 0.16 * (bell(1318.5, 0.0) + bell(1975.5, 0.09))
+    j0 = int(CHIME_AT * SR); music[:, j0:j0 + len(ch)] += ch[None, :].astype(np.float32)
 
 # speech chain: high-pass, level to a fixed RMS, a room (early reflections + low-passed diffuse tail), mono to centre
 b, a = ss.butter(2, 90 / (SR / 2), 'high')
@@ -140,7 +158,13 @@ mix = mix[:, int(HEAD * SR):]
 fade = int(0.02 * SR); mix[:, :fade] *= np.linspace(0, 1, fade)[None, :]
 N = mix.shape[1]
 sf.write(out + '.wav', mix.T, SR, subtype='PCM_24')
-cue_out = [{'speaker': s, 'text': tx, 'start': round(o + 0.06 - HEAD, 3), 'end': round(o + len(y) / SR - HEAD, 3)} for s, tx, y, o, d in cues]
-json.dump({'duration': round(N / SR, 3), 'head_trim': HEAD, 'cues': cue_out}, open(out + '_cues.json', 'w'), indent=1)
+cue_out = [{'speaker': s, 'text': tx, 'start': round(o + 0.06 - HEAD, 3), 'end': round(o + len(y) / SR - HEAD, 3),
+            'file': f, 'file_t0': round(f0, 4), 'tempo': tp, 'master_t0': round(o - HEAD, 4)}   # file time f0 plays at master_t0
+           for (s, tx, y, o, d), (f, f0, tp) in zip(cues, srcs)]
+events = {'music_stop': round(MUSIC_STOP - HEAD, 3)}
+if END_CARD:
+    events.update({'chime': round(CHIME_AT - HEAD, 3), 'reprise_start': round(REPRISE_AT - HEAD, 3),
+                   'reprise_downbeat': round(REPRISE_AT + 12.16 - REP_A - HEAD, 3), 'stab': round(REPRISE_AT + REP_B - REP_A - HEAD, 3)})
+json.dump({'duration': round(N / SR, 3), 'head_trim': HEAD, 'events': events, 'cues': cue_out}, open(out + '_cues.json', 'w'), indent=1)
 print(f'wrote {out}.wav  {N / SR:.2f} s  input peak {peak:.3f}  lines {len(cues)}')
 for c in cue_out: print(f"  {c['start']:7.2f}-{c['end']:7.2f} {c['speaker']}: {c['text']}")

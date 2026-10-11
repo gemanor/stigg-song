@@ -118,29 +118,27 @@ export function noise2(x, y) {
 // ---------- palette (sRGB hex; use E.col() for linear THREE.Color). REPLACE PER PROJECT from STYLE.md.
 // Keep the role keys black / ink / white / accent (the HUD and templates use them). The rest is a starter set for three looks.
 export const PAL = {
-  // roles
-  black: "#000000",
-  ink: "#0B0B0B",
-  white: "#FFF6E6",
-  accent: "#FFC21A",
-  // dark look: black + glowing warm lines (HDR > 1 blooms)
-  ember: "#3A1200",
-  rust: "#8A2E00",
-  hot: "#FF4A1C",
-  orange: "#FF6A13",
-  amber: "#FFB000",
-  gold: "#FFC21A",
-  // paper look: white / bone + ink + one accent
-  paper: "#F4F1EA",
+  // roles (the HUD and templates use these)
+  black: "#131512", // Stigg neutral-950: the ground
+  ink: "#131512",
+  white: "#FFFFFF",
+  accent: "#92E759", // Stigg green-100: HIM, allowed/live
+  // Stigg palette (STYLE.md)
+  void: "#000000", // the 144.00 blackout only
+  paper: "#F9F8F5",
+  green: "#92E759",
+  mint: "#6BF8C2",
+  cyan: "#69FFF1",
+  coral: "#FF776D", // HER, blocked/denied
+  line: "#393A38",
+  cell: "#436633",
+  panel: "#1E211F",
+  grey: "#959595",
+  dgrey: "#5A5B5A",
+  dgreen: "#1B4D39",
+  pale: "#DEFCCA",
   pure: "#FFFFFF",
-  grey: "#8C8A86",
-  // pop look: flat colour fields
-  tangerine: "#FF6A13",
-  lemon: "#FFE14D",
-  pink: "#FF7AC0",
-  cobalt: "#2F54FF",
-  mint: "#3EE6B0",
-  lilac: "#B9A7FF",
+  ember: "#1B4D39", // template compatibility (3D extrusion sides)
 };
 
 // ---------- audio / lyric timeline

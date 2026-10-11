@@ -46,3 +46,26 @@ Cross-check with the Scenario usage API (2026-10-11 15:05 UTC): project total 1,
 - Gemini Omni 1.1 Flash img2video: 6 s 720p = 120 CU · 10 s 1080p = 200 CU (Starter OK)
 - MiniMax H3 Max Turbo I2V: 6 s 768P = 48 CU (Starter OK)
 - Seedance 2.5 / LTX lip-sync / MiniMax H3 / Wan 3.0 / Kling V3: Pro only
+
+## Round 4 — video footage (2026-10-11, director: "go all out")
+Model bake-off on one frame (HIM chant, chroma blue): **Gemini Omni 1.1 Flash won**. It kept the flat blue, the 2D style and the identity. Vidu Q4 drifted the backdrop from deep blue to sky blue in 0.5 s. MiniMax H3 Max Turbo replaced the backdrop with a stadium and garbled text. Style frames: GPT Image 2.5 Sunburst 1536×864 high, 2 options per shot.
+
+| what | model | job | asset(s) | CU |
+|---|---|---|---|---|
+| bake-off frame HIM chant ×2 | gpt-image-2-5-sunburst | job_RcemRvSjrDh5cAPEV8xcsTMu | **asset_VVXrys7LFc5NCoEjQGooKsr9 (used)**, asset_FFKrwWdvTWiKeSR5DmmUR9XJ | 24 |
+| bake-off frame HER eye-roll ×2 | gpt-image-2-5-sunburst | job_BAU2G4eTBfNKcETa7JoZEbXq | asset_Cfkz2X8MsKUSaFe1SGi5E8aR, **asset_Yip5qg1A95e4PKhmCN2BzRgp (her_unimpressed)** | 24 |
+| bake-off clip → `him_chant` | google-omni-1-1-flash 6 s 1080p | job_UYxVocvaYt8NyGkxkmJWGQLV | **asset_ogrqU94UKU82cfirpttTYLJa** | 120 |
+| bake-off clip (rejected) | vidu-i2v-q4 6 s 1080p | job_Mp6dwc6SwTMJCxxeKTu1Jp9X | asset_zczk1rihrnni28UzSnjRLcqh | 127 |
+| bake-off clip (rejected) | minimax-h3-max-turbo-i2v 6 s 768P | job_4MjeYQdZT7oHy5CQwLv9ShQE | asset_UhgPUsgAuYcHQjqZ3buG9X72 | 48 |
+| frames party_wide ×2 | gpt-image-2-5-sunburst | job_8PTqVSS7yYnW2ABSEKUJpbRw | **asset_h36miwfJFTYV8NmUzx4P82gu**, asset_R5K7GKjbGcw4xAgpfpSZoCaJ | 25 |
+| frames him_cu_talk ×2 | gpt-image-2-5-sunburst | job_PG98j24rT3nLPNTjYCyi54P7 | **asset_ehEKkmSr6DZSiJd6cz4drsQz**, asset_5GnGa9FyCBTrqQLeqF2q2Ygf | 25 |
+| frames her_cu_talk ×2 | gpt-image-2-5-sunburst | job_q28pGb76Vy3YQHAAbcsZpNrM | asset_mBNreH7ruwgvyavV1nuoviKZ, **asset_z9oezMbuAivcDbQ25NRnXwAX** | 25 |
+| frames him_pitch ×2 | gpt-image-2-5-sunburst | job_oVtGnb7uUi2x2YSYw7Sneras | **asset_minZ5yRj7WryXMmQ6Uv6kHug**, asset_8zUWVmruiLGAL7A6Fu9DUi2G | 25 |
+| frames vc_plunge ×2 | gpt-image-2-5-sunburst | job_HKPFstdFF5XV1yD7e9B6dDdf | **asset_woQxjkEFdfesmP77R5iom2QC**, asset_CvM1F7PicaVua6RrrhGoWhd1 | 24 |
+| frames her_walkin_point ×2 | gpt-image-2-5-sunburst | job_sY6iYgjFGJnCkpHTcPn1YnGS | **asset_E1CXHuTjKYSVkztaopk51MRC**, asset_JFaYnydUExCduxuHWGqTwahY | 25 |
+| clip `party_wide` | google-omni-1-1-flash 6 s 1080p | job_VjQfK2orLJ2Kj61xs6rQkHgf | asset_GDWtUdgwcan2ybjHVy83nYdj | 120 |
+| clip `her_unimpressed` | google-omni-1-1-flash 6 s 1080p | job_kKXqtZsCPWm2WoZwwwq1baii | asset_gUu3t99V57sMYZUCSXojZvhY | 120 |
+| clip `him_cu_talk` | google-omni-1-1-flash 6 s 1080p | job_b4ZgjF7F3cjCqABWWPXwEP1G | asset_fu2Ze2n8YJHKe8yNtSf4tMTE | 120 |
+| clip `her_cu_talk` | google-omni-1-1-flash 6 s 1080p | job_KN4B4hdcqLuu9TrM5F6e4hxG | asset_rDv17H6bDYteK7gtfVEaffKQ | 120 |
+
+Round 4 subtotal so far: 972 CU (frames 197 · clips 775). The footage agent appends the rest below.

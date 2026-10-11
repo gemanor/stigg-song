@@ -1,0 +1,40 @@
+{
+  "_common": {
+    "model": "model_google-omni-1-1-flash",
+    "params": {"resolution": "1080p", "aspectRatio": "16:9"},
+    "prompt_head": "Animate this exact image. Keep its exact 2D cartoon art style for the whole clip: clean black ink outlines, flat colours, soft cel shading, the same character design(s) and proportions. No 3D rendering, no added shading, no new details, no new objects.\n\nCamera: locked-off static camera, no zoom, no pan.\n\nBackground: stays one perfectly flat, uniform chroma-key blue for the entire clip. No shadows, no floor, no gradient, no light changes.\n\nAction: ",
+    "prompt_tail": "\n\nNo text, no captions, no logos, no watermark, no other people. Silent."
+  },
+  "done": {
+    "him_chant": "asset_ogrqU94UKU82cfirpttTYLJa",
+    "party_wide": "asset_GDWtUdgwcan2ybjHVy83nYdj",
+    "her_unimpressed": "asset_gUu3t99V57sMYZUCSXojZvhY",
+    "him_cu_talk": "asset_fu2Ze2n8YJHKe8yNtSf4tMTE",
+    "her_cu_talk": "asset_rDv17H6bDYteK7gtfVEaffKQ"
+  },
+  "in_flight": {
+    "him_pitch": {"job": "job_JtTJtoR4rnfrR8QRLbdzBaNA", "frame": "asset_minZ5yRj7WryXMmQ6Uv6kHug"},
+    "him_dance_frames": {"job": "job_LMRjuLaiZT2Uxc61iaRJMnti"}
+  },
+  "frames_picked_not_animated": {
+    "vc_plunge": "asset_woQxjkEFdfesmP77R5iom2QC",
+    "her_walkin_point": "asset_E1CXHuTjKYSVkztaopk51MRC"
+  },
+  "shots": {
+    "vc_plunge": {"duration": 6, "action": "he shivers violently in the ice, teeth chattering, struggling to sign the tablet with a trembling stylus; ice cubes jostle around him; near the end he scribbles a signature and gives a frozen, shaky thumbs-up. He stays in the barrel."},
+    "her_walkin_point": {"duration": 6, "action": "she walks in a few confident strides toward the center-left, sipping her iced matcha through the straw, then stops, looks at the empty space on the right and points at it skeptically with her free hand, one eyebrow raised. Her whole body stays in frame."},
+    "him_dance": {"duration": 6, "action": "a stiff, deadpan little dance: he pops finger guns at the camera in a steady rhythm (about one every second), with a small hip pop left and right and a slight shoulder shimmy, face totally bored and smug. His feet stay in the same spot."},
+    "date_table": {"duration": 6, "action": "a date at the small cafe table. He explains his startup with big sweeping two-handed gestures, talking fast and earnest; she listens with her chin on her hand, blinks slowly, takes one sip of her matcha and raises an eyebrow at him. Both stay seated."},
+    "her_rap": {"duration": 6, "action": "she raps with attitude straight to the camera: counting points off on her fingers one by one, head bobbing to a steady beat, mouth moving with the words, a confident smirk, a quick sip of matcha between lines. She stays in the same spot."},
+    "him_idle_front": {"duration": 5, "action": "he stands still facing the camera like a mannequin modelling his outfit: totally deadpan, chewing slowly, blinking, a tiny weight shift, hands staying in his hoodie pocket."},
+    "her_mock_chant": {"duration": 6, "action": "she mockingly imitates his stiff stadium chant: pumping her fist up and down stiffly in a steady rhythm with an exaggerated bored face and rolling eyes, mouth open in a fake shout, her iced matcha held in the other hand. Her feet stay planted."},
+    "her_facepalm": {"duration": 4, "action": "she bursts out laughing behind her hand, shoulders shaking, then slowly drags her hand down her face in disbelief."},
+    "duo_dance": {"duration": 8, "action": "they dance side by side to a steady beat. He does stiff, deadpan fist pumps with small knee bounces; she copies him in an exaggerated, mocking way with a sarcastic grin, her iced matcha in her other hand. Both stay in place, both whole bodies stay in frame."},
+    "him_gottago": {"duration": 5, "action": "he gets up to leave: half-turns away, throws finger guns over his shoulder with a smug wink, then turns his head away as if walking off. He stays in frame."},
+    "her_whopays": {"duration": 5, "action": "she slowly slides the black bill folder across the table toward the right with two fingers, raising one eyebrow and smiling sweetly but dangerously, then taps the folder twice."},
+    "him_outoftokens": {"duration": 5, "action": "he freezes with an awkward forced smile, eyes darting left and right, sweating; he pats his hoodie pocket, finds nothing, and his smile gets wider and more mortified."},
+    "her_pays": {"duration": 6, "action": "unbothered, she hands her iced matcha off to the right without looking, then taps her coral phone on the small black card terminal; a tiny green light blinks on the terminal; she gives a confident little smirk."},
+    "her_victory": {"duration": 6, "action": "triumphant, she does a confident, energetic stadium fist pump, pumping her fist up on a steady beat, shouting proudly, her blazer swinging, bouncing slightly on her feet. Her whole body stays in frame."},
+    "him_holds_matcha": {"duration": 5, "action": "he stands holding her iced matcha in both hands in front of his chest, deadpan; he looks down at the cup, then back at the camera, and takes one tiny awkward sip through the straw."}
+  }
+}

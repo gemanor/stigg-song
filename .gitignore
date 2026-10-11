@@ -13,3 +13,5 @@ tools/models/
 audio/*.wav
 assets/gen/
 assets/vo/*.mp3
+assets/frames/*.png
+assets/clips/**/*.mp4

@@ -1,45 +1,41 @@
-// Delivery canvas, chosen once in the brief: 'landscape' (1920x1080), 'portrait' (1080x1920), 'square' or 'WxH'.
-// render.mjs/still.mjs --canvas overrides it to render the same project at a second ratio.
+// "I'M AN AI FOUNDER" edit decision list. Sections cut on downbeats or just before a vocal pickup (TREATMENT.md).
 export const CANVAS = "landscape";
-
-// Optional safe-band override per orientation, as fractions of the canvas; sides it does not name keep their default.
-// A 9:16 canvas defaults to the platform-UI band (top 0.14, bottom 0.35, left 0.06, right 0.13), anything else to the full frame.
 // export const SAFE = { landscape: { top: 0.1, bottom: 0.1, left: 0.1, right: 0.1 } };
 
-// Master edit decision list. One entry per section scene (hard cuts at section boundaries, on downbeats or just
-// before a vocal pickup), plus the global HUD on top. Scenes render only inside [start, end). id = file name in engine/scenes/.
-//   file:    optional, use another file than <id>.js
-//   variant: optional alternate version of a section (e.g. two endings). Only variant 'a' renders unless you pass --variant b.
-//            Entries without a variant always render.
-//   canvas:  optional 'portrait' | 'landscape' | 'square' (or a list): the entry renders only on that canvas. Use it when one
-//            section needs a different layout per ratio; entries without it render on every canvas.
 export const TIMELINE = [
-  { id: "intro", file: "_template.js", start: 0.0, end: 16.66, z: 0 }, // replace with your own scene files
-  // { id: 'hook1',  start: 16.66, end: 37.60, z: 0 },
-  // { id: 'hook1_v', start: 16.66, end: 37.60, z: 0, canvas: 'portrait' }, // with canvas: 'landscape' on hook1
-  // { id: 'outro',   start: 140.0, end: 150.0, z: 0, variant: 'a' },
-  // { id: 'outro_b', start: 140.0, end: 153.0, z: 0, variant: 'b' },     // may run past the song: render.mjs pads silence
-  { id: "hud", start: 0.0, end: 9999, z: 100 },
+  { id: "intro", start: 0.0, end: 8.4, z: 0, direct: true },
+  { id: "drop", start: 8.4, end: 17.4, z: 0, direct: true },
+  { id: "verse1", start: 17.4, end: 32.8, z: 0, direct: true },
+  { id: "pre1", start: 32.8, end: 42.55, z: 0, direct: true },
+  { id: "chorus1", start: 42.55, end: 56.12, z: 0, direct: true },
+  { id: "skit2", start: 56.12, end: 68.02, z: 0, direct: true },
+  { id: "verse2", start: 68.02, end: 86.96, z: 0, direct: true },
+  { id: "chorus2", start: 86.96, end: 100.38, z: 0, direct: true },
+  { id: "bridge", start: 100.38, end: 118.85, z: 0, direct: true },
+  { id: "chorus3", start: 118.85, end: 134.5, z: 0, direct: true },
+  { id: "outro", start: 134.5, end: 147.8, z: 0, direct: true },
+  { id: "endcard", start: 147.8, end: 157.99, z: 0, variant: "a", direct: true },
+  { id: "endcard_b", file: "endcard.js", start: 147.8, end: 157.99, z: 0, variant: "b", direct: true }, // + AFTER TOKENS · NOV 10 · SAN FRANCISCO
+  { id: "_smoke", start: 0.0, end: 6.0, z: 0, variant: "smoke", direct: true }, // lead's smoke test, never in a delivery
+  { id: "hud", start: 0.0, end: 9999, z: 100, direct: true },
 ];
 
-// Persistent frame. See engine/scenes/hud.js for every option.
 export const HUD = {
-  title: "SONG TITLE",
-  mark: null, // or { path: '<svg path d>', w, h, alphas: [1] }
   sections: [
-    [0, "INTRO"],
-    [16.66, "HOOK_01"],
+    [0, "SKIT_01"],
+    [8.4, "DROP"],
+    [17.4, "VERSE_01"],
+    [32.8, "PRE_HOOK"],
+    [42.55, "HOOK_01"],
+    [56.12, "SKIT_02"],
+    [68.02, "VERSE_02"],
+    [86.96, "HOOK_02"],
+    [100.38, "DUE_DILIGENCE"],
+    [118.85, "HOOK_03"],
+    [134.5, "CHECKOUT"],
+    [147.8, "TOP_UP"],
   ],
-  counters: [
-    // The spine lives here when the concept has one, e.g. a clock or a counter that grows over the song:
-    // { label: '', keys: [[0, 120], [150, 420]], fmt: 'clock', suffix: ' AM' },
-    // { label: 'COUNT', keys: [[0, 1], [40, 10000], [150, Infinity]], interp: 'log', fmt: 'short' },
-  ],
-  progress: true,
 };
 
-// Project-wide post defaults (merged over the neutral engine defaults; scenes can still override per frame via E.post).
-// Neutral = footage passes through untouched. Use grade:'warm' only for amber-on-black, mostly graphics pieces.
-export const POST = {
-  // grade: 'warm', grain: 0.045, vignette: 0.35, ca: 0.0015, invertCol: '#FFA010',
-};
+// Neutral grade: footage passes through untouched. Bloom off by default (CPU render budget); a scene may set E.post.bloom.
+export const POST = { bloom: 0 };

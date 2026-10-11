@@ -1,0 +1,154 @@
+{
+ "party_wide": {
+  "prompt": "Use the reference images: two characters, the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers), and the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium-wide two-shot from the knees up. She stands on the left third, he stands on the right third, with clear empty space between them and generous headroom.\n\nAction: she has just walked up to him with a flirty little smile and a small wave, holding an iced matcha latte in a clear cup with a green straw. He doesn't look up: he stares down at his phone (its screen lights his face), and absent-mindedly holds a lilac energy-drink can out toward her as if she were a waiter.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_f56ULW38mdefcTbKSStDjLZi",
+   "asset_85EPc4FpCvABr72gFoszhHu8"
+  ]
+ },
+ "him_cu_talk": {
+  "prompt": "Use the reference images: the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium close-up from the chest up, his face turned three-quarters toward the camera, framed on the right half with the left half empty for typography.\n\nAction: deadpan, mid-sentence, explaining something he finds obvious: eyebrows slightly raised, eyes half-lidded and bored, mouth open on a word.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_4BxStcwBSBwmDfMsAMgK3CLZ",
+   "asset_f56ULW38mdefcTbKSStDjLZi"
+  ]
+ },
+ "her_cu_talk": {
+  "prompt": "Use the reference images: the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium close-up from the chest up, her face turned three-quarters toward the camera, framed on the left half with the right half empty for typography.\n\nAction: skeptical and amused, mid-question: one eyebrow raised high, lips parted on a word, holding an iced matcha latte (clear cup, green straw) near her chin.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_LBebiDxEovTojQScwGYdBv5R",
+   "asset_85EPc4FpCvABr72gFoszhHu8"
+  ]
+ },
+ "him_pitch": {
+  "prompt": "Use the reference images: the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium-wide shot from the thighs up, standing on the left third and turned three-quarters toward the right. The right two thirds of the frame are empty (his slides will go there).\n\nAction: pitching like it's demo day: one arm extended, palm open, presenting toward the empty right side; the other hand holds a small presentation clicker. Smug, confident, deadpan.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_f56ULW38mdefcTbKSStDjLZi",
+   "asset_4BxStcwBSBwmDfMsAMgK3CLZ"
+  ]
+ },
+ "vc_plunge": {
+  "prompt": "Use the reference images: a NEW character in the same art style as the reference sheet: a middle-aged venture capitalist (fictional, not a real person), short grey hair, neat grey stubble, wearing a navy fleece vest over a blue button-down shirt. Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium-wide shot, framed on the right two thirds, with the left third empty.\n\nAction: he sits up to his chest in a round wooden cold-plunge tub full of ice water and floating ice cubes, still in his fleece vest, shivering hard, teeth chattering, frost on his eyebrows, signing a term sheet on a tablet with a stylus in a trembling hand. The tub is the only prop.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq"
+  ]
+ },
+ "her_walkin_point": {
+  "prompt": "Use the reference images: the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a full-body shot of her walking in from the left, framed on the left third, the whole body visible from head to sneakers with space under her feet. The right two thirds are empty.\n\nAction: mid-stride, sipping an iced matcha latte (clear cup, green straw) through the straw, eyes sideways toward the empty right side, her other hand pointing at it, deeply unconvinced.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_85EPc4FpCvABr72gFoszhHu8",
+   "asset_LBebiDxEovTojQScwGYdBv5R"
+  ]
+ },
+ "him_dance": {
+  "prompt": "Use the reference images: the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a full-body shot, centered, the whole body visible from cap to sneakers with space under his feet and generous headroom.\n\nAction: a stiff, deadpan little dance move: finger guns pointing straight at the camera, one knee bent, hips slightly popped, a smug half-smile, eyes half-lidded.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_f56ULW38mdefcTbKSStDjLZi",
+   "asset_4BxStcwBSBwmDfMsAMgK3CLZ"
+  ]
+ },
+ "date_table": {
+  "prompt": "Use the reference images: two characters, the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers), and the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium-wide two-shot of them seated across a small round white cafe table on two simple light-wood chairs, seen from the side. She sits on the left, he sits on the right.\n\nAction: a date. He talks with both hands, gesturing big as if explaining a world-changing startup; his lilac energy-drink can is on the table. She leans her chin on one hand, skeptical, an iced matcha latte (clear cup, green straw) in front of her.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_f56ULW38mdefcTbKSStDjLZi",
+   "asset_85EPc4FpCvABr72gFoszhHu8"
+  ]
+ },
+ "her_rap": {
+  "prompt": "Use the reference images: the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium shot from the waist up, framed on the left half with the right half empty for typography.\n\nAction: rapping with attitude straight to the camera: counting points off on her fingers with one hand, holding an iced matcha (clear cup, green straw) in the other, a confident smirk, mouth open on a word.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_85EPc4FpCvABr72gFoszhHu8",
+   "asset_LBebiDxEovTojQScwGYdBv5R"
+  ]
+ },
+ "him_idle_front": {
+  "prompt": "Use the reference images: the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a full-body front view, centered, the whole body visible from cap to sneakers with space under his feet and generous headroom on both sides.\n\nAction: standing straight facing the camera with both hands in his hoodie pocket, totally deadpan, chewing slightly (a nicotine pouch in his lip), like a mannequin modelling his own outfit.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_f56ULW38mdefcTbKSStDjLZi"
+  ]
+ },
+ "her_mock_chant": {
+  "prompt": "Use the reference images: the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a full-body shot framed slightly left of center, the whole body visible with space under her feet and generous headroom.\n\nAction: mocking his stadium chant: one fist pumped up in a stiff, exaggerated imitation, mouth open in a fake bored shout, eyes rolled, holding her iced matcha (clear cup, green straw) in the other hand.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_85EPc4FpCvABr72gFoszhHu8",
+   "asset_LBebiDxEovTojQScwGYdBv5R"
+  ]
+ },
+ "her_facepalm": {
+  "prompt": "Use the reference images: the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium close-up from the chest up, centered, with headroom.\n\nAction: she can't believe what she just heard: laughing helplessly behind one hand, eyes squeezed shut, shoulders shaking.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_LBebiDxEovTojQScwGYdBv5R",
+   "asset_85EPc4FpCvABr72gFoszhHu8"
+  ]
+ },
+ "duo_dance": {
+  "prompt": "Use the reference images: two characters, the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers), and the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a wide full-body two-shot, both whole bodies visible from head to sneakers with space under their feet. He is on the left, she is on the right, with a little space between them.\n\nAction: dancing side by side. He does his stiff, deadpan stadium fist pump; she does a mocking, exaggerated copy of it next to him with a sarcastic grin, her iced matcha in her other hand.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_f56ULW38mdefcTbKSStDjLZi",
+   "asset_85EPc4FpCvABr72gFoszhHu8"
+  ]
+ },
+ "him_gottago": {
+  "prompt": "Use the reference images: the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium shot from the waist up, framed on the right half with the left half empty.\n\nAction: getting up to leave: half-turned away, finger guns over his shoulder, a smug wink, the lilac energy-drink can tucked under his arm.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_f56ULW38mdefcTbKSStDjLZi",
+   "asset_4BxStcwBSBwmDfMsAMgK3CLZ"
+  ]
+ },
+ "her_whopays": {
+  "prompt": "Use the reference images: the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium close-up from the chest up, seated, framed on the left half with the right half empty.\n\nAction: one eyebrow raised, a sweet-but-dangerous smile, sliding a black restaurant bill folder across the table toward the right with two fingers.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_LBebiDxEovTojQScwGYdBv5R",
+   "asset_85EPc4FpCvABr72gFoszhHu8"
+  ]
+ },
+ "him_outoftokens": {
+  "prompt": "Use the reference images: the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium close-up from the chest up, centered, with headroom.\n\nAction: caught: a frozen, awkward, forced smile, a drop of sweat on his temple, eyes darting sideways, one hand patting his empty hoodie pocket.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_4BxStcwBSBwmDfMsAMgK3CLZ",
+   "asset_f56ULW38mdefcTbKSStDjLZi"
+  ]
+ },
+ "her_pays": {
+  "prompt": "Use the reference images: the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a medium shot from the waist up, framed on the left half with the right half empty.\n\nAction: unbothered and in control: handing her iced matcha (clear cup, green straw) off to the right with one hand (as if to someone off screen), while tapping her coral phone on a small black card-payment terminal with the other. A confident little smirk.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_85EPc4FpCvABr72gFoszhHu8",
+   "asset_LBebiDxEovTojQScwGYdBv5R"
+  ]
+ },
+ "her_victory": {
+  "prompt": "Use the reference images: the sharp young woman from the reference sheet (dark hair in a low messy bun with loose strands, gold hoop earrings, winged eyeliner, red lips and red nails, oversized black blazer with rolled sleeves, plain white t-shirt, wide black trousers, white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a full-body shot, centered, the whole body visible with space under her feet and generous headroom.\n\nAction: triumphant: a confident, energetic stadium fist pump straight up, mouth open in a proud shout, blazer swinging, no drink in her hands.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_YA5LAp8nvfeDzMsiUzrwStTx",
+   "asset_85EPc4FpCvABr72gFoszhHu8",
+   "asset_LBebiDxEovTojQScwGYdBv5R"
+  ]
+ },
+ "him_holds_matcha": {
+  "prompt": "Use the reference images: the young San Francisco AI founder from the reference sheet (curly dark hair, beige baseball cap with the lowercase word 'building' on the front, grey oversized hoodie with a small black stair-step logo on the chest, black lanyard with a white and light-blue conference badge, white wireless earbuds, black smart band, black joggers, white socks, chunky white sneakers). Keep the exact faces, proportions, outfits and the exact same 2D cartoon art style as the reference sheets: clean confident black ink outlines, flat colours with soft cel shading, editorial cartoon look. Not 3D, not Pixar, not anime, not chibi, not photoreal.\n\nShot: a full-body shot framed on the right third, the whole body visible with space under his feet. The left two thirds are empty.\n\nAction: holding her iced matcha latte (clear cup, green straw) in both hands in front of his chest like a trophy he didn't ask for, totally deadpan, a little sheepish.\n\nBackground: one perfectly flat, uniform chroma-key blue (#1E3CFF) filling the entire frame edge to edge. No floor line, no cast shadow, no gradient, no vignette, no texture, no environment. Even, flat studio light on the characters with no blue light spill.\n\nNo text, no letters, no captions, no logos other than the word 'building' on his cap, no watermark, no other people.",
+  "referenceImages": [
+   "asset_jEr8bX8XwUSWJpKLEhxoLKjq",
+   "asset_f56ULW38mdefcTbKSStDjLZi",
+   "asset_4BxStcwBSBwmDfMsAMgK3CLZ"
+  ]
+ }
+}
