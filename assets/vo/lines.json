@@ -613,5 +613,45 @@
   "on": 0.175,
   "off": 1.26,
   "dur": 1.52
+ },
+ "assets/vo/C1_her_tonight.mp3": {
+  "on": 0.075,
+  "off": 1.575,
+  "dur": 1.84
+ },
+ "assets/vo/C2_him_celsius.mp3": {
+  "on": 0.155,
+  "off": 1.605,
+  "dur": 1.84
+ },
+ "assets/vo/C3_him_cantdate.mp3": {
+  "on": 0.03,
+  "off": 2.615,
+  "dur": 2.96
+ },
+ "assets/vo/C4_her_whatt.mp3": {
+  "on": 0.135,
+  "off": 1.39,
+  "dur": 1.6
+ },
+ "assets/vo/D1_her_tonight.mp3": {
+  "on": 0.155,
+  "off": 1.775,
+  "dur": 2.16
+ },
+ "assets/vo/D2_him_celsius.mp3": {
+  "on": 0.185,
+  "off": 1.3,
+  "dur": 1.52
+ },
+ "assets/vo/D3_him_cantdate.mp3": {
+  "on": 0.07,
+  "off": 2.76,
+  "dur": 3.12
+ },
+ "assets/vo/D4_her_whatt.mp3": {
+  "on": 0.195,
+  "off": 1.77,
+  "dur": 2.08
  }
 }

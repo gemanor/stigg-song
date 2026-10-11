@@ -42,3 +42,6 @@ Running total ≈ 1,437 CU (song 1,386 · characters 51).
 - Gemini Omni 1.1 Flash img2video: 6 s 720p = 120 CU · 10 s 1080p = 200 CU (Starter OK)
 - MiniMax H3 Max Turbo I2V: 6 s 768P = 48 CU (Starter OK)
 - Seedance 2.5 / LTX lip-sync / MiniMax H3 / Wan 3.0 / Kling V3: Pro only
+| on-theme re-reads of the opening, 2 takes x 4 lines (C/D) | elevenlabs-tts-v4-turbo | C1 asset_QNB4ZrcXLVcXH66ZU95T8Bkt · D1 asset_tan6q3ydWeU4LV2LHSGH8FQA · C2 asset_ozAhDsv4wd7v9jXU4q3XtjzL · D2 asset_g28RL32mUDXjZJAtDVViowYb · C3 asset_vYpLakk6Ry1YMhVt9uijEXLG · D3 asset_mefAhF8rnzATWzWv5fCimZTh · C4 asset_qFRHmevZTwFPjQa5yVoukWGP · D4 asset_1sG6sKCSLK1oHrfAnsRRchbq | 64 |
+
+Running total ≈ 1,501 CU. Intro now: tight gaps, rubberband tempo 1.06, head trimmed so the first line starts at 0.7 s; song 2:30.

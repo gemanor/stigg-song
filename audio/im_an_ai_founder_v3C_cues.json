@@ -1,0 +1,174 @@
+{
+ "duration": 150.206,
+ "head_trim": 3.634,
+ "cues": [
+  {
+   "speaker": "HER",
+   "text": "Hey. What are you doing tonight?",
+   "start": 0.704,
+   "end": 2.229
+  },
+  {
+   "speaker": "HIM",
+   "text": "Hold my Celsius.",
+   "start": 2.419,
+   "end": 3.897
+  },
+  {
+   "speaker": "HIM",
+   "text": "I can't go on a date. I'm an AI founder.",
+   "start": 4.037,
+   "end": 6.557
+  },
+  {
+   "speaker": "HER",
+   "text": "...You're a what?",
+   "start": 7.025,
+   "end": 8.319
+  },
+  {
+   "speaker": "HER",
+   "text": "So what does your company actually do?",
+   "start": 56.466,
+   "end": 59.446
+  },
+  {
+   "speaker": "HIM",
+   "text": "We build agents. For agents.",
+   "start": 59.766,
+   "end": 62.091
+  },
+  {
+   "speaker": "HER",
+   "text": "And what do those agents do?",
+   "start": 62.466,
+   "end": 65.216
+  },
+  {
+   "speaker": "HIM",
+   "text": "...They're on the waitlist.",
+   "start": 65.666,
+   "end": 67.886
+  },
+  {
+   "speaker": "HER",
+   "text": "Revenue?",
+   "start": 100.886,
+   "end": 101.421
+  },
+  {
+   "speaker": "HIM",
+   "text": "I annualized a Tuesday.",
+   "start": 101.826,
+   "end": 103.521
+  },
+  {
+   "speaker": "HER",
+   "text": "Users?",
+   "start": 103.746,
+   "end": 104.476
+  },
+  {
+   "speaker": "HIM",
+   "text": "Waitlist.",
+   "start": 104.686,
+   "end": 105.266
+  },
+  {
+   "speaker": "HER",
+   "text": "Product?",
+   "start": 105.646,
+   "end": 106.271
+  },
+  {
+   "speaker": "HIM",
+   "text": "Next model.",
+   "start": 106.606,
+   "end": 107.241
+  },
+  {
+   "speaker": "HER",
+   "text": "Co-founder?",
+   "start": 107.566,
+   "end": 108.271
+  },
+  {
+   "speaker": "HIM",
+   "text": "Mac mini.",
+   "start": 108.506,
+   "end": 109.136
+  },
+  {
+   "speaker": "HER",
+   "text": "Salary?",
+   "start": 109.466,
+   "end": 110.126
+  },
+  {
+   "speaker": "HIM",
+   "text": "Tokens.",
+   "start": 110.406,
+   "end": 111.031
+  },
+  {
+   "speaker": "HER",
+   "text": "Girlfriend?",
+   "start": 111.366,
+   "end": 112.066
+  },
+  {
+   "speaker": "HIM",
+   "text": "Series B.",
+   "start": 112.326,
+   "end": 113.116
+  },
+  {
+   "speaker": "HER",
+   "text": "Five years?",
+   "start": 113.746,
+   "end": 114.756
+  },
+  {
+   "speaker": "HIM",
+   "text": "Post-AGI.",
+   "start": 115.166,
+   "end": 116.276
+  },
+  {
+   "speaker": "HER",
+   "text": "Oh my god.",
+   "start": 116.886,
+   "end": 118.301
+  },
+  {
+   "speaker": "HIM",
+   "text": "Anyway. Gotta go. See you after tokens.",
+   "start": 135.066,
+   "end": 138.516
+  },
+  {
+   "speaker": "HER",
+   "text": "Cute. Hold my matcha.",
+   "start": 138.966,
+   "end": 141.051
+  },
+  {
+   "speaker": "HER",
+   "text": "I'm an AI founder too. Series B.",
+   "start": 141.416,
+   "end": 144.176
+  },
+  {
+   "speaker": "HIM",
+   "text": "...So what are you doing tonight?",
+   "start": 145.266,
+   "end": 147.621
+  },
+  {
+   "speaker": "HER",
+   "text": "Board meeting.",
+   "start": 148.116,
+   "end": 149.006
+  }
+ ]
+}

@@ -7,7 +7,8 @@ Each cue: (file, speech_onset_in_song, duck_db). The bridge Q&A is cut from two 
 import sys, json, numpy as np, librosa, soundfile as sf, scipy.signal as ss
 
 song_path, out = sys.argv[1], sys.argv[2]
-INTRO = sys.argv[3] if len(sys.argv) > 3 else 'N'   # which intro readings: L (first takes) or N (natural re-reads)
+INTRO = sys.argv[3] if len(sys.argv) > 3 else 'C'   # intro readings: L, N, C or D
+TEMPO = float(sys.argv[4]) if len(sys.argv) > 4 else 1.0   # >1 tightens the intro lines (rubberband, pitch kept)
 SR = 48000
 song, _ = librosa.load(song_path, sr=SR, mono=False)
 if song.ndim == 1: song = np.stack([song, song])
@@ -20,22 +21,36 @@ def load(f, a=None, b=None):
     if a is not None: y = y[int(a * SR):int(b * SR)]
     return y
 
+def stretch(y, tempo):
+    """Formant-safe time compression through ffmpeg's rubberband filter."""
+    if abs(tempo - 1) < 1e-3: return y
+    import subprocess, tempfile, os
+    a, b = tempfile.mktemp(suffix='.wav'), tempfile.mktemp(suffix='.wav')
+    sf.write(a, y, SR); subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', a, '-af', f'rubberband=tempo={tempo}:pitchq=quality', b], check=True)
+    z, _ = librosa.load(b, sr=SR, mono=True); os.remove(a); os.remove(b); return z
+
 cues = []  # (speaker, text, audio, onset_in_song, duck_db)
-def place(key, text, speaker, onset, duck):
+def place(key, text, speaker, onset, duck, tempo=1.0):
     info = lines[f'assets/vo/{key}.mp3']
     y = load(f'assets/vo/{key}.mp3')[int(max(0, info['on'] - 0.06) * SR):int((info['off'] + 0.12) * SR)]
-    cues.append((speaker, text, y, onset - 0.06, duck))
+    cues.append((speaker, text, stretch(y, tempo), onset - 0.06 / tempo, duck))
 
 # INTRO: a party scene. Lines are timed backwards from the chant drop (~12.09) so "...You're a what?" lands right before it.
 intro_keys = {'L': ['L01_her_tonight', 'L02_him_celsius', 'L03_him_cantdate', 'L04_her_whatt'],
-              'N': ['N01_her_tonight', 'N02_him_celsius', 'N03_him_cantdate', 'N04_her_whatt']}[INTRO]
+              'N': ['N01_her_tonight', 'N02_him_celsius', 'N03_him_cantdate', 'N04_her_whatt'],
+              'C': ['C1_her_tonight', 'C2_him_celsius', 'C3_him_cantdate', 'C4_her_whatt'],
+              'D': ['D1_her_tonight', 'D2_him_celsius', 'D3_him_cantdate', 'C4_her_whatt']}[INTRO]
 texts = ['Hey. What are you doing tonight?', 'Hold my Celsius.', "I can't go on a date. I'm an AI founder.", "...You're a what?"]
-spk = ['HER', 'HIM', 'HIM', 'HER']; gaps = [0.77, 0.77, 1.10]   # pause before the next line
-spans = [lines[f'assets/vo/{k}.mp3']['off'] - lines[f'assets/vo/{k}.mp3']['on'] for k in intro_keys]
-onsets = [0.0] * 4; onsets[3] = 11.80 - spans[3]
+spk = ['HER', 'HIM', 'HIM', 'HER']
+gaps = [0.77, 0.77, 1.10] if INTRO in 'LN' else [0.30, 0.25, 0.55]   # pause before the next line
+tempo = 1.0 if INTRO in 'LN' else TEMPO
+spans = [(lines[f'assets/vo/{k}.mp3']['off'] - lines[f'assets/vo/{k}.mp3']['on']) / tempo for k in intro_keys]
+DROP_LINE_END = 11.84   # "...You're a what?" ends just before the chant drop (~12.09)
+onsets = [0.0] * 4; onsets[3] = DROP_LINE_END - spans[3]
 for i in (2, 1, 0): onsets[i] = onsets[i + 1] - gaps[i] - spans[i]
-for k, tx, sp, on in zip(intro_keys, texts, spk, onsets): place(k, tx, sp, on, -2)
-ROOM_UNTIL = 12.2   # lines before this get the party-room treatment
+for k, tx, sp, on in zip(intro_keys, texts, spk, onsets): place(k, tx, sp, on, -2, tempo)
+# head trim: the generated intro is near-silent at first; start the song 0.7 s before the first line
+HEAD = 0.0 if INTRO in 'LN' else max(0.0, round(onsets[0] - 0.7, 3))
 # SKIT 2 (lone-kick bed 59.73-71.73; verse 2 vocal at 72.27)
 place('L05_her_whatdo', 'So what does your company actually do?', 'HER', 60.10, -8)
 place('L06_him_agents', 'We build agents. For agents.', 'HIM', 63.40, -8)
@@ -104,8 +119,10 @@ mix = music * (10 ** (duck / 20))[None, :] + voice[None, :]
 # party ambience under the opening scene: in from 0, dips 5 dB under each line, fades out into the chant drop
 amb, _ = librosa.load('assets/vo/amb_party.mp3', sr=SR, mono=False)
 if amb.ndim == 1: amb = np.stack([amb, amb])
-L = min(amb.shape[1], int(12.6 * SR)); amb = amb[:, :L] * (10 ** (-30 / 20) / (np.sqrt(np.mean(amb ** 2)) + 1e-9))
-env = np.ones(L); fi = int(0.6 * SR); env[:fi] = np.linspace(0, 1, fi)
+h0 = int(HEAD * SR)
+L = min(amb.shape[1] + h0, int(12.6 * SR)); amb = amb[:, :L - h0] * (10 ** (-30 / 20) / (np.sqrt(np.mean(amb ** 2)) + 1e-9))
+amb = np.concatenate([np.zeros((2, h0), amb.dtype), amb], axis=1)
+env = np.ones(L); fi = int(0.35 * SR); env[:h0] = 0; env[h0:h0 + fi] = np.linspace(0, 1, fi)
 fo0, fo1 = int(11.9 * SR), int(12.5 * SR); env[fo0:fo1] = np.linspace(1, 0, fo1 - fo0); env[fo1:] = 0
 dip = np.ones(L)
 for spk, text, y, onset, dk in cues:
@@ -118,8 +135,11 @@ lim = 0.89  # about -1 dBFS
 over = np.abs(mix) > lim
 mix = np.where(over, np.sign(mix) * (lim + (1 - lim) * np.tanh((np.abs(mix) - lim) / (1 - lim))), mix)
 mix = np.clip(mix, -0.98, 0.98)
+mix = mix[:, int(HEAD * SR):]
+fade = int(0.02 * SR); mix[:, :fade] *= np.linspace(0, 1, fade)[None, :]
+N = mix.shape[1]
 sf.write(out + '.wav', mix.T, SR, subtype='PCM_24')
-cue_out = [{'speaker': s, 'text': tx, 'start': round(o + 0.06, 3), 'end': round(o + len(y) / SR, 3)} for s, tx, y, o, d in cues]
-json.dump({'duration': round(N / SR, 3), 'cues': cue_out}, open(out + '_cues.json', 'w'), indent=1)
+cue_out = [{'speaker': s, 'text': tx, 'start': round(o + 0.06 - HEAD, 3), 'end': round(o + len(y) / SR - HEAD, 3)} for s, tx, y, o, d in cues]
+json.dump({'duration': round(N / SR, 3), 'head_trim': HEAD, 'cues': cue_out}, open(out + '_cues.json', 'w'), indent=1)
 print(f'wrote {out}.wav  {N / SR:.2f} s  input peak {peak:.3f}  lines {len(cues)}')
 for c in cue_out: print(f"  {c['start']:7.2f}-{c['end']:7.2f} {c['speaker']}: {c['text']}")
