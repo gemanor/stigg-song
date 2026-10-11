@@ -67,5 +67,37 @@ Model bake-off on one frame (HIM chant, chroma blue): **Gemini Omni 1.1 Flash wo
 | clip `her_unimpressed` | google-omni-1-1-flash 6 s 1080p | job_kKXqtZsCPWm2WoZwwwq1baii | asset_gUu3t99V57sMYZUCSXojZvhY | 120 |
 | clip `him_cu_talk` | google-omni-1-1-flash 6 s 1080p | job_b4ZgjF7F3cjCqABWWPXwEP1G | asset_fu2Ze2n8YJHKe8yNtSf4tMTE | 120 |
 | clip `her_cu_talk` | google-omni-1-1-flash 6 s 1080p | job_KN4B4hdcqLuu9TrM5F6e4hxG | asset_rDv17H6bDYteK7gtfVEaffKQ | 120 |
+| clip `him_pitch` | google-omni-1-1-flash 6 s 1080p | job_JtTJtoR4rnfrR8QRLbdzBaNA | **asset_6XJSAGKeYtq6jc8bsKCWCLZC** | 120 |
+| frames him_dance ×2 | gpt-image-2-5-sunburst | job_LMRjuLaiZT2Uxc61iaRJMnti | **asset_54Wcu2fqpgCbe8AXJyjaiaca**, asset_PscdSAgBsE8RsJiWusEcLZdi | 25 |
+| clip `vc_plunge` | google-omni-1-1-flash 6 s 1080p | job_5oQLZKQc7MCiaR2gUfQVnaVD | **asset_uecJTWwSpA53PxDRBeh4VDjC** | 120 |
+| clip `her_walkin_point` | google-omni-1-1-flash 6 s 1080p | job_JWn2TJZgkgSTGKHYzhPejNQn | **asset_5UkB7hxDAVwU78PypMDEH7XC** | 120 |
+| clip `him_dance` | google-omni-1-1-flash 6 s 1080p | job_A5WuYK4RdKkavbw4rmWAN3is | **asset_fVYKBZTYv5GKBNkXp7GTHn6u** | 120 |
+| frames date_table ×2 | gpt-image-2-5-sunburst | job_mshwahwysJo1mg8MAc9sFyrU | asset_PuZRx9SchAFmRnwmuqrtuqZc, **asset_bk966d7mQXsfzUuuDuFrN7tP** | 25 |
+| frames her_rap ×2 | gpt-image-2-5-sunburst | job_kCFNz7NZTn3bdoe6nBZPL5FT | asset_11YQZveLEfPeimLgQMqkNATT, **asset_SN5iAuSVNGtBSpfrmkX34UXd** | 25 |
+| frames him_idle_front ×2 | gpt-image-2-5-sunburst | job_ByEJ44vTZqMvGzksTPfthfvb | **asset_fJBhuUUoDoNxUh7tPxRLLreT**, asset_38ihqi2XFEWwBm7m9hukrsYm | 24 |
+| clip `date_table` | google-omni-1-1-flash 6 s 1080p | job_Pqj5tXBMhBtVnUcpi2td5YkH | **asset_5DxAsckQi5gsLDP8txL4R2MN** | 120 |
+| clip `her_rap` | google-omni-1-1-flash 6 s 1080p | job_Q17LWq9guzrV8fyATkniT1Bp | **asset_hRoqQuk2wucrREzksLRgRsSv** | 120 |
+| clip `him_idle_front` | google-omni-1-1-flash 5 s 1080p | job_dj6XuvNNY5rybjt2h9SnYSvu | **asset_1vKM4j7D8ssvVU7wnwenCsrj** | 100 |
+| frames her_mock_chant ×2 | gpt-image-2-5-sunburst | job_7tWW4gweNefCffTwwoN68i1n | **asset_GmwbBqFJty3dszknwtbPrRFz**, asset_ThRGMmWz7Eswmrt7nwnx3kBS | 25 |
+| frames her_facepalm ×2 | gpt-image-2-5-sunburst | job_RkCqJN4KALqNrfv4kCUSQM1g | **asset_tbjEQfoVR39G4fn1XXfDAGBe**, asset_dtEu8nXRoQpuxYHHC8xhvCAi | 25 |
+| clip `her_mock_chant` | google-omni-1-1-flash 6 s 1080p | job_BZ4aU5vVbE728nZtkwBFjD4H | **asset_Tr8sumD7DB9aeUATDHCWsCAd** | 120 |
+| frames duo_dance ×2 | gpt-image-2-5-sunburst | job_VG8P6yrLp32i9M3dt1rrWBA7 | **asset_KyKQi2181xCyeD4wazHyVqTH**, asset_DpakGAGhA3RGpYhUcrf43Y2B | 25 |
+| clip `her_facepalm` | google-omni-1-1-flash 4 s 1080p | job_uoCAAx69FHaKuAqoiUFiWsAL | **asset_XyyDr3nqa1DjZoirh7ZjEe5i** | 80 |
+| clip `duo_dance` v1 (rejected: his lanyard + badge vanish at 0.17 s, her low bun turns into a top-knot from ~2 s; kept as assets/clips/rejected/duo_dance_v1.mp4) | google-omni-1-1-flash 8 s 1080p | job_VYtrYN7kN9AZwp5QXVMFLgCF | asset_FYPw1CpFQGtPNvXGxx674Dep | 160 |
+| frames him_gottago ×2 | gpt-image-2-5-sunburst | job_oj2UkVdJw87UVs4fUdPSUceg | **asset_dtuUN5RPL42uG5ir8ba7yrJG**, asset_Ef74VBNtKA1G3GUeW2sRjdT6 | 25 |
+| frames her_whopays ×2 | gpt-image-2-5-sunburst | job_NZrJj6F8ggtL8WeqPeWvwHxi | **asset_6HLjyKECw51DB978v6UozGCK**, asset_kjEA9B54pEMjvccqFZ2h5H5s | 25 |
+| clip `him_gottago` | google-omni-1-1-flash 5 s 1080p | job_GjFGqWedpVBHxYWEbeX27b8J | **asset_wjDJAujjLFjcVZ2EpPT8E3Tn** | 100 |
+| frames him_outoftokens ×2 | gpt-image-2-5-sunburst | job_6cEt4uZiM5eje6sP2ZdDLR62 | **asset_3TG3Y8NUS26hstFuDWR45J7B**, asset_atwdVBpuS1Nq88gM3CLkQGgW | 25 |
+| clip `her_whopays` | google-omni-1-1-flash 5 s 1080p | job_KBEGRdm2n8q4SeTtZjtgfd6p | **asset_JMEbn1c9FxK7bkKHC9MUC4JW** | 100 |
+| frames her_pays ×2 | gpt-image-2-5-sunburst | job_FkRVKKhnS6yjgzDKvLyJbcaV | **asset_CmL1tXhDLhexSMXqhF4B1ibu**, asset_WtPLh9LULTxwzGhRm9u1CVWc | 25 |
+| clip `him_outoftokens` | google-omni-1-1-flash 5 s 1080p | job_qHE8TC5EEBjqRXuv7qWrpdCv | **asset_zSTpHTkhZBhnQZ15ecKa17ti** | 100 |
+| clip `duo_dance` v2 (regen 1/3, prompt adds "lanyard + badge stay on his chest, her low bun stays") | google-omni-1-1-flash 8 s 1080p | job_zSEZtmQyPThCFNzhbVcPSfdU | **asset_CGfRbxZ7VvVBpr2HqyMMEBMx** | 160 |
+| clip `her_pays` | google-omni-1-1-flash 6 s 1080p | job_Um3xLPFPsvWZjwb7ajhYKnXX | **asset_7Yj361vAWMqLeYzWnYuB4FzA** | 120 |
+| frames her_victory ×2 | gpt-image-2-5-sunburst | job_kanSnAHt1UvcqWDm3c77Dpsm | asset_t1BhgBJZUgGdkys4MuZHJzs4, **asset_Rr9mWfYd4hHgz7T1p9gRoHkf** | 25 |
+| frames him_holds_matcha ×2 | gpt-image-2-5-sunburst | job_VcZgX3o4ygVFQBe4jQRR422m | asset_C7Z5imijyHBQyjMVdYC3roQk, **asset_PD1vngHQfmNbaUBnhyZCLhem** | 25 |
+| clip `her_victory` | google-omni-1-1-flash 6 s 1080p | job_4LcpVLJ9xAMyhqXkRTn1VzBf | **asset_FjbBMMRT3yKNgNRCsc74X1gK** | 120 |
+| clip `him_holds_matcha` | google-omni-1-1-flash 5 s 1080p | job_GREiq8vTgyPLd62PLdvP1UjR | **asset_bppjK87qsP7wGQ6RKg81drLg** | 100 |
 
 Round 4 subtotal so far: 972 CU (frames 197 · clips 775). The footage agent appends the rest below.
+
+Footage agent (2026-10-11 16:14-16:45 UTC): 30 rows above from `clip him_pitch` on = 2,304 CU (frames 324 · clips 1,980). That is 145 CU for the 2 jobs already in flight (him_pitch clip, him_dance frames) plus 2,159 CU launched by the footage agent (cap 2,600). Regenerations used: 1 of 3 (duo_dance, identity drift). Round 4 total: 3,276 CU (frames 521 · clips 2,755). All 21 clips are logged in `analysis/footage.md`.

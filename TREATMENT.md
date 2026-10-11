@@ -45,12 +45,20 @@ The party is muffled (low), then the DROP (high). Verse 1 is medium: smug, the d
 
 ## Footage map
 
-All clips: Gemini Omni 1.1 Flash image-to-video from a GPT Image 2.5 style frame, 1080p, 24 fps, flat chroma blue, keyed with `tools/key_blue.py`. Draw them with `matte:true` over your designed ground. "Slot" is a suggestion; any clip can be reused, cropped, mirrored or speed-ramped, but tell the lead.
+**`analysis/footage.md` is the footage map.** It covers 21 clips with measured key moments in clip seconds, framing, key quality and known glitches (with safe ranges).
 
-| clip | content (clip seconds) | for |
-|---|---|---|
-| `him_chant` | full body, right third. 0-1.4: one fist up, shouting. 1.4-5: two-fist deadpan pumps with knee bounces (a pump about every 0.9 s). 5-6: he lifts the lilac can | drop, choruses |
-| (more as they land; the lead fills this table in) | | |
+All clips are Gemini Omni 1.1 Flash image-to-video from a GPT Image 2.5 style frame: 1080p, 24 fps, flat chroma blue, keyed with `tools/key_blue.py`, pose-tracked. Draw them with `matte:true` over your designed ground. Any clip can be reused, cropped, mirrored or speed-ramped. Vary shared clips between sections.
+
+| clip | for |
+|---|---|
+| party_wide, him_cu_talk, her_cu_talk | intro (plus close-up inserts anywhere) |
+| him_chant, her_unimpressed | drop, choruses |
+| him_pitch, vc_plunge, her_walkin_point | verse 1, pre-chorus |
+| him_dance, her_mock_chant, duo_dance | choruses |
+| date_table, her_facepalm | skit 2, bridge |
+| her_rap, him_idle_front | verse 2 |
+| him_gottago, her_whopays, him_outoftokens, her_pays | outro |
+| her_victory, him_holds_matcha | end card |
 
 ## Defaults chosen without the director (flag at delivery)
 
