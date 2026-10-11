@@ -100,7 +100,8 @@ function blitBack(E, rt) {
   E.renderer.setRenderTarget(rt);
   E.blitG2D(E, g1, 1);
 }
-function blitFront(E) {
+function blitFront(E, used = true) {
+  if (!used) return; // skip the full-res upload when the FRONT layer is empty
   const [, g2] = surfaces(E);
   g2.commit();
   E.blitG2D(E, g2, 1);
@@ -163,7 +164,7 @@ function e2(E, t, rt) {
     const nose = smoothPt(v, lt, 0) ?? [0.5, 0.2], [hx, hy] = E.plateToScreen(E, v, [nose[0] + 0.045, nose[1] - 0.07], opts);
     tag(E, g2.ctx, hx, hy, [{ s: "● FOUNDER", c: B.C.green }, { s: "PROFITABLE" }], t, 148.94, { dx: wide(E) ? 130 : 90, dy: -70 });
   }
-  blitFront(E);
+  blitFront(E, !!v && t >= 148.94);
   E.hud.sub = false;
 }
 
@@ -215,7 +216,7 @@ function e3(E, t, rt) {
     const lines = wide(E) ? [{ s: "HOLDING · 1× ICED MATCHA", c: B.C.green }, { s: "$6.15 · PAID BY: HER" }] : [{ s: "1× ICED MATCHA", c: B.C.green }, { s: "PAID BY: HER" }];
     tag(E, g2.ctx, cx, cy - 20 * S, lines, t, CUT.e3 + 0.12, { dx: wide(E) ? -170 : -80, dy: wide(E) ? -120 : -150, size: wide(E) ? 30 : 26 });
   }
-  blitFront(E);
+  blitFront(E, !!v && t >= CUT.e3 + 0.12);
   E.hud.sub = false;
   if (t >= W[4].s - 0.03) E.hud.meter = false; // the lit wall would swallow the small meter for half a second
 }

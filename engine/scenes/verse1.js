@@ -101,7 +101,7 @@ function presFrame(U, which, t) {
 // founder bubble (Loom-style webcam circle) per shot, units
 function bubbleSpec(U, which) {
   const P = U.P, R = U.R;
-  if (which === "COMP") return P ? { cx: R.x + R.w - 175, cy: 1085, r: 195, fill: C.pale, ring: C.ink, name: "founder (host)" } : { cx: 440, cy: 640, r: 292, fill: C.pale, ring: C.ink, name: "founder (host)" };
+  if (which === "COMP") return P ? { cx: R.x + R.w / 2, cy: 1018, r: 222, fill: C.pale, ring: C.ink, name: null } : { cx: 440, cy: 640, r: 292, fill: C.pale, ring: C.ink, name: "founder (host)" };
   return P ? { cx: R.x + 150, cy: 990, r: 128, fill: C.pale, ring: C.green, name: null } : { cx: 200, cy: 826, r: 152, fill: C.pale, ring: C.green, name: null };
 }
 // title card placement (units): the slide drawn at z inside a dark stage
@@ -127,7 +127,9 @@ export default {
     const S = E.SCALE, U = K.units(E), O = D.O, P = U.P;
     const sh = shot(E, t), lt = localTimes(E, t, sh), slide = SL()[sh.s];
     const isTitle = sh.s === "TITLE";
-    const xf = isTitle ? titleXf(U) : { ox: 0, oy: 0, z: 1 };
+    // a slow push on every slide hold (the slide drifts, the footage bubbles stay put: parallax, never a dead hold)
+    const d = 0.012 * Math.max(0, t - (lastCut(t) ?? 17.4));
+    const xf = isTitle ? titleXf(U) : { ox: (-d * U.W0) / 2, oy: (-d * U.H0) / 2, z: 1 + d };
     const st = { t, tb: t, U, xf, v, lt, live: true };
     E.renderer.setRenderTarget(rt);
 
@@ -152,13 +154,16 @@ export default {
     } else {
       c.fillStyle = C.paper;
       c.fillRect(0, 0, U.W0, U.H0);
+      c.setTransform(S * xf.z, 0, 0, S * xf.z, S * xf.ox, S * xf.oy);
     }
     // TEAM/BENCH headshot = the lip-synced slot
     if (sh.s === "TEAM" && v.lip) st.head = { v: v.lip, lt: lt.lip, key: "lip", uvC: LIP_UV, ruv: LIP_R, sing: true, level: K.voice(E, t, "HIM") };
     slide.back(E, c, st);
     if (isTitle) c.restore();
     const bub = sh.bub && v.lip ? bubbleSpec(U, sh.bub) : null;
-    if (bub) { c.setTransform(S, 0, 0, S, 0, 0); K.bubbleBack(c, bub.cx, bub.cy, bub.r, { fill: bub.fill }); }
+    c.setTransform(S, 0, 0, S, 0, 0);
+    if (!isTitle) K.stageBand(E, c, U, slide.num === "04" && t >= O.it7 - 0.02 ? "05" : slide.num === "09" && t >= O.my15 - 0.07 ? "10" : slide.num, { progress: (t - 17.4) / (32.8 - 17.4) });
+    if (bub) K.bubbleBack(c, bub.cx, bub.cy, bub.r, { fill: bub.fill });
     gA.commit();
     E.blitG2D(E, gA, 1);
 

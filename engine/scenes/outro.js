@@ -118,7 +118,8 @@ function mid(E, rt, k, opts) {
   g2.clear();
   return g2.ctx;
 }
-function end(E) {
+function end(E, used = true) {
+  if (!used) return; // an empty FRONT surface would cost a full-res texture upload for nothing
   const [, g2] = surfaces(E);
   g2.commit();
   E.blitG2D(E, g2, 1);
@@ -156,8 +157,8 @@ function s1(E, t, rt) {
     E.drawText(c, "GOTTA", x0 + bolt, y, { ...f, align: "left", s: 1, sx: E.popScale(t, wG.s, { from: 1.25 }), alpha: E.wordAlpha(t, wG.s, 1e9) });
     if (t >= wGo.s - 0.05) E.drawText(c, "GO.", x0 + wg + bolt * 1.15, y, { ...f, align: "left", color: B.C.green, s: E.popScale(t, wGo.s, { from: 1.3 }), alpha: E.wordAlpha(t, wGo.s, 1e9) });
   }
-  const f = mid(E, rt, "s1", opts);
-  end(E);
+  mid(E, rt, "s1", opts);
+  end(E, false);
   E.hud.sub = false;
 }
 
@@ -200,7 +201,7 @@ function s2(E, t, rt) {
       }
     }
   }
-  end(E);
+  end(E, !!v && (t < CUT.s2 + 0.62 || ws.some((w) => t >= w.s - 0.02 && t <= w.s + 0.22)));
   E.hud.sub = false;
 }
 
@@ -271,7 +272,7 @@ function s3(E, t, rt) {
     f.beginPath(); f.arc(px, py + 10 * S, (14 + 60 * ease.outCubic(u)) * S, 0, 6.2832); f.stroke(); f.restore();
   }
   f.restore();
-  end(E);
+  end(E, !!v && t >= TAP3 - 0.02 && t < TAP3 + 0.4);
   E.hud.sub = false;
 }
 
@@ -326,7 +327,7 @@ function s4(E, t, rt) {
     f.fillStyle = B.C.white; f.fillText(word, amtW, 0);
     f.restore();
   });
-  end(E);
+  end(E, t >= tags[0].s - 0.04);
   E.hud.sub = false;
   E.hud.meter = false;
 }

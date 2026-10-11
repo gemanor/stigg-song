@@ -1,47 +1,48 @@
 // CHORUS 1 · 42.55-56.12 · HOOK_01 · owner A3 · looks C ↔ A per sung line (C on odd lines, A on even lines)
 // Beats 42.80D 43.28 43.76 44.22 | 44.70D 45.18 45.66 46.14 | 46.60D 47.08 47.56 48.04 | 48.50D 48.98 49.46 49.94 |
 //       50.42D 50.90 51.38 51.84 | 52.32D 52.80 53.28 53.76 | 54.22D 54.70 55.18 55.66 | 56.12D (next section)
+// Layers: BACK/MID = 2D surface #1 under the cut-out (type behind him), FRONT = surface #2 over him (only when needed).
 //
 // PLAN  t        word / event                     visual                                                        layer        cut / beat
-//  S1a  42.550   (hard cut in)                    C · ECU him_chant shouting, fist up (clip 0.05→); giant "I'M"   BACK / plate  first frame = slam
-//       42.597   I'm                              "I'M" condensed ink slams (3-frame anticipation), burn tag      MID
+//  S1a  42.550   (hard cut in)                    C · ECU him_chant shouting, fist up (clip 0.05→0.43); giant "I'M"  MID / plate  first frame = slam
+//       42.597   I'm                              "I'M" condensed ink slams (3-frame anticipation), burn tag      MID (portrait: FRONT across his chest)
 //       42.800   downbeat                         camera punch                                                   post
-//  S1b  42.934   an                               cut: MCU (pumps beat-locked) "AN" left of him                  MID          cut on word
-//       43.054   AI                               "AI" right of him (he stands between the letters)              MID
-//       43.280   beat                             fist-pump peak lands on the beat · impact lines at his fists   FRONT        pump knots
-//  S1c  43.354   founder!                         cut: wide full body standing IN "FOUNDER!" (behind his legs)    MID          cut on word
-//                                                 "I'M AN AI" small ink top-left · burn tag · contact shadow
-//       43.760   beat                             pump peak + white impact bursts tracked to both wrists          FRONT
-//  S2   44.174   Founder! (GANG)                  A · stadium tiers of FOUNDER! (rows scroll, jump on the beat)    BACK         cut on word
+//  S1b  42.934   an                               cut: MCU, pumps beat-locked (clip 1.33/1.96/2.58 on beats)       MID          cut on word
+//       43.054   AI                               "AN" | him | "AI": he stands between the letters                MID
+//       43.280   beat                             fist-pump peak on the beat · white impact lines at both wrists   MID (pose 15/16)
+//  S1c  43.354   founder!                         cut: wide full body standing IN "FOUNDER!" (type behind legs)    MID          cut on word
+//                                                 "I'M AN AI" small ink · burn tag · contact shadow
+//       43.760   beat                             pump peak + impact lines                                        MID
+//  S2   44.174   Founder! (GANG)                  A · stadium tiers of FOUNDER! (rows scroll, jump on each beat)   BACK         cut on word
 //                                                 "GANG CHANT −8,663 TOKENS" readout
-//  S3   44.654   I                                C · him_cu_talk MCU shrug (clip 2.45→), "I" ink                  MID          cut on word ≈ 44.70D
-//       44.914   can't                            hero CAN'T (ink)                                               MID
-//       45.180   beat                             tracked "TONIGHT · BUSY" chip pops onto his open palm           FRONT
+//  S3   44.654   I                                C · him_cu_talk MCU shrug (clip 2.45→3.94), "I" ink              MID          cut on word ≈ 44.70D
+//       44.914   can't                            hero CAN'T (ink) + burn tag                                     MID
+//       45.180   beat                             tracked "TONIGHT · BUSY" chip pops onto his open palm (pose 16)  FRONT
 //       45.294   come / 45.434 out                "COME OUT" medium                                              MID
-//       45.714   tonight.                         hero TONIGHT. (white accent)                                    MID
-//  S4   45.994   (HER note, unsung)               A · her_cu_talk CU side-eye (clip 0.30→2.69, sips at the end)    plate        cut after "tonight."
-//                                                 his line re-set small white on the right
-//       46.140   beat                             coral underline #1 under CAN'T                                   FRONT
-//       46.600   downbeat                         note "of course you can't" writes (penNote)                      FRONT
-//       47.080   beat                             underline #2 · 47.56 coral arrow note→CAN'T · "COST: 0 TOKENS"   FRONT
-//       48.040   beat                             slow push-in (anticipation), she sips                           post
-//  S5   48.380   See · 48.454 you                 A · LOCKUP #1 (B.afterTokens): him_chant mirrored, big, stands    FRONT band   cut on word
-//       48.794   after · 49.114 tokens!           BEHIND the lockup banner (head + fists above it); pumps on beats
-//       48.50D / 48.98 / 49.46                    pump peaks beat-locked, impact bursts                           FRONT
+//       45.714   tonight.                         hero TONIGHT. (white accent) + burn tag                         MID
+//  S4   46.140   (HER note, unsung)               A · her_cu_talk CU side-eye (clip 0.30→2.54, sips at the end)    plate        cut on the beat after "tonight."
+//                                                 his line re-set small, white/green, on the right
+//       46.140   beat                             coral underline #1 under CAN'T (with the cut)                    MID
+//       46.600   downbeat                         note "of course you can't" writes (B.penNote)                   MID
+//       47.080   beat                             underline #2 · 47.56 "HER WORDS COST 0 TOKENS" slams             MID
+//       48.040   beat                             she circles TONIGHT. · slow push-in (anticipation)               MID / post
+//  S5   48.380   See · 48.454 you                 A · LOCKUP #1 (B.afterTokens) on a dark board; him_chant big,    FRONT board  cut on word
+//       48.794   after · 49.114 tokens!           standing BEHIND it (head + fists above); pumps on 48.50D/48.98/49.46/49.94
 //  S6   49.934   I'm (held to 50.574)             C · him_dance finger guns (pops on 50.42 / 51.38), outline type  MID          cut on word
 //                                                 "I'M" fills bottom→top like a usage meter while he holds it
 //       50.574   an · 50.674 AI                   fill on onset
-//       50.974   founder!                         FOUNDER! fills white · burn tags; finger-gun muzzle lines        MID / FRONT
+//       50.974   founder!                         FOUNDER! fills white · burn tags; finger-gun muzzle lines (pose 19/20)  MID
 //  S7   51.794   Founder! (GANG)                  A · wave grid: a stadium wave sweeps the wall of FOUNDER!        BACK         cut on word
 //  S8   52.334   No                               C · funding-stage track PRE-SEED → SERIES B draws (linear)       BACK         cut on word ≈ 52.32D
-//       52.554   dating                           "NO DATING" hero · padlock + "DATING" at SERIES B                MID
+//       52.554   dating                           "NO DATING" hero · padlock + "DATING" row                        MID
 //       52.800   beat                             ✕ DATING under PRE-SEED / SEED / SERIES A                        MID
 //       52.874   till · 53.054 Series             SERIES B node lights                                            MID
 //       53.280   beat · 53.334 B.                 padlock opens · "SERIES B." lands                               MID
-//  S9   53.794   See / you / after / tokens!      A · LOCKUP #2 left, him_cu_talk deadpan right (clip 0.55→)        MID / plate  cut on word
-//       53.850   (HER note, unsung)               "babe, you're pre-seed" writes, 54.70 coral arrow to his face      FRONT
-//       55.180   beat                             double underline under "pre-seed"                                FRONT
-//       55.660   beat                             coral PRE-SEED stamp slams next to him (last accent)              FRONT
+//  S9   53.794   See / you / after / tokens!      A · LOCKUP #2 left, him_cu_talk deadpan right (clip 0.55→2.88);   MID / plate  cut on word
+//                                                 portrait: his CU in a video-call window inside the safe band
+//       53.850   (HER note, unsung)               "babe, you're pre-seed" writes · 54.70 coral arrow to his face   MID / FRONT
+//       55.180   beat                             double underline under "pre-seed"                                MID
+//       55.660   beat                             coral PRE-SEED stamp slams next to him (last accent)             FRONT
 // Every word is drawn by the scene, so the HUD subtitle is off; the HUD meter stays on (chorus words burn ×1.6).
 import * as K from "./chorus1/kit.js";
 const { B, C, FONT, clamp, lerp, ease } = K;
@@ -65,16 +66,22 @@ export default K.makeScene({
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const dr = drift(F, 42.55, w(0, 1).s, 0.05);
       const op = port
-        ? K.frameSub(E, v, { h: 0.4 * H * dr, spanUV: 0.2, au: 0.771, av: 0.22, cx: 0.5 * W, ay: 0.56 * H })
+        ? K.frameSub(E, v, { h: 0.4 * H * dr, spanUV: 0.2, au: 0.771, av: 0.22, cx: 0.55 * W, ay: 0.38 * H })
         : K.frameSub(E, v, { h: 0.74 * H * dr, spanUV: 0.2, au: 0.771, av: 0.22, cx: 0.69 * W, ay: 0.5 * H });
       F.back((c) => {
         K.groundC(F, c);
         const o = { ...K.COND, color: INK, align: "left", baseline: "alphabetic" };
-        if (port) { o.size = K.fit(F, c, "I'M", { ...o, size: 500 * S }, R.w * 0.9); K.slamText(F, c, "I'M", R.x + R.w * 0.04, F.PT + o.size * K.CAP.cond, w(0, 0).s, o); }
-        else { o.size = K.fit(F, c, "I'M", { ...o, size: 0.98 * H }, 0.4 * W); K.slamText(F, c, "I'M", 0.04 * W, 0.94 * H, w(0, 0).s, o); }
-        K.burnTag(F, c, w(0, 0), port ? R.x + R.w * 0.62 : 0.05 * W, port ? F.PT + 40 * S : 0.2 * H, { color: INK, unit: " TOKENS", size: 34 });
+        if (!port) { o.size = K.fit(F, c, "I'M", { ...o, size: 0.98 * H }, 0.4 * W); K.slamText(F, c, "I'M", 0.04 * W, 0.94 * H, w(0, 0).s, o); }
+        if (!port) K.burnTag(F, c, w(0, 0), 0.05 * W, 0.2 * H, { color: INK, unit: " TOKENS", size: 34 });
       });
       F.plate(v, op);
+      // portrait: the face sits high in the band, so the I'M slams across his chest (over the hoodie, under the chin)
+      if (port) F.front((c) => {
+        const o = { ...K.COND, color: INK, align: "left", baseline: "alphabetic" };
+        o.size = Math.min(K.fit(F, c, "I'M", { ...o, size: 500 * S }, R.w * 0.62), (0.115 * H) / K.CAP.cond);
+        K.slamText(F, c, "I'M", R.x + R.w * 0.03, 0.645 * H, w(0, 0).s, o);
+        K.burnTag(F, c, w(0, 0), R.x + R.w * 0.03, 0.5 * H, { color: INK, unit: " TOKENS", size: 34 });
+      });
       K.punch(F, 0.03);
     } });
 
@@ -147,11 +154,11 @@ export default K.makeScene({
     } });
 
     // ---------------------------------------------------------------------------------------- S3 I CAN'T COME OUT TONIGHT.
-    S1.push({ a: w(2, 0).s, b: w(2, 4).e, look: "C", clips: lin(cu, w(2, 0).s, 2.45), draw(F) {
+    S1.push({ a: w(2, 0).s, b: 46.14, look: "C", clips: lin(cu, w(2, 0).s, 2.45), draw(F) {
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
-      const dr = drift(F, w(2, 0).s, w(2, 4).e, 0.04);
+      const dr = drift(F, w(2, 0).s, 46.14, 0.04);
       const op = port
-        ? K.frameSub(E, v, { h: 0.62 * H * dr, au: 0.66, av: 0.996, cx: 0.64 * W, bottom: 1.02 * H })
+        ? K.frameSub(E, v, { h: 0.62 * H * dr, au: 0.66, av: 0.996, cx: 0.64 * W, bottom: 0.96 * H })
         : K.frameSub(E, v, { h: 1.04 * H * dr, au: 0.66, av: 0.996, cx: 0.78 * W, bottom: 1.04 * H });
       const ws = L[2].words;
       F.back((c) => {
@@ -185,11 +192,11 @@ export default K.makeScene({
     } });
 
     // ---------------------------------------------------------------------------------------- S4 HER note
-    S1.push({ a: w(2, 4).e, b: w(3, 0).s, look: "A", clips: lin(herCu, w(2, 4).e, 0.3), draw(F) {
+    S1.push({ a: 46.14, b: w(3, 0).s, look: "A", clips: lin(herCu, 46.14, 0.3), draw(F) {
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const push = 1 + 0.05 * ease.inCubic(clamp((t - 48.04) / 0.34));
       const op = port
-        ? K.frameSub(E, v, { h: 0.62 * H * push, au: 0.3, av: 0.996, cx: 0.5 * W, bottom: 1.03 * H })
+        ? K.frameSub(E, v, { h: 0.62 * H * push, au: 0.3, av: 0.996, cx: 0.5 * W, bottom: 0.97 * H })
         : K.frameSub(E, v, { h: 1.06 * H * push, au: 0.3, av: 0.996, cx: 0.25 * W, bottom: 1.07 * H });
       const lay = noteLayout(F);
       F.back((c) => {
@@ -201,6 +208,9 @@ export default K.makeScene({
         B.penNote(E, c, "of course you can't", lay.nx, lay.ny, t, 46.6, { size: lay.ns, cps: 26, rot: -0.04 });
         const k = K.slam(t, 47.56, { from: 1.25 });
         if (k) E.drawText(c, "HER WORDS COST 0 TOKENS", lay.nx + 6 * S, lay.ny + lay.ns * 0.8, { ...K.MONO, size: (port ? 22 : 30) * S, color: C.coral, align: "left", s: k.sc });
+        // 48.04: she circles TONIGHT.
+        const h2 = { ...K.HERO, size: lay.size2 }, tx = lay.x0 + E.measure(c, "COME OUT ", h2), tw = E.measure(c, "TONIGHT.", h2);
+        B.penCircle(c, tx + tw / 2, lay.y2 - lay.size2 * 0.36, tw * 0.62, lay.size2 * 0.62, t, 48.04, { width: 5 * S, seed: 6, dur: 0.22 });
       });
       F.plate(v, op);
       E.post.punch = Math.max(E.post.punch, 0.018 * E.pulse("downbeats", t, 0.1));
@@ -232,7 +242,7 @@ export default K.makeScene({
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const dr = drift(F, w(4, 0).s, w(5, 0).s, 0.03);
       const op = port
-        ? K.frameSub(E, v, { h: 0.6 * H * dr, cx: 0.5 * W, bottom: 0.995 * H })
+        ? K.frameSub(E, v, { h: 0.52 * H * dr, cx: 0.5 * W, bottom: 0.99 * H })
         : K.frameSub(E, v, { h: 0.93 * H * dr, cx: 0.2 * W, bottom: 0.985 * H });
       const ws = L[4].words;
       F.back((c) => {
@@ -299,29 +309,45 @@ export default K.makeScene({
     } });
 
     // ---------------------------------------------------------------------------------------- S9 LOCKUP #2 + "babe, you're pre-seed"
+    // Landscape: lockup left, him_cu_talk deadpan right. Portrait: his close-up sits in a video-call window inside the
+    // safe band (a crop of the clip), so his face stays clear of the platform UI.
     S1.push({ a: w(7, 0).s, b: 56.2, look: "A", clips: lin(cu, w(7, 0).s, 0.55), draw(F) {
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const dr = drift(F, w(7, 0).s, 56.12, 0.04);
-      const op = port
-        ? K.frameSub(E, v, { h: 0.66 * H * dr, au: 0.66, av: 0.996, cx: 0.68 * W, bottom: 1.02 * H })
-        : K.frameSub(E, v, { h: 0.98 * H * dr, au: 0.66, av: 0.996, cx: 0.84 * W, bottom: 1.02 * H });
-      const lx = port ? R.x + R.w / 2 : 0.31 * W, ly = port ? F.PT + 120 * S : 0.4 * H, size = port ? 72 : 132;
+      const win = { x: R.x + R.w * 0.47, y: 0.425 * H, w: R.w * 0.51, h: 0.215 * H };
+      let op;
+      if (port) { // crop of his head and shoulders with the window's aspect; the crop's bottom edge = the window's bottom edge
+        const ca = win.w / win.h, ch = 0.6 / dr, cw = (ch * v.meta.h * ca) / v.meta.w, cx0 = 0.655 - cw / 2;
+        const crop = [cx0, 0.02, cw, ch];
+        op = { fit: "contain", crop, zoom: win.w / E.W, x: (win.x + win.w / 2 - E.W / 2) / S, y: (win.y + win.h / 2 - E.H / 2) / S, matte: true, feather: 0.12 };
+      } else op = K.frameSub(E, v, { h: 0.98 * H * dr, au: 0.66, av: 0.996, cx: 0.84 * W, bottom: 1.02 * H });
+      const lx = port ? R.x + R.w / 2 : 0.31 * W, ly = port ? F.PT + 95 * S : 0.4 * H, size = port ? 72 : 132;
+      const nx = port ? R.x + R.w * 0.03 : 0.07 * W, ny = port ? 0.405 * H : 0.76 * H, ns = (port ? 54 : 104) * S;
+      const nf = { font: FONT.serif, italic: true, weight: 400, size: ns }, mc = K.mctx();
+      const nw = E.measure(mc, "babe, you're pre-seed", nf), pw = E.measure(mc, "pre-seed", nf);
       F.back((c) => {
         K.groundA(F, c, { offX: -(t - 53.79) * 24 * S });
         K.lockup(F, c, L[7].words, lx, ly, { size, seed: 5 });
+        if (port) { // the call window
+          c.fillStyle = C.panel; c.strokeStyle = C.line; c.lineWidth = Math.max(1, 2 * S);
+          c.beginPath(); c.roundRect(win.x, win.y, win.w, win.h, 14 * S); c.fill(); c.stroke();
+          B.hairGrid(c, win.x, win.y, win.w, win.h, { step: 40 * S, alpha: 0.45 });
+        }
+        B.penNote(E, c, "babe, you're pre-seed", nx, ny, t, 53.85, { size: ns, cps: 30, rot: -0.035 });
+        B.penUnderline(c, nx + nw - pw, ny + ns * 0.42, nx + nw, t, 55.18, { width: 6 * S, seed: 3, dur: 0.12 });
+        B.penUnderline(c, nx + nw - pw + 10 * S, ny + ns * 0.55, nx + nw - 6 * S, t, 55.3, { width: 5 * S, seed: 6, dur: 0.1 });
       });
       F.plate(v, op);
       F.front((c) => {
-        const nx = port ? R.x + R.w * 0.03 : 0.07 * W, ny = port ? F.PT + 330 * S : 0.76 * H, ns = port ? 54 : 104;
-        B.penNote(E, c, "babe, you're pre-seed", nx, ny, t, 53.85, { size: ns * S, cps: 30, rot: -0.035 });
+        if (port) { // window chrome over the feed: name tag + mic-off dot
+          E.drawText(c, "FOUNDER_01", win.x + 16 * S, win.y + win.h - 20 * S, { ...K.MONO, size: 18 * S, color: C.white, align: "left" });
+          c.fillStyle = C.coral; c.beginPath(); c.arc(win.x + win.w - 22 * S, win.y + 22 * S, 7 * S, 0, 6.2832); c.fill();
+          c.strokeStyle = C.line; c.lineWidth = Math.max(1, 2 * S); c.beginPath(); c.roundRect(win.x, win.y, win.w, win.h, 14 * S); c.stroke();
+        }
         // arrow from the note to his face (nose, tracked)
         const face = K.lmScreen(E, v, lt, 0, op);
-        const nw = E.measure(c, "babe, you're pre-seed", { font: FONT.serif, italic: true, weight: 400, size: ns * S });
-        if (face) B.penArrow(c, port ? nx + nw * 0.5 : nx + nw + 20 * S, port ? ny + 40 * S : ny - 10 * S, face[0] - (port ? 110 : 150) * S, face[1] + (port ? 30 : 90) * S, t, 54.7, { width: 7 * S, seed: 9, bend: port ? -0.3 : 0.3, dur: 0.18 });
-        const pw = E.measure(c, "pre-seed", { font: FONT.serif, italic: true, weight: 400, size: ns * S });
-        B.penUnderline(c, nx + nw - pw, ny + ns * 0.42 * S, nx + nw, t, 55.18, { width: 6 * S, seed: 3, dur: 0.12 });
-        B.penUnderline(c, nx + nw - pw + 10 * S, ny + ns * 0.55 * S, nx + nw - 6 * S, t, 55.3, { width: 5 * S, seed: 6, dur: 0.1 });
-        B.stamp(E, c, "PRE-SEED", port ? R.x + R.w * 0.24 : 0.79 * W, port ? 0.58 * H : 0.86 * H, t, 55.66, { S, size: port ? 52 : 92, rot: -0.14 });
+        if (face && t >= 54.68) B.penArrow(c, port ? nx + nw * 0.62 : nx + nw + 20 * S, port ? ny + 34 * S : ny - 10 * S, face[0] - (port ? 100 : 150) * S, face[1] + (port ? 16 : 90) * S, t, 54.7, { width: 7 * S, seed: 9, bend: port ? 0.35 : 0.3, dur: 0.18 });
+        B.stamp(E, c, "PRE-SEED", port ? R.x + R.w * 0.22 : 0.57 * W, port ? 0.545 * H : 0.9 * H, t, 55.66, { S, size: port ? 50 : 88, rot: -0.14 });
       });
       K.punch(F, 0.025);
     } });

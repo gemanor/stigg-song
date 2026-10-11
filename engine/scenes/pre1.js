@@ -47,7 +47,7 @@ const walkLocal = (t) => 4.56 + (t - T_POINT); // her_walkin_point 4.56-6.0: the
 // camera keyframes: [t, slide index, zoom, screen-x of slide centre (units, landscape)]
 function camKeys(U) {
   const P = U.P;
-  const zx = P ? 0.66 : 0.76, cx = P ? U.W0 / 2 : 1240;
+  const zx = P ? 0.58 : 0.76, cx = P ? U.W0 / 2 : 1240;
   return [
     [32.8, 0, 1, U.W0 / 2],
     [33.02, 0, 1, U.W0 / 2],
@@ -64,11 +64,12 @@ function camAt(U, t) {
   let i = 0;
   while (i < Kf.length - 2 && t >= Kf[i + 1][0]) i++;
   const a = Kf[i], b = Kf[i + 1], u = io((t - a[0]) / (b[0] - a[0]));
-  const idx = lerp(a[1], b[1], u), z = lerp(a[2], b[2], u), sxc = lerp(a[3], b[3], u);
+  const idx = lerp(a[1], b[1], u), sxc = lerp(a[3], b[3], u);
+  const z = lerp(a[2], b[2], u) * (1 + 0.01 * Math.max(0, t - 33.5)); // slow push through the review
   // world x of the screen centre
   const camX = idx * (U.W0 + GAP) + U.W0 / 2 - (sxc - U.W0 / 2) / z;
   // portrait: the slides' content band (slide y 469-1049) rides high, her bubble lives under it
-  return { camX, camY: U.H0 / 2, z, oyP: U.P ? lerp(0, 300 - z * 469, clamp((1 - z) / (1 - 0.66))) : null };
+  return { camX, camY: U.H0 / 2, z, oyP: U.P ? lerp(0, 430 - z * 469, clamp((1 - z) / (1 - 0.58))) : null };
 }
 const SLIDES = () => [D.PLAN, D.TEAM, D.WIRE, D.FUND];
 // frozen build time per slide (final state as he presented it)
@@ -168,7 +169,9 @@ function renderDeck(E, t, U, lt) {
     sl.back(E, c, st);
     c.restore();
   });
-  if (t < T_POINT && v.lip) { const b = herBubble(U, t); c.setTransform(S, 0, 0, S, 0, 0); K.bubbleBack(c, b.cx, b.cy, b.r, { fill: C.pale }); }
+  c.setTransform(S, 0, 0, S, 0, 0);
+  K.stageBand(E, c, U, null, { accent: C.coral, progress: (t - 32.8) / (T_CLOSE - 32.8) });
+  if (t < T_POINT && v.lip) { const b = herBubble(U, t); K.bubbleBack(c, b.cx, b.cy, b.r, { fill: C.pale }); }
   gA.commit();
   E.blitG2D(E, gA, 1);
   // ---------------------------------------------------------------- PLATES: slide footage, then HER
@@ -199,7 +202,7 @@ function renderDeck(E, t, U, lt) {
     f.restore();
   }
   f.setTransform(S, 0, 0, S, 0, 0);
-  if (bub) K.bubbleFront(E, f, bub.cx, bub.cy, bub.r, { ring: C.coral, lw: bub.r * 0.028 + 2, popW: 0.62, level: K.voice(E, t, "HER"), name: "her (host)", dot: true, nameSize: 26 });
+  if (bub) K.bubbleFront(E, f, bub.cx, bub.cy, bub.r, { ring: C.coral, lw: bub.r * 0.028 + 2, popW: 0.62, level: K.voice(E, t, "HER"), name: U.P ? null : "her (host)", dot: true, nameSize: 26 });
   if (walk) {
     // contact shadow (a faint floor ellipse under her sneakers), then her collaborator tag tracked to her head
     const lw = lt.walk, a = K.pose(v.walk, lw, 27), b = K.pose(v.walk, lw, 28);
@@ -377,11 +380,12 @@ function tracePoly(c, poly) {
   c.closePath();
 }
 
-function lipCloseFrame(U) {
-  // her lip-sync close-up, mirrored to the right third; the left stays clear for the type
-  if (U.P) { const w = 1500; return { x: U.R.x + U.R.w * 0.5 - 0.48 * w, y: 695, w, h: (w * 9) / 16 }; }
-  const w = 2000;
-  return { x: 1360 - 0.48 * w, y: 60, w, h: (w * 9) / 16 };
+function lipCloseFrame(U, t) {
+  // her lip-sync close-up, mirrored to the right third; the left stays clear for the type; a slow push on her face
+  const k = 1 + 0.025 * Math.max(0, t - T_CLOSE);
+  if (U.P) { const w = 1500 * k, h = (w * 9) / 16; return { x: U.R.x + U.R.w * 0.5 - 0.48 * w, y: 695 - 0.41 * 844 * (k - 1), w, h }; }
+  const w = 2000 * k, h = (w * 9) / 16;
+  return { x: 1360 - 0.48 * w, y: 60 - 0.41 * 1125 * (k - 1), w, h };
 }
 function renderClose(E, t, U, lt) {
   const S = E.SCALE, O = D.O, P = U.P;
@@ -404,7 +408,7 @@ function renderClose(E, t, U, lt) {
   gA.commit();
   E.blitG2D(E, gA, 1);
   // ---------------------------------------------------------------- PLATES
-  const Fl = lipCloseFrame(U), Fh = herCuFrame(U, t);
+  const Fl = lipCloseFrame(U, t), Fh = herCuFrame(U, t);
   if (close && v.lip) K.plate(E, v.lip, Fl, { mirror: true });
   if (torn && v.her) K.plate(E, v.her, Fh, { mirror: true });
   // ---------------------------------------------------------------- FRONT

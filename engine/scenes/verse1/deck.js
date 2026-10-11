@@ -124,9 +124,9 @@ export const COMP = {
   num: "02",
   back(E, c, st) {
     const { U, tb, t } = st, bx = box(U, true);
-    const s1 = U.P ? 96 : 150;
+    const s1 = U.P ? 84 : 150;
     const x0 = bx.x, x1 = bx.x + bx.w;
-    const y1 = U.P ? U.R.y + 330 : bx.y + 120 + s1 * CAP, y2 = y1 + (U.P ? 160 : 230);
+    const y1 = U.P ? U.R.y + 311 : bx.y + 120 + s1 * CAP, y2 = y1 + (U.P ? 92 : 230);
     eyebrow(E, c, "COMPENSATION", x0, bx.y + 6);
     // row 1: SALARY ...... $0   (struck by his own clean strike on "I take")
     const struck = clamp((tb - O.iTake) / 0.12);
@@ -142,14 +142,14 @@ export const COMP = {
     c.restore();
     if (struck > 0) wipeStrike(c, x0, x1, y1 - s1 * CAP * 0.45, struck, { h: U.P ? 12 : 14 });
     // row 2: TOKEN BUDGET (green marker) + live meter pill
-    const s2 = fit(E, c, "TOKEN BUDGET", { size: U.P ? 104 : 140, tracking: -0.035 }, bx.w);
+    const s2 = fit(E, c, "TOKEN BUDGET", { size: U.P ? 84 : 140, tracking: -0.035 }, bx.w);
     const wT = tw(E, c, "TOKEN", s2, { tracking: -0.035 }) + s2 * 0.26, wB = tw(E, c, "BUDGET", s2, { tracking: -0.035 });
-    marker(c, x0, y2, wT - s2 * 0.12, s2, tb, O.token - 0.1, 0.1);
-    marker(c, x0 + wT - s2 * 0.2, y2, wB + s2 * 0.2, s2, tb, O.budget - 0.1, 0.1);
+    marker(c, x0, y2, wT - s2 * 0.12, s2, tb, O.token - 0.066, 0.066);
+    marker(c, x0 + wT - s2 * 0.2, y2, wB + s2 * 0.2, s2, tb, O.budget - 0.066, 0.066);
     wordL(E, c, "TOKEN", x0, y2, tb, O.token, { size: s2 });
     wordL(E, c, "BUDGET", x0 + wT, y2, tb, O.budget, { size: s2 });
-    // live balance in a dark pill (the meter, read from tokensAt)
-    if (tb >= O.budget - 0.066) {
+    // live balance in a dark pill (the meter, read from tokensAt); landscape only (portrait has no room)
+    if (tb >= O.budget - 0.066 && !U.P) {
       const a = oc((tb - O.budget + 0.066) / 0.15), ph = U.P ? 84 : 104, py = y2 + (U.P ? 40 : 56);
       const tok = (tt) => B.tokensAt(E, tt), cell = U.P ? 6 : 7, ow = odoW(tok(t), { rows: 9, cell });
       const lab = "/ MONTH", lw = measure(E, c, lab, { font: B.FONT.mono, weight: 700, size: 28, tracking: 0.1 });
@@ -377,7 +377,7 @@ export const TEAM = {
           c.save();
           c.translate(L.mini[0], cyR - sN * CAP / 2);
           c.scale(k, k);
-          marker(c, -w / 2, sN * CAP / 2, w, sN, tb, O.mini - 0.08, 0.08);
+          marker(c, -w / 2, sN * CAP / 2, w, sN, tb, O.mini - 0.066, 0.066);
           T(E, c, "MAC MINI", 0, sN * CAP / 2, { size: sN, align: "center", baseline: "alphabetic" });
           c.restore();
         } else T(E, c, "TBD", L.mini[0], cyR, { size: sN, align: "center", baseline: "alphabetic", color: C.inkA(0.3) });
@@ -447,7 +447,7 @@ export const TEAM = {
       const sz2 = P ? 84 : 130, yl = y0 + (P ? 40 : 50);
       for (const [lab, x, d] of [["MAC MINI", L.colL, 0], ["ME", L.colR, 0.04]]) {
         const w = tw(E, c, lab, sz2);
-        if (lab === "ME") marker(c, x - w / 2, yl, w, sz2, tb, O.myself - 0.03, 0.08);
+        if (lab === "ME") marker(c, x - w / 2, yl, w, sz2, tb, O.myself - 0.066, 0.066);
         wordL(E, c, lab, x - w / 2, yl, tb, O.myself + d, { size: sz2 });
       }
     }
@@ -524,7 +524,7 @@ export const FUND = {
   lay(U) {
     const P = U.P, R = U.R;
     return P
-      ? { x: R.x + 40, ey: R.y + 200, pillY: R.y + 250, seedY: R.y + 470, seedS: 230, venueY: R.y + 560, sheet: { x: R.x + 40, y: R.y + 600, w: 440, h: 140 } }
+      ? { x: R.x + 40, ey: R.y + 200, pillY: R.y + 236, seedY: R.y + 470, seedS: 200, venueY: R.y + 540, sheet: { x: R.x + 40, y: R.y + 590, w: 400, h: 130 } }
       : { x: 120, ey: 250, pillY: 300, seedY: 610, seedS: 300, venueY: 712, sheet: { x: 120, y: 752, w: 540, h: 150 } };
   },
   back(E, c, st) {
@@ -876,7 +876,7 @@ export const MARKET = {
       }
     } else {
       const s2 = P ? 60 : 76, w = tw(E, c, "MARKED TO MATCHA", s2);
-      marker(c, L.x, L.priceY, w, s2, tb, O.valuation - 0.05, 0.12);
+      marker(c, L.x, L.priceY, w, s2, tb, O.valuation - 0.066, 0.066);
       wordL(E, c, "MARKED TO MATCHA", L.x, L.priceY, tb, O.valuation, { size: s2 });
       if (tb >= O.high15 - 0.066) {
         const k = slam(tb, O.high15, 1.5), ph = P ? 60 : 74;
@@ -895,6 +895,7 @@ export const MARKET = {
   // a stock-ticker tape across the top of the slide, scrolling linearly (verified figures only)
   tape(E, c, st, val) {
     const { U, t } = st, P = U.P, R = U.R;
+    if (P) return; // portrait: no room above the eyebrow (the HUD meter sits there)
     const y = P ? R.y + 150 : 168, h = P ? 40 : 44, size = P ? 20 : 24;
     const msg = val ? "MY VALUATION ▲ RECORD HIGH  ·  MARKED TO MATCHA  ·  PRE-MONEY: VIBES  ·  " : "MATCHA ▲ ¥17,250/KG  ·  RECORD HIGH  ·  UJI FIRST HARVEST  ·  JULY 2026 AUCTION  ·  HIGHEST SINCE 1996  ·  ";
     const w = measure(E, c, msg, { font: B.FONT.mono, weight: 700, size, tracking: 0.08 });

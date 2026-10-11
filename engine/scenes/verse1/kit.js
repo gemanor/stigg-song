@@ -102,9 +102,29 @@ export function eyebrow(E, c, str, x, y, o = {}) {
   M(E, c, str, x + 34, y + 1, { size: o.size ?? 26, color: o.color ?? C.inkA(0.62), weight: 700 });
   c.restore();
 }
-// slide footer: tiny "building." wordmark + slide number
+// portrait: a dark stage band across the platform-UI zone (built-in scrim for the app's own white UI text) that carries the
+// deck footer. Drawn in screen units after the slide (BACK pass); bodies run down in front of it.
+export const BAND_Y = 1300;
+export function stageBand(E, c, U, num, o = {}) {
+  if (!U.P) return;
+  c.save();
+  c.globalAlpha *= o.alpha ?? 1;
+  c.fillStyle = C.ink;
+  c.fillRect(0, BAND_Y, U.W0, U.H0 - BAND_Y);
+  c.fillStyle = o.accent ?? C.green;
+  c.fillRect(0, BAND_Y, U.W0 * clamp(o.progress ?? 0), 4);
+  const x = U.R.x + U.R.w - 10, y = BAND_Y + 64;
+  if (num) {
+    M(E, c, "/12", x, y, { align: "right", size: 26, color: C.whiteA(0.45), tracking: 0.06 });
+    M(E, c, num, x - 58, y, { align: "right", size: 26, color: C.white, tracking: 0.06, weight: 700 });
+  }
+  T(E, c, "building.", U.R.x + 10, y + 1, { size: 30, weight: 800, tracking: -0.02, color: C.white });
+  c.restore();
+}
+// slide footer: tiny "building." wordmark + slide number (landscape; portrait uses stageBand)
 export function footer(E, c, U, num, o = {}) {
   const { W0, H0, P, R } = U;
+  if (P) return;
   const x = P ? R.x + R.w - 24 : W0 - 96, y = P ? R.y + R.h - 34 : H0 - 66;
   c.save();
   c.globalAlpha = o.alpha ?? 1;
@@ -197,7 +217,9 @@ export function odo(c, val, t, x, y, o = {}) {
     for (let i = n - 1; i >= 0; i--) {
       const d1 = _dig(v1, i);
       let sh = 0, dPrev = d1;
-      if (live && _dig(v0, i) !== d1) {
+      // a digit that changes faster than ~14x/s just shows crisp (a spinning counter); only slow digits slide
+      const rate = Math.abs(v1 - v0) / tau / Math.pow(10, i);
+      if (live && rate < 14 && _dig(v0, i) !== d1) {
         // find when this digit last became d1
         let lo = t - tau, hi = t;
         for (let k = 0; k < 7; k++) { const m = (lo + hi) / 2; if (_dig(V(m), i) === d1) hi = m; else lo = m; }

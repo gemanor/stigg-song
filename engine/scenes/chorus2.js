@@ -1,44 +1,49 @@
 // CHORUS 2 · 86.96-100.38 · HOOK_02 · owner A3 · looks A ↔ C per sung line (flipped against chorus 1: A on odd lines)
-// Escalation over chorus 1: HER is in the footage now, mocking him (her_mock_chant fist pump on the gang chants, the eye-roll,
-// the side-eye), her red pen gets ruder (air-quotes around his FOUNDER!, a strike instead of an underline), every line gets a
-// new treatment, and the meter reads visibly lower (a big pixel balance on his badge: ~300K left).
+// Escalation over chorus 1: HER is in the footage now, mocking him (her_mock_chant fist pump on the first gang chant, the
+// eye-roll, the side-eye smirk, the sip under his gate), her red pen gets ruder (air-quotes around his FOUNDER!, a strike instead
+// of an underline, LEFT ON READ), every line gets a new treatment, and the meter reads visibly lower (his badge's pixel balance).
 // Beats 87.06D 87.54 88.02 88.50 | 88.96D 89.44 89.92 90.40 | 90.88D 91.36 91.82 92.30 | 92.78D 93.26 93.72 94.20 |
 //       94.68D 95.16 95.64 96.10 | 96.58D 97.06 97.54 98.02 | 98.48D 98.96 99.44 99.90 | 100.38D (bridge)
+// Layers: BACK/MID = 2D surface #1 under the cut-out, FRONT = surface #2 over it (only when needed).
 //
 // PLAN  t        word / event                    visual                                                         layer        cut / beat
-//  S1   86.960   (hard cut in)                   A · him_chant chest-up right, pumps beat-locked (clip 1.85→3.75)  plate        first frame = slam
+//  S1   86.960   (hard cut in)                   A · him_chant chest-up right, pumps beat-locked (clip 1.96→3.75)  plate        first frame = slam + punch
 //       87.013   I'm · 87.200 an · 87.300 AI     "I'M AN AI" white, words slam on onsets (left column)            MID
-//       87.06D / 87.54                           pump peaks → green impact lines on both fists                   FRONT
+//       87.06D / 87.54                           pump peaks → green impact lines on both fists                   MID
 //       87.600   founder!                        "FOUNDER!" giant condensed green · burn tag                     MID
 //       88.020   beat                            HER red pen: coral air-quotes slam around “FOUNDER!”             FRONT
-//  S2   88.420   Founder! (GANG)                 C · HER mock fist pump centre (pump on 88.50) in front of his     plate/BACK   cut on word
-//                                                stadium tiers (ink) · GANG CHANT −8,663 TOKENS · coral impact lines
-//  S3   88.940   I                               A · AUTO-REPLY card (panel) + him_dance chest-up, smug guns      MID          cut on word = 88.96D
+//  S2   88.420   Founder! (GANG)                 C · HER mock fist pump (her_mock_chant 1.6→2.6, pump on 88.50) in  MID / plate  cut on word
+//                                                front of a stadium of ink FOUNDER! tiers · GANG CHANT −8,663 TOKENS
+//  S3   88.940   I                               A · AUTO-REPLY card (RE: tonight?) + him_dance chest-up, smug guns MID         cut on word ≈ 88.96D
 //       89.200   can't                           hero CAN'T                                                      MID
-//       89.440   beat                            finger-gun pop · footer types "— sent from my Mac mini"          FRONT
+//       89.440   beat                            finger-gun pop · footer types "— sent from my Mac mini"          MID
 //       89.580   come · 89.720 out · 90.0 tonight.  words slam into the card                                       MID
-//  S4   90.400   (HER note, unsung)              A · her_unimpressed full body (eye-roll → sip), card shrinks right  plate     cut on beat
-//       90.400   beat                            coral STRIKE through CAN'T                                      FRONT
-//       90.880   downbeat                        note "of course you can't" writes on the card                    FRONT
-//       91.360   beat                            coral circle around "Mac mini"                                  FRONT
-//       91.820   beat                            "SEEN" receipt (coral mono + ticks)                             FRONT
-//       92.300   beat                            push-in, she sips                                               post
+//  S4   90.400   (HER note, unsung)              A · her_unimpressed full body (eye-roll → sip, clip 0.30→2.60)   plate        cut on the beat
+//       90.400   beat                            coral STRIKE through CAN'T                                      MID
+//       90.880   downbeat                        note "of course you can't" writes under the card                 MID
+//       91.360   beat                            coral circle around "Mac mini"                                  MID
+//       91.820   beat                            "SEEN ✓✓" receipt (coral mono)                                  MID
+//       92.300   beat                            coral LEFT ON READ stamp on the card · push-in, she sips          MID / post
 //  S5   92.697   See · 92.740 you                C · LOCKUP #3 on a tilted dark banner slapped across the green;   FRONT band   cut on word
-//       93.020   after · 93.380 tokens!          her_cu_talk knowing smirk + side-eye at it from the left (clip 4.55→)
-//       92.78D / 93.26 / 93.72                   punch · banner settle · crosshair flash
-//  S6   93.920   (pickup, after tokens! ends)    A · push-in: his tracked lanyard badge grows into a card (him_chant)  plate→card  94.20 beat lands it
-//       94.220   I'm (held)                      the badge is now a full-frame usage card: "I'M" slams              MID
-//       94.820   an · 94.940 AI · 95.220 founder!  words land on the card; FOUNDER! on a green highlighter bar        MID
-//       95.16 / 95.64                            live pixel balance on the card drains word by word (~300K)       MID
-//  S7   96.020   Founder! (GANG)                 C · a stadium of tiled hims (21 cut-outs, pump on 96.10)           plate        cut on word
-//  S8   96.560   No · 96.840 dating              A · entitlement gate: DATING feature card, padlock, toggle OFF   MID          cut on word = 96.58D
+//       93.020   after · 93.380 tokens!          her_cu_talk knowing smirk + side-eye at it (clip 4.55→5.77)
+//       92.78D / 93.26 / 93.72                   punch · banner settle wobble · crosshair flash
+//  S6   93.920   (after "tokens!")               A · push-in: his tracked lanyard badge (him_chant, pose 11/12/23/24)  plate→card  lands on 94.20
+//                                                grows into a full-frame usage card (area grows linearly: no flash)
+//       94.220   I'm (held)                      "I'M" slams on the card                                          MID
+//       94.820   an · 94.940 AI · 95.220 founder!  words land; FOUNDER! on a green highlighter bar                MID
+//       94.68D / 95.16 / 95.64                   the badge header band flips on each beat; pixel balance drains   MID
+//  S7   96.020   Founder! (GANG)                 C · a stadium of 15 tiled hims (him_chant, pump on 96.10) behind  plate / MID  cut on word
+//                                                LED ribbon boards scrolling FOUNDER! · GANG CHANT readout
+//  S8   96.560   No · 96.840 dating              A · entitlement gate: DATING feature card, padlock, toggle OFF;   MID / plate  cut on word ≈ 96.58D
+//                                                her_unimpressed sips beside it (clip 2.55→4.0)
 //       97.060   beat                            toggle tries ON, snaps back OFF (denied shake)                   MID
-//       97.140   till · 97.320 Series · 97.600 B.  "TILL SERIES B." · 97.54 beat: requires: SERIES_B line              MID
-//  S9   98.020   See / you / after / tokens!     C · LOCKUP #4 in a tall dark band; him_dance in front, right       MID / plate  cut on word = 98.02 beat
-//       98.080   (HER note, unsung)              "babe, you're pre-seed" writes inside the band (coral on dark)    FRONT
-//       98.48D / 99.44                           finger-gun pops + muzzle lines                                   FRONT
-//       98.960   beat                            double underline under "pre-seed" · 99.44 arrow to him            FRONT
-//       99.900   beat                            last pop + punch                                                post
+//       97.140   till · 97.320 Series · 97.600 B.  "TILL SERIES B." · LOCKED · requires plan: SERIES B            MID
+//       97.540   beat                            can(him, "dating") → false                                       MID
+//  S9   98.020   See / you / after / tokens!     C · LOCKUP #4 in a tall dark band; him_dance in front, right       MID / plate  cut on the 98.02 beat
+//       98.080   (HER note, unsung)              "babe, you're pre-seed" writes inside the band (coral on dark)    MID
+//       98.48D / 99.44                           finger-gun pops + muzzle lines (pose 19/20)                      MID
+//       98.960   beat                            double underline under "pre-seed" · 99.44 arrow to his face        MID / FRONT
+//       99.900   beat                            crosshair flash around the lockup + punch                       MID / post
 import * as K from "./chorus1/kit.js";
 const { B, C, FONT, clamp, lerp, ease } = K;
 const INK = C.ink;
@@ -66,7 +71,7 @@ export default K.makeScene({
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const dr = drift(F, 86.96, 88.42, 0.04);
       const op = port
-        ? K.frameSub(E, v, { h: 0.95 * H * dr, cx: 0.5 * W, ay: 0.44 * H, av: 0.104 })
+        ? K.frameSub(E, v, { h: 0.95 * H * dr, cx: 0.5 * W, ay: 0.4 * H, av: 0.104 })
         : K.frameSub(E, v, { h: 1.36 * H * dr, cx: 0.81 * W, ay: 0.08 * H, av: 0.104 });
       const ws = L[0].words, lay = s1Layout(F);
       F.back((c) => {
@@ -120,9 +125,9 @@ export default K.makeScene({
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const dr = drift(F, w(2, 0).s, 90.4, 0.03);
       const op = port
-        ? K.frameSub(E, v, { h: 0.95 * H * dr, cx: 0.55 * W, ay: 0.51 * H, av: 0.015 })
+        ? K.frameSub(E, v, { h: 0.8 * H * dr, cx: 0.55 * W, ay: 0.475 * H, av: 0.015 })
         : K.frameSub(E, v, { h: 1.75 * H * dr, cx: 0.78 * W, ay: 0.08 * H, av: 0.015 });
-      const card = port ? { x: R.x + R.w * 0.03, y: F.PT - 10 * S, k: 0.78 } : { x: 0.05 * W, y: 0.17 * H, k: 0.92 };
+      const card = port ? { x: R.x + R.w * 0.03, y: F.PT - 10 * S, k: 0.7 } : { x: 0.05 * W, y: 0.17 * H, k: 0.92 };
       F.back((c) => {
         K.groundA(F, c, { offX: (t - 88.94) * 20 * S });
         autoReply(F, c, card, true);
@@ -151,6 +156,7 @@ export default K.makeScene({
         B.penCircle(c, pos.mac[0], pos.mac[1], pos.mac[2], pos.mac[3], t, 91.36, { width: 5 * S, seed: 3, dur: 0.22 });
         const k = K.slam(t, 91.82, { from: 1.3 });
         if (k) seen(F, c, pos.seen[0], pos.seen[1], k.sc, card.k);
+        B.stamp(E, c, "LEFT ON READ", pos.read[0], pos.read[1], t, 92.3, { S, size: 52 * card.k * 1.25, rot: -0.13 });
       });
       F.plate(v, op);
       E.post.punch = Math.max(E.post.punch, 0.018 * E.pulse("downbeats", t, 0.1));
@@ -161,7 +167,7 @@ export default K.makeScene({
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const dr = drift(F, w(3, 0).s, 93.92, 0.04);
       const op = port
-        ? K.frameSub(E, v, { h: 0.6 * H * dr, au: 0.3, av: 0.996, cx: 0.34 * W, bottom: 1.03 * H })
+        ? K.frameSub(E, v, { h: 0.6 * H * dr, au: 0.3, av: 0.996, cx: 0.62 * W, bottom: 1.0 * H })
         : K.frameSub(E, v, { h: 1.0 * H * dr, au: 0.3, av: 0.996, cx: 0.19 * W, bottom: 1.04 * H });
       const settle = 1 - Math.exp(-Math.max(0, t - 93.26) / 0.06) * (t >= 93.26 ? 1 : 0);
       const rot = -0.06 + 0.012 * (t >= 93.26 ? Math.exp(-(t - 93.26) / 0.12) * Math.sin((t - 93.26) * 40) : 0);
@@ -254,7 +260,7 @@ export default K.makeScene({
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const dr = drift(F, w(7, 0).s, 100.38, 0.03);
       const op = port
-        ? K.frameSub(E, v, { h: 0.43 * H * dr, cx: 0.62 * W, bottom: 0.985 * H })
+        ? K.frameSub(E, v, { h: 0.43 * H * dr, cx: 0.62 * W, bottom: 0.94 * H })
         : K.frameSub(E, v, { h: 0.95 * H * dr, cx: 0.8 * W, bottom: 0.99 * H });
       const lx = port ? R.x + R.w / 2 : 0.38 * W, ly = port ? F.PT + 110 * S : 0.36 * H, size = port ? 70 : 128;
       const band = port ? [F.PT - 30 * S, F.PT + 480 * S] : [0.12 * H, 0.84 * H];
@@ -330,7 +336,7 @@ export default K.makeScene({
       if (n > 0) E.drawText(c, foot.slice(0, n), x0, y + ch - 44 * k, fo);
       const pre = E.measure(c, "— sent from my ", fo), mw = E.measure(c, "Mac mini", fo);
       c.restore();
-      return { cant: [x0 + iw, r1 - 200 * k * 0.36, x0 + iw + cwid], mac: [x0 + pre + mw / 2, y + ch - 44 * k, mw * 0.62, 30 * k], seen: [x + cw - 46 * k, y + ch - 44 * k] };
+      return { cant: [x0 + iw, r1 - 200 * k * 0.36, x0 + iw + cwid], mac: [x0 + pre + mw / 2, y + ch - 44 * k, mw * 0.62, 30 * k], seen: [x + cw - 46 * k, y + ch - 44 * k], read: [x + cw * 0.9, y + ch * 0.25] };
     }
     function seen(F, c, x, y, sc, k) {
       const { E, S } = F;

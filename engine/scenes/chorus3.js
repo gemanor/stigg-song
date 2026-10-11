@@ -1,45 +1,49 @@
 // CHORUS 3 · 118.85-134.50 · HOOK_03 · owner A3 · the final chorus: the biggest one. A look change on every line (C A B A E C A
 // D A E), the duo dance as the main footage, both "See you after tokens!" lines doubled, the token meter crosses 10% at 129.59
-// (LOW BALANCE: a coral warning band + a big coral pixel balance draining), half-beat stutters in the last 2 bars (130.68-134.50:
-// clip beat-repeats a-a-b-b + framing jumps on a constant ground, so no full-frame luminance flips).
+// (LOW BALANCE: coral stamp + a coral warning band that blinks every other beat + a big coral pixel balance draining), half-beat
+// stutters in the last 2 bars (130.68-134.50: clip beat-repeats a-a-b-b + jump cuts wide ↔ knees-up on a constant ground, so no
+// full-frame luminance flips; measured max 2 large luma jumps in any 1 s window).
 // Beats 118.80 | 119.28D 119.74 120.22 120.70 | 121.16D 121.64 122.12 122.60 | 123.08D 123.56 124.02 124.50 |
 //       124.98D 125.46 125.92 126.40 | 126.88D 127.36 127.84 128.32 | 128.80D 129.26 129.74 130.22 |
 //       130.68D 131.16 131.64 132.12 | 132.58D 133.06 133.54 134.02 | 134.50D (outro)
+// duo_dance fist peaks (footage.md: ≈0.9, 1.55, 2.2, 2.9, 3.5, 4.1, 4.8, 5.55, 6.3, 6.9, 7.5) are beat-locked by a piecewise
+// speed ramp (≈1.3×), so every fist lands on a beat. Layers: BACK/MID = surface #1 under the cut-out, FRONT = surface #2.
 //
 // PLAN  t        word / event                    visual                                                         layer        cut / beat
-//  S1   118.850  (hard cut in)                   C · duo_dance full body, her fist peaks beat-locked (≈1.3×)     plate        first frame = slam
-//       118.913  I'm · 119.362 an · 119.522 AI   three marquee rows of I'M AN AI FOUNDER! scroll behind them;    MID
-//       119.762  founder!                        every copy of the sung word lights white on its onset
-//       119.28D / 119.74 / 120.22                fist peaks on the beats → coral (her) / white (him) impact lines  FRONT
+//  S1   118.850  (hard cut in)                   C · duo_dance full body; two marquee rows of I'M AN AI FOUNDER!  MID / plate  first frame = slam
+//       118.913  I'm · 119.362 an · 119.522 AI   scroll behind them; every copy of the sung word punches out white on
+//       119.762  founder!                        an ink block on its onset · burn tag
+//       119.28D / 119.74 / 120.22                fist peaks on the beats → coral (her) / white (him) impact lines  MID
 //  S2   120.642  Founder! (GANG)                 A · wall of FOUNDER! + a giant pixel balance rolling −8,663       BACK         cut on word
 //  S3   121.102  I · 121.422 can't · 121.782 come · 121.922 out · 122.222 tonight.                                MID          cut on word ≈ 121.16D
-//                                                B · his pitch deck slide 07/12: him_pitch presents (clip 0.40→),
-//                                                the headline builds word by word, TONIGHT. on a green highlighter bar
-//       121.640  beat                            coral underline under CAN'T                                      FRONT
-//       121.800  (HER note, unsung)              "of course you can't" written on his slide (red pen on his deck)  FRONT
+//                                                B · his pitch-deck slide 07/12: him_pitch presents (clip 0.40→1.92,
+//                                                tracked leader line from his palm), headline builds, TONIGHT. on a green bar
+//       121.640  beat                            HER coral underline marks CAN'T on his own slide                 MID
 //       122.120  beat                            slide number ticks 07/12 → 08/12 (deck build)                    MID
-//  S4   122.622  See · 123.002 you · 123.302 after · 123.702 tokens!                                              MID          cut on word = 122.60 beat
-//                                                A · LOCKUP #5 top; the duo dances below (clip 2.9→5.6), shadow
-//       123.08D / 123.56 / 124.02                fist peaks + impact lines; he freezes at 124.1 (clip hold), she doesn't
-//  S5   124.522  See · 124.822 you · 125.222 after · 125.562 tokens!                                              MID          cut on word = 124.50 beat
+//  S4   122.622  See · 123.002 you · 123.302 after · 123.702 tokens!                                              MID          cut on word ≈ 122.60
+//                                                A · LOCKUP #5 as a stage: the duo dances ON its top rule (fist peaks
+//                                                on 123.08D / 123.56 / 124.02 + impact lines)
+//       122.660  (HER note, unsung)              "of course you can't" writes beside them, right after his line;
+//                                                123.56 coral arrow to him (pose-tracked face)                     MID
+//  S5   124.522  See · 124.822 you · 125.222 after · 125.562 tokens!                                              MID          cut on word ≈ 124.50
 //                                                E · terminal: LOCKUP #6 in a tokens.log window, a log line prints per
-//                                                word (word, burn, balance), the duo in a LIVE feed panel
-//       124.98D / 125.46 / 125.92                cursor + log flush on beats                                      MID
-//  S6   126.422  I'm (held to 127.042)           C · duo waist-up, big; behind them one giant word slot flips     MID          cut on word = 126.40 beat
-//       127.042  an · 127.162 AI · 127.422 founder!  per word (split-flap) · FOUNDER! fills the width
-//       126.88D / 127.36 / 127.84                fist peaks + lines                                               FRONT
+//                                                word (word, burn, balance), the duo in a LIVE feed window
+//       124.98D / 125.46 / 125.92                fist peaks + impact lines inside the feed, cursor blink          MID
+//  S6   126.422  I'm (held to 127.042)           C · duo waist-up; above them one giant split-flap word slot that  MID          cut on word ≈ 126.40
+//       127.042  an · 127.162 AI · 127.422 founder!  flips per word (each flip lands on its onset) · burn tag
+//       126.88D / 127.36 / 127.84                fist peaks + impact lines                                        MID
 //  S7   128.242  Founder! (GANG)                 A · wall of FOUNDER! that HER red pen strikes through row by row  BACK         cut on word ≈ 128.32
-//  S8   128.762  No · 129.042 dating · 129.342 till · 129.522 Series · 129.802 B.                                 MID          cut on word = 128.80D
-//                                                D · dictionary entry: Series B /ˈsɪə.riːz ˈbiː/ n. + his line big
-//       129.590  meter < 10%                     LOW BALANCE: coral stamp slams on the page, coral warning band     FRONT
-//                                                appears (blinks every other beat from here to the end)
+//  S8   128.762  No · 129.042 dating · 129.342 till · 129.522 Series · 129.802 B.                                 MID          cut on word ≈ 128.80D
+//                                                D · FOUNDER → ENGLISH dictionary: his line big + "Series B /ˈsɪə.riːz ˈbiː/ n."
+//       129.590  meter < 10%                     LOW BALANCE stamp slams on the page + punch; the coral warning band
+//                                                appears (blinks every other beat to the end of the chorus)        MID
 //  S9   130.222  See · 130.642 you · 130.922 after · 131.302 tokens!                                              MID          cut on word = 130.22 beat
-//                                                A · LOCKUP #7 + coral band + big coral pixel balance; duo right
-//       130.250  (HER note, unsung)              "babe, you're pre-seed" writes, 131.16 arrow to him, underline     FRONT
-//       130.680  downbeat                        HALF-BEAT STUTTERS begin: clip beat-repeat a-a-b-b + framing jumps  plate
-//  S10  132.142  See · 132.562 you · 132.842 after · 133.182 tokens!                                              MID          cut on word = 132.12 beat
-//                                                E · LOCKUP #8 in the terminal, the balance panel drains in coral,
-//                                                duo feed stutters on half-beats; 134.02 last beat: "LOW BALANCE" flush
+//                                                A · LOCKUP #7 + coral band + big coral pixel balance draining; duo right
+//       130.250  (HER note, unsung)              "babe, you're pre-seed" writes · 131.16 arrow to him · 131.64 underline  MID / FRONT
+//       130.680  downbeat                        HALF-BEAT STUTTERS begin: clip beat-repeat a-a-b-b + wide/knees-up jumps  plate
+//  S10  132.142  See · 132.562 you · 132.842 after · 133.182 tokens!                                              FRONT        cut on word ≈ 132.12
+//                                                E · LOCKUP #8 in the terminal, a coral balance panel draining to 60,000,
+//                                                the duo feed stutters on half-beats; 134.02 last beat: punch
 import * as K from "./chorus1/kit.js";
 const { B, C, FONT, clamp, lerp, ease } = K;
 const INK = C.ink;
@@ -59,7 +63,7 @@ export default K.makeScene({
     const PK = [0.9, 1.55, 2.2, 2.9, 3.5, 4.1, 4.8, 5.55, 6.3, 6.9, 7.5];
     const beats = E.A.beats;
     const knots = (b0, p0, n) => { const i0 = beats.findIndex((x) => x >= b0 - 0.01), k = []; for (let i = 0; i < n; i++) k.push([beats[i0 + i], PK[p0 + i]]); return k; };
-    const kS1 = knots(118.8, 0, 5), kS4 = knots(123.08, 4, 4), kS5 = knots(124.98, 7, 4), kS6 = knots(126.88, 1, 4), kS9 = knots(130.68, 3, 4);
+    const kS1 = knots(118.8, 0, 5), kS4 = knots(123.08, 4, 4), kS5 = knots(124.98, 7, 4), kS6 = knots(126.88, 1, 4), kS9 = knots(130.68, 2, 9); // 130.68 → 134.50: fist peaks 2.2 … 7.5, the clip never runs out
     // half-beat grid for the stutter bars
     const HB = [];
     for (let i = 0; i < beats.length - 1; i++) if (beats[i] >= 130.67 && beats[i] < 134.5) { HB.push(beats[i], (beats[i] + beats[i + 1]) / 2); }
@@ -134,7 +138,6 @@ export default K.makeScene({
         K.slamText(F, c, "TONIGHT.", lay.x0, lay.y3, ws[4].s, { ...hero, size: lay.s3 });
         const cwid = E.measure(c, "CAN'T", { ...K.HERO, size: lay.s1 });
         B.penUnderline(c, lay.x0 + iw, lay.y1 + lay.s1 * 0.12, lay.x0 + iw + cwid, t, 121.64, { width: 10 * S, seed: 12, dur: 0.12 });
-        B.penNote(E, c, "of course you can't", lay.nx, lay.ny, t, 121.8, { size: lay.ns, cps: 31, rot: -0.05 });
         // the presenting hand points at the slide: a thin tracked leader line from his palm (pose 16) to the headline
         const p = K.lmScreen(E, v, lt, 16, op);
         if (p) { c.strokeStyle = C.inkA(0.5); c.lineWidth = Math.max(1, 2 * S); c.setLineDash([6 * S, 6 * S]); c.beginPath(); c.moveTo(p[0] + 20 * S, p[1]); c.lineTo(lay.x0 - 24 * S, lay.y2 - lay.s2 * 0.35); c.stroke(); c.setLineDash([]); }
@@ -148,13 +151,19 @@ export default K.makeScene({
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const dr = drift(F, 122.62, 124.52, 0.03);
       const lx = port ? R.x + R.w / 2 : W / 2, ly = port ? F.PT + 120 * S : 0.79 * H, lsz = port ? 72 : 128;
-      const stage = port ? 0.955 * H : K.lockupBox(E, K.mctx(), lx, ly, lsz).top - 6 * S; // their feet on the lockup's top rule
+      const stage = port ? 0.92 * H : K.lockupBox(E, K.mctx(), lx, ly, lsz).top - 6 * S; // their feet on the lockup's top rule
       const op = port ? duoOp(F, { h: 0.43 * H * dr, cx: 0.5 * W, bottom: stage }) : duoOp(F, { h: 0.6 * H * dr, cx: 0.5 * W, bottom: stage });
       F.back((c) => {
         K.groundA(F, c, { offY: -(t - 122.62) * 24 * S });
         K.lockup(F, c, L[3].words, lx, ly, { size: lsz, seed: 13 });
         K.shadow(c, W / 2, stage, port ? 0.6 * W : 0.32 * W);
         duoHits(F, c, v, lt, op, kS4);
+        // HER comeback, right after his line: written beside the duo, arrow to him
+        const nx = port ? R.x + R.w * 0.05 : 0.035 * W, ny = port ? F.PT + 300 * S : 0.3 * H, ns = (port ? 62 : 84) * S;
+        B.penNote(E, c, "of course you can't", nx, ny, t, 122.66, { size: ns, cps: 30, rot: -0.05 });
+        const face = K.lmScreen(E, v, lt, 0, op, [0.355, 0.14]), nw = E.measure(c, "of course you can't", { font: FONT.serif, italic: true, weight: 400, size: ns });
+        if (face && !port) B.penArrow(c, nx + nw * 0.55, ny + ns * 0.5, face[0] - 70 * S, face[1] + 40 * S, t, 123.56, { width: 6 * S, seed: 27, bend: -0.3, dur: 0.16 });
+        if (face && port) B.penArrow(c, nx + nw * 0.5, ny + ns * 0.45, face[0] - 20 * S, face[1] - 125 * S, t, 123.56, { width: 6 * S, seed: 27, bend: 0.25, dur: 0.16 });
       });
       F.plate(v, op);
       K.punch(F, 0.03);
@@ -165,7 +174,7 @@ export default K.makeScene({
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const lay = termLayout(F, 0);
       const op = duoOp(F, { h: lay.feed.h * 0.9, cx: lay.feed.x + lay.feed.w / 2, bottom: lay.feed.y + lay.feed.h * 0.97 });
-      F.back((c) => feedInterior(F, c, lay.feed));
+      F.back((c) => { feedInterior(F, c, lay.feed); duoHits(F, c, v, lt, op, kS5); });
       F.plate(v, op);
       F.front((c) => {
         uiAround(F, c, lay.feed);
@@ -183,7 +192,7 @@ export default K.makeScene({
     SH.push({ a: w(5, 0).s, b: w(6, 0).s, look: "C", clips: (F) => [[duo, K.inClip(duo, K.warp(kS6, F.t))]], draw(F) {
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const dr = drift(F, 126.42, 128.24, 0.05);
-      const op = port ? duoOp(F, { h: 0.86 * H * dr, spanUV: 0.94, cx: 0.5 * W, av: 0.007, ay: 0.43 * H }) : duoOp(F, { h: 1.25 * H * dr, spanUV: 0.94, cx: 0.5 * W, av: 0.007, ay: 0.43 * H });
+      const op = port ? duoOp(F, { h: 0.7 * H * dr, spanUV: 0.94, cx: 0.5 * W, av: 0.007, ay: 0.41 * H }) : duoOp(F, { h: 1.25 * H * dr, spanUV: 0.94, cx: 0.5 * W, av: 0.007, ay: 0.43 * H });
       F.back((c) => {
         K.groundC(F, c);
         flapSlot(F, c, L[5].words, port ? F.PT + 120 * S : 0.25 * H, port ? R.w * 0.98 : 0.8 * W, port ? R.x + R.w / 2 : 0.56 * W);
@@ -232,16 +241,17 @@ export default K.makeScene({
     SH.push({ a: w(8, 0).s, b: w(9, 0).s, look: "A", clips: stutter(kS9), draw(F) {
       const { E, t, S, W, H, R, port } = F, [v, lt] = F.cl[0];
       const k = hbIndex(t), jump = k >= 0 && k % 2 === 1;
+      // stutter: odd half-beats jump-cut to a knees-up medium on the same ground (no luminance flip)
       const op = port
-        ? duoOp(F, { h: 0.4 * H * (jump ? 1.1 : 1), cx: (jump ? 0.54 : 0.5) * W, bottom: (jump ? 1.0 : 0.97) * H })
-        : duoOp(F, { h: 0.74 * H * (jump ? 1.1 : 1), cx: (jump ? 0.8 : 0.765) * W, bottom: (jump ? 1.03 : 0.985) * H });
+        ? duoOp(F, jump ? { h: 0.46 * H, cx: 0.53 * W, bottom: 0.965 * H } : { h: 0.41 * H, cx: 0.5 * W, bottom: 0.927 * H })
+        : duoOp(F, jump ? { h: 0.98 * H, cx: 0.79 * W, bottom: 1.16 * H } : { h: 0.74 * H, cx: 0.765 * W, bottom: 0.985 * H });
       const lx = port ? R.x + R.w / 2 : 0.29 * W, ly = port ? F.PT + 170 * S : 0.3 * H;
       const nx = port ? R.x + R.w * 0.04 : 0.05 * W, ny = port ? F.PT + 345 * S : 0.5 * H, ns = (port ? 58 : 92) * S;
       const nf = { font: FONT.serif, italic: true, weight: 400, size: ns }, nw = E.measure(K.mctx(), "babe, you're pre-seed", nf), pw = E.measure(K.mctx(), "pre-seed", nf);
       F.back((c) => {
         K.groundA(F, c);
         K.lockup(F, c, L[8].words, lx, ly, { size: port ? 68 : 112, seed: 19 });
-        bigBalance(F, c, port ? { x: R.x + R.w * 0.04, y: F.PT + 420 * S, cell: 7 } : { x: 0.05 * W, y: 0.6 * H, cell: 11 }, k);
+        bigBalance(F, c, port ? { x: R.x + R.w * 0.6, y: F.PT + 330 * S, cell: 5 } : { x: 0.05 * W, y: 0.6 * H, cell: 11 }, k);
         B.penNote(E, c, "babe, you're pre-seed", nx, ny, t, 130.25, { size: ns, cps: 30, rot: -0.035 });
         B.penUnderline(c, nx + nw - pw, ny + ns * 0.42, nx + nw, t, 131.64, { width: 7 * S, seed: 21, dur: 0.12 });
       });
@@ -261,7 +271,7 @@ export default K.makeScene({
       const k = hbIndex(t), jump = k >= 0 && k % 2 === 1;
       const lay = termLayout(F, 1);
       const fd = lay.feed;
-      const op = duoOp(F, { h: fd.h * (jump ? 1.0 : 0.88), cx: fd.x + fd.w * (jump ? 0.47 : 0.5), bottom: fd.y + fd.h * (jump ? 1.04 : 0.97) });
+      const op = duoOp(F, jump ? { h: fd.h * 1.3, cx: fd.x + fd.w * 0.48, bottom: fd.y + fd.h * 1.28 } : { h: fd.h * 0.88, cx: fd.x + fd.w * 0.5, bottom: fd.y + fd.h * 0.97 });
       F.back((c) => feedInterior(F, c, fd));
       F.plate(v, op);
       F.front((c) => {
@@ -271,7 +281,7 @@ export default K.makeScene({
         K.lockup(F, c, L[9].words, lay.main.x + lay.main.w / 2, lay.main.y + lay.main.h * 0.56, { size: port ? 62 : 112, seed: 29 });
         termWindow(F, c, lay.bal, "balance");
         bigBalance(F, c, { x: lay.bal.x + 30 * S, y: lay.bal.y + 96 * S, cell: port ? 6 : 8 }, k);
-        logLines(F, c, { ...lay.bal, x: lay.bal.x + lay.bal.w * (port ? 0.0 : 0.5), w: lay.bal.w * (port ? 1 : 0.5) }, L[9].words, true);
+        if (!port) logLines(F, c, { ...lay.bal, x: lay.bal.x + lay.bal.w * 0.5, w: lay.bal.w * 0.5 }, L[9].words, true);
         termWindow(F, c, fd, "cam_01 · LIVE", false);
         liveDot(F, c, fd);
         lowBand(F, c, lowT, true);

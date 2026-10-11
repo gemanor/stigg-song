@@ -135,7 +135,6 @@ function chant1(E, t) {
   E.hud.theme = "light"; E.hud.sub = false;
   // sub-shot by syllable: a = I'M (full body, fist high) · b = AN AI (waist-up) · c = FOUN (chest-up) · d = DER! (full)
   const sb = t < CH1[1].s - 0.067 ? 0 : t < CH1[3].s - 0.067 ? 1 : t < CH1[4].s - 0.067 ? 2 : 3;
-  const lt = chantLT(t);
   const fr = P
     ? [{ u: 0.78, v: 0.967, X: 0.55 * W, Y: 0.985 * H, h: 0.56 * H }, { u: 0.78, v: 0.6, X: 0.55 * W, Y: H, h: 0.95 * H }, { u: 0.775, v: 0.5, X: 0.55 * W, Y: H, h: 1.15 * H }, { u: 0.78, v: 0.967, X: 0.55 * W, Y: 0.985 * H, h: 0.56 * H }][sb]
     : [{ u: 0.78, v: 0.967, X: 0.7 * W, Y: 0.985 * H, h: 1.0 * H }, { u: 0.78, v: 0.6, X: 0.72 * W, Y: 1.0 * H, h: 1.7 * H }, { u: 0.775, v: 0.45, X: 0.77 * W, Y: 1.0 * H, h: 2.05 * H }, { u: 0.78, v: 0.967, X: 0.71 * W, Y: 0.985 * H, h: 1.0 * H }][sb];
@@ -166,7 +165,6 @@ function chant1(E, t) {
 function ledger(E, t) {
   const S = S_(E), c = g.ctx, P = K.P(E), W = E.W, H = E.H, R = E.SAFE;
   E.hud.theme = "dark"; E.hud.sub = false; // the chant line was set big in D1; the ledger itemizes it
-  const lt = chantLT(t);
   const po = K.placePlate(E, vCH, P ? { u: 0.78, v: 0.967, X: 0.66 * W, Y: 1.0 * H, h: 0.44 * H } : { u: 0.78, v: 0.967, X: 0.79 * W, Y: 0.985 * H, h: 0.95 * H });
   const rows = [["I’M", CH1[0].w], ["AN", CH1[1].w], ["AI", CH1[2].w], ["FOUNDER!", CH1[3].w]];
   const total = rows.reduce((a, r) => a + K.costOf(E, r[1]), 0);
