@@ -271,3 +271,16 @@ export function glowDisc(c, x, y, r, col, a) {
   g.addColorStop(0, col); g.addColorStop(1, "rgba(0,0,0,0)");
   c.save(); c.globalAlpha = a; c.fillStyle = g; c.fillRect(x - r, y - r, 2 * r, 2 * r); c.restore();
 }
+
+// A full-width terminal status bar across the bottom (portrait: the platform-UI zone). Drawn in FRONT, it is the desk the
+// close-ups sit behind, so their chest crop never shows mid-frame. y0 = top edge in px.
+export function statusBar(E, c, t, y0, text) {
+  const S = E.SCALE;
+  c.save();
+  c.fillStyle = K.panel; c.fillRect(0, y0, E.W, E.H - y0);
+  c.fillStyle = K.line; c.fillRect(0, y0, E.W, Math.max(1, S));
+  c.fillStyle = "rgba(146,231,89,0.35)"; c.fillRect(0, y0 + 6 * S, E.W, Math.max(1, S));
+  c.restore();
+  mono(E, c, text, E.SAFE.x + 24 * S, y0 + 44 * S, { size: 22, color: K.grey, upper: false });
+  cursor(E, c, t, E.SAFE.x + 24 * S, y0 + 74 * S, 14 * S, 26 * S, K.green, 0.8);
+}

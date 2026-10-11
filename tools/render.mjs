@@ -45,22 +45,28 @@ if (args.canvas) q.set("canvas", args.canvas);
 q.set("msaa", String(args.msaa ?? (process.platform === "darwin" ? 4 : 0)));
 const launch = () => chromium.launch(launchOptions());
 async function renderChunk(a, b, file, wi) {
-  const browser = await launch();
-  const page = await browser.newPage();
-  page.on("console", (m) => {
-    if (m.type() === "error" || m.type() === "warning")
-      console.log(`[w${wi}] ${m.type()}: ${m.text()}`);
-  });
-  page.on("pageerror", (e) => console.log(`[w${wi}] pageerror: ${e.message}`));
-  await page.goto(`http://127.0.0.1:${port}/engine/index.html?${q}`);
-  await page.waitForFunction(() => window.__ready || window.__error, null, {
-    timeout: 180000,
-  });
-  const err = await page.evaluate(() => window.__error);
-  if (err) throw new Error(err);
-  // the engine resolved the canvas (timeline.js CANVAS or --canvas); match the page to it
-  const [w, h] = await page.evaluate(() => [window.E.W, window.E.H]);
-  await page.setViewportSize({ width: w, height: h });
+  // Open (or reopen) a booted engine page. A watchdog below reopens it when a frame hangs: the engine is deterministic,
+  // so a fresh page renders the same pixels for the retried frame.
+  let browser, page;
+  const open = async () => {
+    browser = await launch();
+    page = await browser.newPage();
+    page.on("console", (m) => {
+      if (m.type() === "error" || m.type() === "warning")
+        console.log(`[w${wi}] ${m.type()}: ${m.text()}`);
+    });
+    page.on("pageerror", (e) => console.log(`[w${wi}] pageerror: ${e.message}`));
+    await page.goto(`http://127.0.0.1:${port}/engine/index.html?${q}`);
+    await page.waitForFunction(() => window.__ready || window.__error, null, {
+      timeout: 180000,
+    });
+    const err = await page.evaluate(() => window.__error);
+    if (err) throw new Error(err);
+    // the engine resolved the canvas (timeline.js CANVAS or --canvas); match the page to it
+    const [w, h] = await page.evaluate(() => [window.E.W, window.E.H]);
+    await page.setViewportSize({ width: w, height: h });
+  };
+  await open();
   const ff = spawn(
     "ffmpeg",
     [
@@ -90,8 +96,9 @@ async function renderChunk(a, b, file, wi) {
     { stdio: ["pipe", "inherit", "inherit"] },
   );
   const t0 = Date.now();
-  for (let f = a; f < b; f++) {
-    const buf = await page.evaluate(
+  const FRAME_TIMEOUT = +(args.frameTimeout ?? 180) * 1000;
+  const grabFrame = (f) =>
+    page.evaluate(
       async ([f, fps]) => {
         await window.renderFrame(f, fps);
         const u8 = await window.grab("image/jpeg", 0.94);
@@ -102,6 +109,24 @@ async function renderChunk(a, b, file, wi) {
       },
       [f, fps],
     );
+  for (let f = a; f < b; f++) {
+    let buf = null;
+    for (let attempt = 0; buf === null; attempt++) {
+      let timer;
+      try {
+        buf = await Promise.race([
+          grabFrame(f),
+          new Promise((_, rej) => { timer = setTimeout(() => rej(new Error("frame timeout")), FRAME_TIMEOUT); }),
+        ]);
+      } catch (e) {
+        if (attempt >= 3) throw new Error(`[w${wi}] frame ${f} failed ${attempt + 1} times: ${e.message}`);
+        console.log(`[w${wi}] frame ${f}: ${e.message}; reopening the page (retry ${attempt + 1})`);
+        await browser.close().catch(() => {});
+        await open();
+      } finally {
+        clearTimeout(timer);
+      }
+    }
     if (!ff.stdin.write(Buffer.from(buf, "base64")))
       await new Promise((r) => ff.stdin.once("drain", r));
     if ((f - a) % 60 === 0)

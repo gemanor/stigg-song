@@ -3,44 +3,50 @@
 //
 // PLAN (onsets from engine/data/lyrics.json; beats 18.04D 18.52 18.98 19.46 | 19.94D 20.42 20.90 21.38 | 21.84D 22.32
 // 22.80 23.28 | 23.76D 24.22 24.70 25.18 | 25.66D 26.14 26.60 27.08 | 27.56D 28.04 28.52 28.98 | 29.46D 29.94 30.42 30.90 |
-// 31.36D 31.84 32.32 32.80)
+// 31.36D 31.84 32.32 32.80). Every slide hold has a slow push (slide drifts, footage stays: parallax); every slide's eyebrow
+// square ticks on each beat. HIM's lip-synced close-up (him_lipsync, slot t-17.30) is the "founder bubble": a Loom-style
+// webcam circle with his cap breaking out of the top, ring lit green while he sings.
 //  t       word / event             visual                                                        layer          cut
 //  17.40   (hard cut in)            dark stage, slide 01 card "building." + "v47_FINAL_final(2).key";  BACK card,     hard cut
-//                                   HIM (him_pitch 0.25s) steps OUT of the card: clipped at its       MID type behind
-//                                   bottom edge, head/arm over the dark stage; title behind his hand  his hand, FRONT
-//  18.013  I                        CLICK (ring at his clicker hand, pose 16) -> 02 COMPENSATION        FRONT ring      cut (≈18.04D)
+//                                   HIM (him_pitch 0.25s) steps OUT of the card: clipped at its       PLATE (clipped)
+//                                   bottom edge, head/arm over the dark stage
+//  18.013  I                        CLICK ring at his clicker hand (pose 16) -> 02 COMPENSATION with his   FRONT ring  cut (≈18.04D)
+//                                   big FOUNDER BUBBLE (lip-sync) "founder (host)"
 //  18.39   salary,                  "$0" slams at the end of SALARY ........                            BACK
 //  18.76   I (take)                 his own clean ink strike wipes through SALARY $0, row dims          BACK
 //  19.11   token / 19.354 budget.   green marker bars + TOKEN, BUDGET slam; live meter pill "/ MONTH"  BACK
-//  19.70   Burned                   03 BURN: dark dashboard card, giant pixel ODOMETER of tokensAt     BACK (HUD meter off) cut
-//  20.085  quarter-million,         the -250,000 roll (B.tokensAt, 0.45 s linear) + "−250,000 TOKENS" slam, punch
-//                                   burn chart line falls off the cliff (live from tokensAt)
-//  20.88   investors                INVESTOR LOVE line rises out of the cliff (scissors chart)
-//  21.13   love                     it rockets off the chart, "LOVE IT." slams                          BACK
-//  21.525  My / 21.734 co-founder's 04 TEAM: HIM pop-out headshot (him_cu_talk masked in a circle, cap   PLATE + FRONT   cut
-//                                   breaks out the top) + dashed "?" co-founder slot
-//  22.263  Mac / 22.38 mini         Mac mini prop (from his sheet) slams into the circle; MAC MINI caption
+//  19.70   Burned                   03 BURN: dark dashboard card, giant pixel ODOMETER of B.tokensAt;  BACK (HUD meter off) cut
+//                                   Loom bubble (lip-sync) bottom-left
+//  20.085  quarter-million,         the -250,000 roll (B.tokensAt, 0.45 s linear): fast digits spin crisp, the lead digit
+//                                   slides 9→8→7; "−250,000 TOKENS" slams; camera punch; the burn chart falls off a cliff
+//  20.52   and (my investors)       magic move: odometer docks top-left, the chart takes the card
+//  20.88   investors / 21.13 love   INVESTOR LOVE line climbs out of the cliff and rockets up; "LOVE IT." slams
+//  21.525  My / 21.734 co-founder's 04 TEAM: HIS pop-out headshot (lip-sync) + dashed "?" TBD slot     PLATE + FRONT   cut
+//  22.263  Mac / 22.38 mini         Mac mini prop (from his sheet, on its red leash) slams in; MAC MINI caption
 //  22.535  sitting / 23.064 shelf.  a shelf builds under it; the mini drops onto it; "HQ: SHELF" chip
-//  23.44   It (never sleeps)        magic move -> 05 BENCHMARKS: circles become column heads (ME | MAC MINI)
+//  23.44   It (never sleeps)        magic move: the circles SWAP places (one arcs over, one under) -> 05 BENCHMARKS
 //  23.76   sleeps,  24.358 eats.    rows SLEEP 0h|0h, MEALS 0|0 slam                                     BACK
-//  24.938  myself.                  "MAC MINI = ME" slams, marker on "= ME"
-//  25.32   Closed                   06 FUNDRAISING: VC (vc_plunge 0.4s) in his ice tub on the right;    PLATE           cut
-//                                   CLOSED pill; 25.612 SEED; 25.88/25.983 COLD PLUNGE; frost grows    FRONT frost
+//  24.938  myself.                  "=" slams between the circles; MAC MINI | ME labels: [MAC MINI] = [ME]
+//  25.18   (beat)                   06 FUNDRAISING: VC (vc_plunge 0.26s) in his ice tub on the right;    PLATE         cut
+//  25.32   Closed / 25.612 seed     CLOSED pill, giant SEED; 25.88/25.983 COLD PLUNGE; frost + icicles   FRONT frost
 //  26.32   it (was over)            TERM SHEET card; signature draws while the VC scribbles             BACK
-//  26.97   flash.                   camera FLASH (post.flash, 1 flash) + SIGNED badge                   post
-//  27.32   He                       07 FINGERS: extreme close-up of his shaking hands (vc 2.4s)         PLATE           cut
-//  27.934  fingers,                 "FINGERS" (shivering) + OFFLINE pill + leader to the stylus hand   FRONT
-//  28.22   but (he wired)           08 WIRE RECEIVED card (28.36 wired), every digit of $3,000,000.00   BACK            cut
-//                                   shivers; the small VC keeps shivering at the card's corner; 28.86 cash: ✓ draws
-//  28.967  Matcha's                 09 MARKET: HIM presents (him_pitch 1.0s); MATCHA ▲ ticker draws on  BACK + PLATE    cut (≈28.98)
-//  29.60   record / 29.74 high,     ¥17,250/kg (verified) + RECORD HIGH pill; source line (Uji, July 2026, highest since 1996)
+//  26.97   flash.                   camera FLASH (post.flash, one flash) + SIGNED badge                 post
+//  27.32   He                       07 FINGERS: extreme close-up of his shaking hands (face out of frame) PLATE         cut
+//  27.934  fingers,                 "FINGERS" (shivering) + OFFLINE pill + leader tracked to his stylus hand (pose 16)
+//  28.22   but (he wired)           08 WIRE RECEIVED card (28.36 wired), every digit of $3,000,000.00    BACK          cut
+//                                   shivers; the VC shivers at the card's corner; 28.86 cash: ✓ draws
+//  28.967  Matcha's                 09 MARKET: HIM presents (him_pitch); MATCHA ▲ area chart draws on;  BACK + PLATE  cut (≈28.98)
+//                                   ticker tape scrolls (verified: Uji first-harvest tencha ¥17,250/kg, July 2026, highest since 1996)
+//  29.60   record / 29.74 high,     ¥17,250/kg + RECORD HIGH pill
 //  30.26   shortage / 30.778 Japan  SUPPLY ▼ SHORTAGE + JAPAN chips
-//  30.894  My (valuation's)         same chart, label slot-rolls MATCHA -> VALUATION ("MARKED TO MATCHA")
-//  31.846  high.                    the line spikes out of the frame, camera tilts up, RECORD HIGH again
-//  32.12   I (don't have a plan)    11 ROADMAP: plan.md loading; 32.32 don't -> "404 NOT FOUND";         BACK            cut
-//  32.68   plan.                    "const plan = null;" types on; HIM (him_dance) fires finger guns on "plan" (peak 3.0s)
-// Clips: him_pitch 0.25-2.55s (17.40-19.70) and 1.0-4.15s (28.967-32.12, bigger framing); him_cu_talk 0.25-4.05s (headshot);
-//        vc_plunge 0.4-4.05s (25.32-28.967, never past the 5.2s flaw); him_dance 2.44-3.12s (32.12-32.80).
+//  30.894  My (valuation's)         same chart, label slot-rolls MATCHA -> VALUATION; "MARKED TO MATCHA"
+//  31.846  high.                    the line spikes out of the frame, the chart scrolls with it, RECORD HIGH ▲
+//  32.12   I (don't have a plan)    11 ROADMAP: plan.md loading spinner; 32.32 don't -> "404 NOT FOUND"  BACK          cut
+//  32.68   plan.                    "const plan = null;" types on; HIM (him_dance) fires finger guns (peak 3.0s on "plan")
+// Clips: him_pitch 0.25-0.86s (17.40-18.01, title) and 1.0-4.15s (28.967-32.12, presenting the market);
+//        him_lipsync 0.71-7.88s at its slot (18.01-25.18: COMP bubble, BURN Loom bubble, TEAM/BENCH headshot);
+//        vc_plunge 0.26-4.05s (25.18-28.967, never past the 5.2s flaw); him_dance 2.44-3.12s (32.12-32.80).
+// Portrait: content in the upper safe band, faces above the house subtitle, a dark stage band across the platform-UI zone.
 import * as K from "./verse1/kit.js";
 import * as D from "./verse1/deck.js";
 

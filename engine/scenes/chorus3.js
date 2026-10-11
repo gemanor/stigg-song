@@ -252,6 +252,7 @@ export default K.makeScene({
         K.groundA(F, c);
         K.lockup(F, c, L[8].words, lx, ly, { size: port ? 68 : 112, seed: 19 });
         bigBalance(F, c, port ? { x: R.x + R.w * 0.6, y: F.PT + 330 * S, cell: 5 } : { x: 0.05 * W, y: 0.6 * H, cell: 11 }, k);
+        duoHits(F, c, v, lt, op, kS9);
         B.penNote(E, c, "babe, you're pre-seed", nx, ny, t, 130.25, { size: ns, cps: 30, rot: -0.035 });
         B.penUnderline(c, nx + nw - pw, ny + ns * 0.42, nx + nw, t, 131.64, { width: 7 * S, seed: 21, dur: 0.12 });
       });
@@ -272,7 +273,7 @@ export default K.makeScene({
       const lay = termLayout(F, 1);
       const fd = lay.feed;
       const op = duoOp(F, jump ? { h: fd.h * 1.3, cx: fd.x + fd.w * 0.48, bottom: fd.y + fd.h * 1.28 } : { h: fd.h * 0.88, cx: fd.x + fd.w * 0.5, bottom: fd.y + fd.h * 0.97 });
-      F.back((c) => feedInterior(F, c, fd));
+      F.back((c) => { feedInterior(F, c, fd); duoHits(F, c, v, lt, op, kS9); });
       F.plate(v, op);
       F.front((c) => {
         uiAround(F, c, fd);

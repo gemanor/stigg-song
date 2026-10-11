@@ -31,7 +31,7 @@ function lay(E) {
       tgt: { h: 0.98 * E.H, y1: 1.0 * E.H, x0: 0.04 * E.W },
       cute: { x: 0.735 * E.W, y: 0.29 * E.H, size: 250 * S },
       hold: { x: 0.505 * E.W, y: 0.79 * E.H, size: 100 * S },
-      toast: { x: 0.955 * E.W, y: 0.065 * E.H, rows: 11, cell: Math.max(2, Math.round(4 * S)), align: "right" },
+      toast: { x: 0.955 * E.W, y: 0.105 * E.H, rows: 11, cell: Math.max(2, Math.round(4 * S)), align: "right" }, // clear of the HUD row once it returns
       ap: { x: 0.715 * E.W, y: 0.37 * E.H, rows: 16, cell },
     };
   // portrait: frame her body (not the hand-off reach), big and centred; the cup leaves off the right edge

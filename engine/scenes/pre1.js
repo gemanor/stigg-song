@@ -2,31 +2,36 @@
 // Designer A2. Reuses HIS slides from ./verse1/deck.js (final states) laid out as a strip the camera walks through.
 //
 // PLAN (onsets from lyrics.json; beats 32.80 33.26D 33.74 34.22 34.70 35.18D 35.66 36.14 36.60 37.08D 37.56 38.04 38.52
-// 39.00D 39.46 39.94 40.40 40.88D 41.36 41.84 42.32 | music stops 39.2-40.9: her "anywhere" a cappella, beat back 40.88)
+// 39.00D 39.46 39.94 40.40 40.88D 41.36 41.84 42.32 | music stops ≈39.2-40.9: her "anywhere" a cappella, beat back 40.88)
+// HER lip-synced close-up (her_lipsync, slot t-32.70) takes over HIS founder bubble (coral ring, "her (host)") while the
+// camera walks through his deck; her coral collaborator cursor ("her") draws the red pen; her words cost 0 tokens.
 //  t       word / event              visual                                                         layer        cut
-//  32.80   (hard cut in)             his ROADMAP slide (404) full frame, HE is gone; SHE walks in from   BACK slides  hard cut
-//                                    the left (her_walkin_point 0.0s, 1.6x) into his presenter spot;    PLATE her
-//                                    coral collaborator tag "her · suggesting" tracks her head          FRONT tag
-//  32.86   So / 33.02 your           camera pans right through his deck (strip: PLAN, TEAM, WIRE, FUND)  camera
-//  33.16   co-founder's              lands on 04 TEAM (him_cu_talk headshot live in its circle)          (≈33.26D)
-//  33.66-33.92                       HER cursor circles the Mac mini (B.penCircle, cursor rides the tip)  FRONT pen
+//  32.80   (hard cut in)             his ROADMAP slide (404) full frame, HE is gone; HER bubble (lip-sync) BACK + PLATE hard cut
+//                                    "moves in" from the left like a Keynote object, into his presenter spot
+//  33.02-33.50                       camera pulls back and pans right through his deck (strip: PLAN, TEAM, WIRE, FUND)
+//  33.62-33.90                       cursor circles the Mac mini (B.penCircle; the cursor rides the stroke)  FRONT pen
 //  33.96   computer,                 note "a computer" (Instrument Serif Italic coral)                    FRONT pen
-//  34.24   and (held)                pan to 08 WIRE (34.22 beat)
+//  34.22   and (held)                pan to 08 WIRE (beat)
 //  35.062  money's                   B.penStrike through $3,000,000.00                                    FRONT pen
-//  35.886  air,                      note "made of air"; the struck digits float up and evaporate         BACK + pen
-//  36.142  and (held)                pan to 06 FUNDRAISING (36.14 beat), VC live in his tub
-//  36.78   (point)                   she points at the VC (her_walkin_point 4.75s)
-//  37.22   freeze                    strike COLD PLUNGE, note "freezer"; frost floods the slide          FRONT pen
-//  37.767  VC                        B.penArrow from the note into the VC's tub                          FRONT pen
-//  38.04   (beat)                    cut: HER close-up (her_cu_talk mirrored, right), paper              PLATE        cut
+//  35.886  air,                      note "made of air"; the struck digits float up and evaporate in bubbles BACK + pen
+//  36.142  and (held)                pan to 06 FUNDRAISING (beat), the VC live in his tub
+//  36.60   (beat)                    cutaway: HER full body pointing at the VC (her_walkin_point 4.56-6.0) + "her ·   PLATE  cut
+//                                    suggesting" tag tracked to her head, contact shadow under her sneakers
+//  37.22   freeze                    strike COLD PLUNGE, note "freezer"                                   FRONT pen
+//  37.767  VC                        B.penArrow from the note into the VC's tub                           FRONT pen
+//  38.04   (beat)                    cut: HER singing close-up (lip-sync, mirrored, right), slow push     PLATE        cut
 //  38.29   than / 38.754 take / 38.986 me    coral serif words land one by one (top left)              FRONT
-//  39.253  anywhere?                 "anywhere?" fills the frame in coral serif, over her blazer (never   FRONT
-//                                    her face); a cappella: slow push, the "?" breathes with her voice
-//  40.88   (beat back, D)            the paper RIPS down the middle (jagged), halves fly apart: GREEN     BACK tear    punch
-//  41.36 / 41.84                     each half rips again, pieces tumble off with the type on them       BACK         punch
-//  42.32                             last scraps fall; she stands alone on #92E759 into the chorus
-// Clips: her_walkin_point 0-5.95s (32.80-38.04, time-remapped 1.6x walk then 0.95x), him_cu_talk 2.4-7 (TEAM headshot,
-//        clamped), vc_plunge 2.6-4.9s (WIRE/FUND), her_cu_talk 0.2-4.7s mirrored (38.04-42.55).
+//  39.253  anywhere?                 "any / where?" stacks left of her face (never on it)                FRONT
+//  39.94   (beat)                    one-line poster: "anywhere?" fills the frame in coral serif; her held note FRONT  cut
+//                                    draws a growing pen underline (a cappella)
+//  40.88   (beat back, D)            the paper RIPS down the middle and the halves fly apart: SHE was behind it, BACK   punch
+//                                    on #92E759 (her_cu_talk, mirrored)
+//  41.36 / 41.84                     each half rips again, pieces tumble off with the type on them; tag -> "her · presenting"
+//  42.32                             last scraps fall; she stands alone on green into the chorus
+// Clips: her_lipsync 0.10-5.34s at its slot (32.80-38.04 bubble) and 5.34-7.24s (38.04-39.94 close-up);
+//        her_walkin_point 4.56-6.0s (36.60-38.04, the clean range: no second cup); him_cu_talk 0.6-2.4s (his idle
+//        headshot in the TEAM slide); vc_plunge 1.2-4.94s (the VC in the WIRE/FUND slides, never past 5.2s);
+//        her_cu_talk 5.94s back to 4.27s (40.88-42.55: her knowing smirk played in reverse, idle, after the rip).
 import * as K from "./verse1/kit.js";
 import * as D from "./verse1/deck.js";
 
@@ -108,17 +113,13 @@ export default {
 
 function localTimes(t) {
   const lt = {};
-  if (t < LIP1 - 0.05) lt.lip = t - LIP0; // lip-synced slot
+  if (t < T_BIG) lt.lip = t - LIP0; // lip-synced slot (bubble, then the close-up)
   if (t < T_CLOSE) {
     if (t >= T_POINT) lt.walk = K.inClip(v.walk, walkLocal(t));
     lt.cu = K.inClip(v.cu, 0.6 + (t - 32.8) * 0.35); // his headshot idles in his TEAM slide (bored stare, 0.5-2.0)
     lt.vc = Math.min(5.2, K.inClip(v.vc, 1.2 + (t - 34.3))); // vc_plunge 0-5.2 only
-  } else if (t < T_BIG) {
-    // (her lip-sync close-up)
-  } else if (t < T_TEAR) {
-    lt.her = K.inClip(v.her, 3.1 + (t - T_CLOSE)); // talks 3.25-4.25, knowing smirk 4.5-6.0
-  } else {
-    lt.her = K.inClip(v.her, 5.94 - (t - T_TEAR)); // idle smirk, ping-pong back during the rip
+  } else if (t >= T_TEAR) {
+    lt.her = K.inClip(v.her, 5.94 - (t - T_TEAR)); // knowing smirk (4.5-6.0) played back: idle, revealed by the rip
   }
   return lt;
 }

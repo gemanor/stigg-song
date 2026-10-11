@@ -205,7 +205,7 @@ export function penArrow(ctx, x0, y0, x1, y1, t, t0, o = {}) {
 export function penNote(E, ctx, text, x, y, t, t0, o = {}) {
   const cps = o.cps ?? 28, n = Math.floor(clamp((t - t0) * cps / Math.max(1, text.length)) * text.length);
   if (t < t0 || n <= 0) return;
-  E.drawText(ctx, text.slice(0, n), x, y, { font: FONT.serif, italic: true, size: o.size ?? 64, color: o.color ?? C.coral, align: o.align ?? "left", rot: o.rot ?? -0.03, alpha: o.alpha ?? 1 });
+  E.drawText(ctx, text.slice(0, n), x, y, { font: FONT.serif, italic: true, weight: 400, size: o.size ?? 64, color: o.color ?? C.coral, align: o.align ?? "left", rot: o.rot ?? -0.03, alpha: o.alpha ?? 1 });
 }
 // A rubber stamp (DECLINED / BLOCKED / WAITLISTED): slams from 1.35x to 1 over 0.14 s, slight rotation, double border.
 export function stamp(E, ctx, text, cx, cy, t, t0, o = {}) {

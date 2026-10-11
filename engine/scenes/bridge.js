@@ -41,7 +41,7 @@
 // below it at zoom ~1.2 with faces inside the safe band (y 1110-1125) and head tops under the form.
 import * as B from "../brand.js";
 import { K, F, tryClip, inClip, smoothPt, smoothMean, ground, panel, mono, serif, cursor, typedWords, odometer,
-  tokenTicks, mouthOf, brackets, voiceBars, meterCopy, meterHome, shotAt, glowDisc } from "./skit2/term.js";
+  tokenTicks, mouthOf, brackets, voiceBars, meterCopy, meterHome, shotAt, glowDisc, statusBar } from "./skit2/term.js";
 
 let g, HIM, HER, FP;
 let QL = [], AL = [], OMG = null, SH = [], T = {};
@@ -62,21 +62,21 @@ const FIELDS = [
 // Portrait: faces at y~1110-1125 (inside the safe band, chin above 1248) and head tops >= ~890, under the form panel.
 const HER_FR = [   // her_cu_talk talks at 0-2.0 and 3.25-4.25, sips 2.25-3.0, knowing smirk + side-eye 4.5-6.0 (footage.md)
   { lt: 0.0, L: { zoom: 1.0, x: -40, y: 6 }, P: { zoom: 1.16, x: 205, y: 276 } },        // Revenue?
-  { lt: 3.25, L: { zoom: 1.28, x: -90, y: 128 }, P: { zoom: 1.26, x: 175, y: 292 } },    // Users?   (tight)
-  { lt: 1.0, L: { zoom: 0.88, x: 10, y: -30 }, P: { zoom: 1.12, x: 158, y: 271 } },      // Product? (wide)
+  { lt: 3.25, L: { zoom: 1.28, x: -90, y: 152 }, P: { zoom: 1.26, x: 175, y: 292 } },    // Users?   (tight)
+  { lt: 1.0, L: { zoom: 0.88, x: 10, y: 60 }, P: { zoom: 1.12, x: 158, y: 271 } },      // Product? (wide)
   { lt: 4.5, L: { zoom: 1.12, x: -110, y: 50 }, P: { zoom: 1.2, x: 193, y: 282 } },      // Co-founder? (smirk)
-  { lt: 0.5, L: { zoom: 1.36, x: -60, y: 160 }, P: { zoom: 1.26, x: 175, y: 292 } },     // Salary?  (tightest)
-  { lt: 4.95, L: { zoom: 0.95, x: -130, y: -6 }, P: { zoom: 1.12, x: 158, y: 271 } },    // Girlfriend? (side-eye)
+  { lt: 0.5, L: { zoom: 1.36, x: -60, y: 184 }, P: { zoom: 1.26, x: 175, y: 292 } },     // Salary?  (tightest)
+  { lt: 4.95, L: { zoom: 0.95, x: -130, y: 40 }, P: { zoom: 1.12, x: 158, y: 271 } },    // Girlfriend? (side-eye)
   { lt: 3.3, L: { zoom: 1.18, x: -70, y: 84 }, P: { zoom: 1.2, x: 193, y: 282 } },       // Five years?
 ];
 const HIM_FR = [   // him_cu_talk: bored stare 0.5-2.0, hand up 2.5, open-palm "obviously" 3.0-4.75, flat stare 5.0-6.0 (footage.md)
-  { lt: 0.05, L: { zoom: 1.0, x: 327, y: 20 }, P: { zoom: 1.16, x: -153, y: 276 } },     // I annualized a Tuesday.
-  { lt: 5.0, L: { zoom: 1.14, x: 300, y: 92 }, P: { zoom: 1.26, x: -211, y: 292 } },     // Waitlist. (flat stare, tight)
-  { lt: 2.4, L: { zoom: 0.9, x: 360, y: -20 }, P: { zoom: 1.12, x: -186, y: 271 } },     // Next model. (wide)
-  { lt: 3.2, L: { zoom: 1.04, x: 315, y: 50 }, P: { zoom: 1.2, x: -170, y: 282 } },      // Mac mini. (obviously)
-  { lt: 0.6, L: { zoom: 1.22, x: 280, y: 128 }, P: { zoom: 1.26, x: -211, y: 292 } },    // Tokens. (deadpan, tightest)
-  { lt: 4.3, L: { zoom: 0.95, x: 345, y: 4 }, P: { zoom: 1.12, x: -186, y: 271 } },      // Series B.
-  { lt: 3.0, L: { zoom: 1.08, x: 300, y: 64 }, P: { zoom: 1.2, x: -170, y: 282 } },      // Post-AGI. (obviously)
+  { lt: 0.05, L: { zoom: 1.0, x: 327, y: 95 }, P: { zoom: 1.16, x: -153, y: 276 } },     // I annualized a Tuesday.
+  { lt: 5.0, L: { zoom: 1.14, x: 300, y: 167 }, P: { zoom: 1.26, x: -211, y: 292 } },     // Waitlist. (flat stare, tight)
+  { lt: 2.4, L: { zoom: 0.9, x: 360, y: 62 }, P: { zoom: 1.12, x: -186, y: 271 } },     // Next model. (wide)
+  { lt: 3.2, L: { zoom: 1.04, x: 315, y: 115 }, P: { zoom: 1.2, x: -170, y: 282 } },      // Mac mini. (obviously)
+  { lt: 0.6, L: { zoom: 1.22, x: 280, y: 210 }, P: { zoom: 1.26, x: -211, y: 292 } },    // Tokens. (deadpan, tightest)
+  { lt: 4.3, L: { zoom: 0.95, x: 345, y: 67 }, P: { zoom: 1.12, x: -186, y: 271 } },      // Series B.
+  { lt: 3.0, L: { zoom: 1.08, x: 300, y: 135 }, P: { zoom: 1.2, x: -170, y: 282 } },      // Post-AGI. (obviously)
 ];
 
 // cut on the clap: the beat at or just before the onset, else 2 frames early
@@ -136,6 +136,7 @@ export default {
     if (s.id === "a" && p) tokenTicks(E, c, t, AL[s.i].words, (ts) => mouthOf(E, p.v, inClip(p.v, p.lt0 + ts - s.t0), p.o), { size: P ? 34 : 30 });
     if (meterFlight(E, t, box)) E.hud.meter = false;   // its copy is drawn inside the form (drawA), behind the answer box
     if (s.id === "f") drawVerdict(E, c, t, box);
+    if (P && p) statusBar(E, c, t, E.H * 0.81, `due_diligence.form  ·  ${s.id === "f" ? "7/7" : (s.id === "q" ? "Q" : "A") + (s.i + 1) + "/7"}  ·  speed round`);
     g.commit(); E.blitG2D(E, g, 1);
     // ---------------------------------------------------------------- HUD + post
     E.hud.sub = false;
@@ -190,7 +191,7 @@ function LY(E) {
     P: true, k: 0.82, pad: 26 * S,
     boxA: box, boxQ: box, boxT: { x: box.x, y: box.y, w: box.w, h: R.y + R.h - 20 * S - box.y },
     qLabel: 110 * S, qIn: 84 * S, histRow: 46 * S, histLabel: 30 * S, histAns: 28 * S, histLW: 170 * S,
-    aLabel: 52 * S, aLabelY: 82 * S, aIn: [132 * S, 176 * S], aAns: [118 * S, 74 * S], wGap: 24 * S,
+    aLabel: 52 * S, aLabelY: 82 * S, aIn: [132 * S, 150 * S], aAns: [118 * S, 64 * S], wGap: 20 * S,
     fTop: 74 * S, fRow: 47 * S, fLabel: 32 * S, fAns: 30 * S, fLW: 190 * S, notes: 64 * S, notesX: 0,
     stamp: 120, stampC: [box.x + box.w * 0.5, box.y + box.h * 0.48], titleSize: 17, monoS: 1.05,
   };
@@ -318,7 +319,7 @@ const WIDGET = {
     const tAnn = ws[1]?.s ?? 101.886, tTue = ws[3]?.s ?? 102.766;
     const a = onAt(t, tAnn, 0.08);
     if (a <= 0) return;
-    const lab = 30 * S, pitch = Math.min((w - lab) / 52, (L.P ? 10.5 : 99) * S), cell = pitch * 0.78, gy = y + (L.P ? 26 : 34) * S;
+    const lab = 30 * S, pitch = Math.min((w - lab) / 52, (L.P ? 8.5 : 99) * S), cell = pitch * 0.78, gy = y + (L.P ? 24 : 34) * S;
     mono(E, c, "REVENUE · LAST 52 WEEKS", x, y + 8 * S, { size: 18, weight: 700, color: K.grey, alpha: a });
     const days = "MTWTFSS";
     const fill = E_clamp((t - tTue + 0.034) / 0.26);   // linear copy, right to left
@@ -341,11 +342,12 @@ const WIDGET = {
     // the math
     const ra = onAt(t, tTue + 0.28, 0.05);
     if (ra > 0) {
-      const ry = gy + pitch * 7 + (L.P ? 40 : 74) * S, sc = 0.94 + 0.06 * E.spring(t - tTue - 0.28, 420, 0.5);
+      const ry = gy + pitch * 7 + (L.P ? 34 : 74) * S, sc = 0.94 + 0.06 * E.spring(t - tTue - 0.28, 420, 0.5);
       mono(E, c, "$6.15 × 52 =", x, ry, { size: L.P ? 24 : 30, weight: 600, color: K.grey, alpha: ra, upper: false });
-      E.drawText(c, "$319.80 ARR*", x + (L.P ? 205 : 252) * S, ry + 2 * S, { font: F.hero, weight: 900, size: (L.P ? 54 : 72) * S, tracking: -0.02, color: K.green, align: "left", alpha: ra, s: sc });
+      const rf = { font: F.hero, weight: 900, size: (L.P ? 50 : 72) * S, tracking: -0.02 }, rx = x + (L.P ? 205 : 252) * S;
+      E.drawText(c, "$319.80 ARR*", rx, ry + 2 * S, { ...rf, color: K.green, align: "left", alpha: ra, s: sc });
       if (!L.P) mono(E, c, "*annualized. his math.", x, ry + 52 * S, { size: 17, color: K.dgrey, alpha: ra, upper: false });
-      else mono(E, c, "*his math", x + (L.P ? 560 : 0) * S, ry, { size: 17, color: K.dgrey, alpha: ra, upper: false });
+      else mono(E, c, "*his math", rx + E.measure(c, "$319.80 ARR*", rf) + 18 * S, ry + 4 * S, { size: 18, color: K.grey, alpha: ra, upper: false });
     }
   },
   // "Waitlist": 0 active users vs the skit-2 waitlist odometer, still rolling
@@ -409,7 +411,7 @@ const WIDGET = {
     if (a <= 0) return;
     mono(E, c, "PAID IN", x, y + 10 * S, { size: 18, weight: 700, color: K.grey, alpha: a });
     c.save(); c.setLineDash([8 * S, 8 * S]); c.strokeStyle = K.line; c.lineWidth = Math.max(1, 1.5 * S); c.globalAlpha = a;
-    c.strokeRect(x, y + 30 * S, w * 0.9, (L.P ? 150 : 190) * S); c.restore();
+    c.strokeRect(x, y + 30 * S, w * 0.9, (L.P ? 170 : 250) * S); c.restore();
   },
   // "Series B": the funding road. You are at PRE-SEED; the girlfriend unlocks at B (a coral heart lands on "B.")
   girlfriend(E, c, t, i, x, y, w, h, L) {
@@ -533,5 +535,6 @@ function speakerTag(E, c, t, s, p) {
   const fh = Math.max(120 * S, Math.abs(ny - ey) * 7.0), fw = fh * 0.84, bx = nx - fw / 2, by = ny - fh * 0.56;
   const col = her ? K.coral : K.green, a = E_clamp((t - s.t0) / 0.05);
   brackets(E, c, bx, by, fw, fh, { color: col, alpha: a * 0.9, len: 26, lw: 2 });
-  if (her) voiceBars(E, c, t, bx + fw + 16 * S, by + fh * 0.75, { color: K.coral, alpha: a * 0.9, h: 34 });
+  if (her && s.id === "f") voiceBars(E, c, t, bx + 8 * S, by + fh + 52 * S, { color: K.coral, alpha: a * 0.9, h: 34 });   // clear of the stamp
+  else if (her) voiceBars(E, c, t, bx + fw + 16 * S, by + fh * 0.75, { color: K.coral, alpha: a * 0.9, h: 34 });
 }

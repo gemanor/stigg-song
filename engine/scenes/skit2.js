@@ -35,7 +35,7 @@
 // Portrait: content starts under the HUD meter (R.y+160..), close-ups at zoom ~1.3 with faces inside the safe band.
 import * as B from "../brand.js";
 import { K, F, tryClip, inClip, smoothPt, smoothMean, ground, panel, mono, serif, hype, drawLog, burstTimes, odometer,
-  tokenTicks, mouthOf, brackets, beatAtOrBefore, shotAt, voiceBars } from "./skit2/term.js";
+  tokenTicks, mouthOf, brackets, beatAtOrBefore, shotAt, voiceBars, statusBar } from "./skit2/term.js";
 import { drawGraph, cardRect, Z } from "./skit2/graph.js";
 
 let g, DT, HIM, HER, W = [], L = [], SH = [], LOG = [], LOG_T1 = [], T = {};
@@ -125,6 +125,7 @@ export default {
     else if (s.id === "build") buildFront(E, c, t, G, pl);
     else if (s.id === "ask") askFront(E, c, t, G, pl);
     else waitFront(E, c, t, G, pl);
+    if (P && s.id !== "table" && pl.length) statusBar(E, c, t, E.H * 0.81, s.id === "wait" && t >= T.wait ? "agents.exe  ·  all agents waitlisted  ·  0 shipped" : `agents.exe  ·  depth ${G ? depthOf(G) : 1}  ·  0 shipped`);
     g.commit(); E.blitG2D(E, g, 1);
 
     // ---------------------------------------------------------------- HUD + post
@@ -142,14 +143,14 @@ function plates(E, t, s) {
   const lt = t - s.t0;
   if (s.id === "table") {
     if (DT) {
-      out.push({ v: DT, lt: inClip(DT, 2.6 + lt), o: { fit: E.plateFit(E, DT), matte: true, ...(P ? { zoom: 1.25, x: 0, y: 276 } : { zoom: 0.76 + 0.006 * lt, x: 0, y: 150 }) }, who: "both" });
+      out.push({ v: DT, lt: inClip(DT, 2.6 + lt), o: { fit: E.plateFit(E, DT), matte: true, ...(P ? { zoom: 1.25, x: 0, y: 276 } : { zoom: 0.76 + 0.006 * lt, x: 0, y: 128 }) }, who: "both" });
     } else {
       // slot fallback until date_table lands: her and him facing each other across a table
       if (HER) out.push({ v: HER, lt: inClip(HER, 2.55 + lt), o: { fit: fitR, matte: true, ...(P ? { zoom: 0.96, x: -110, y: 300 } : { zoom: 0.62, x: -170, y: 182 }) }, who: "her" });
       if (HIM) out.push({ v: HIM, lt: inClip(HIM, 0.5 + lt), o: { fit: fitH, matte: true, ...(P ? { zoom: 0.96, x: 130, y: 300 } : { zoom: 0.62, x: 182, y: 182 }) }, who: "him" });
     }
   } else if (s.id === "build" && HIM) {
-    const o = { fit: fitH, matte: true, ...(P ? { zoom: 1.3, x: -131, y: 294 } : { zoom: 0.92, x: 330, y: 40 }) };
+    const o = { fit: fitH, matte: true, ...(P ? { zoom: 1.3, x: -131, y: 294 } : { zoom: 0.92, x: 330, y: 48 }) };
     o.zoom *= 1 + 0.035 * Math.min(1, lt / 2.4); o.x += (P ? 8 : 26) * Math.min(1, lt / 2.4);   // slow push toward him
     // the dive pushes him out of frame (scale + slide), so the camera seems to fly past him into the graph
     if (t > T.dive) {
@@ -158,9 +159,9 @@ function plates(E, t, s) {
     }
     out.push({ v: HIM, lt: inClip(HIM, 2.4 + lt), o, who: "him" });
   } else if (s.id === "ask" && HER) {
-    out.push({ v: HER, lt: inClip(HER, 0.0 + lt), o: { fit: fitR, matte: true, ...(P ? { zoom: 1.35, x: 202, y: 289 } : { zoom: 0.9 + 0.012 * lt, x: -150, y: 48 }) }, who: "her" });
+    out.push({ v: HER, lt: inClip(HER, 0.0 + lt), o: { fit: fitR, matte: true, ...(P ? { zoom: 1.35, x: 202, y: 289 } : { zoom: 0.9 + 0.012 * lt, x: -150, y: 62 }) }, who: "her" });
   } else if (s.id === "wait" && HIM) {
-    out.push({ v: HIM, lt: inClip(HIM, 0.55 + lt), o: { fit: fitH, matte: true, ...(P ? { zoom: 1.35, x: -228, y: 290 } : { zoom: 1.12 + 0.01 * lt, x: 175, y: 96 }) }, who: "him" });
+    out.push({ v: HIM, lt: inClip(HIM, 0.55 + lt), o: { fit: fitH, matte: true, ...(P ? { zoom: 1.35, x: -228, y: 290 } : { zoom: 1.12 + 0.01 * lt, x: 175, y: 140 }) }, who: "him" });
   }
   return out;
 }
@@ -218,7 +219,7 @@ function tableBack(E, c, t) {
     return;
   }
   // floor: a green hairline at their feet and a soft contact shadow under the table and chairs (a graphic, under the cut-out)
-  const o = { fit: E.plateFit(E, DT), ...(P ? { zoom: 1.25, x: 0, y: 276 } : { zoom: 0.76 + 0.006 * (t - T.start), x: 0, y: 150 }) };   // same framing as plates()
+  const o = { fit: E.plateFit(E, DT), ...(P ? { zoom: 1.25, x: 0, y: 276 } : { zoom: 0.76 + 0.006 * (t - T.start), x: 0, y: 128 }) };   // same framing as plates()
   const [fx0, fy] = E.plateToScreen(E, DT, [0.15, FEET_DT], o), [fx1] = E.plateToScreen(E, DT, [0.85, FEET_DT], o);
   c.save();
   c.fillStyle = "rgba(146,231,89,0.28)"; c.fillRect(0, fy, E.W, Math.max(1, S));
@@ -257,7 +258,7 @@ function tableFront(E, c, t, pl) {
       const col = f.her ? K.coral : K.green;
       brackets(E, c, fx, fy, fw, fh, { color: col, alpha: on, len: 20, lw: 2 });
       const side = P ? 0 : f.her ? -1 : 1;
-      const tx = P ? fx + fw / 2 : f.her ? fx - 16 * S : fx + fw + 16 * S, ty = P ? fy - 58 * S : fy + 16 * S;
+      const tx = P ? fx + fw / 2 : f.her ? fx - 16 * S : fx + fw + 46 * S, ty = P ? fy - 58 * S : fy + 16 * S;
       const al = P ? "center" : f.her ? "right" : "left";
       mono(E, c, f.her ? "HUMAN_01" : "FOUNDER_01", tx, ty, { size: P ? 26 : 21, weight: 700, color: col, align: al, alpha: on });
       mono(E, c, f.her ? "asking" : "pre-seed · 0 shipped", tx, ty + (P ? 30 : 27) * S, { size: P ? 21 : 17, color: K.grey, align: al, alpha: on, upper: false });

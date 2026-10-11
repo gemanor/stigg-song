@@ -81,6 +81,8 @@ export default K.makeScene({
         o.size = Math.min(K.fit(F, c, "I'M", { ...o, size: 500 * S }, R.w * 0.62), (0.115 * H) / K.CAP.cond);
         K.slamText(F, c, "I'M", R.x + R.w * 0.03, 0.645 * H, w(0, 0).s, o);
         K.burnTag(F, c, w(0, 0), R.x + R.w * 0.03, 0.5 * H, { color: INK, unit: " TOKENS", size: 34 });
+        const fist = K.lmScreen(E, v, lt, 15, op); // his raised fist (clip 0-0.25 s), punched on "I'm"
+        if (fist) K.burst(c, fist[0], fist[1], t, w(0, 0).s, { color: C.white, lw: 5 * S, r0: 50 * S, r1: 170 * S, n: 9, a0: -1.5708, spread: 3.4, seed: 2 });
       });
       K.punch(F, 0.03);
     } });
@@ -207,7 +209,13 @@ export default K.makeScene({
         B.penUnderline(c, cantX0 + 10 * S, y1 + size * 0.25, cantX1 - 8 * S, t, 47.08, { width: 8 * S, seed: 7, dur: 0.14 });
         B.penNote(E, c, "of course you can't", lay.nx, lay.ny, t, 46.6, { size: lay.ns, cps: 26, rot: -0.04 });
         const k = K.slam(t, 47.56, { from: 1.25 });
-        if (k) E.drawText(c, "HER WORDS COST 0 TOKENS", lay.nx + 6 * S, lay.ny + lay.ns * 0.8, { ...K.MONO, size: (port ? 22 : 30) * S, color: C.coral, align: "left", s: k.sc });
+        if (k) {
+          E.drawText(c, "HER WORDS COST 0 TOKENS", lay.nx + 6 * S, lay.ny + lay.ns * 0.8, { ...K.MONO, size: (port ? 26 : 42) * S, color: C.coral, align: "left", s: k.sc });
+          const sh = K.lmScreen(E, v, lt, 11, op, [0.425, 0.65]); // tracked callout to her shoulder (runs behind her)
+          if (sh) { const u = clamp((t - 47.56) / 0.12), x0 = lay.nx - 14 * S, y0 = lay.ny + lay.ns * 0.8;
+            c.strokeStyle = C.coral; c.lineWidth = Math.max(1, 3 * S); c.beginPath(); c.moveTo(x0, y0); c.lineTo(lerp(x0, sh[0], u), lerp(y0, sh[1], u)); c.stroke();
+            c.fillStyle = C.coral; c.beginPath(); c.arc(x0, y0, 6 * S, 0, 6.2832); c.fill(); }
+        }
         // 48.04: she circles TONIGHT.
         const h2 = { ...K.HERO, size: lay.size2 }, tx = lay.x0 + E.measure(c, "COME OUT ", h2), tw = E.measure(c, "TONIGHT.", h2);
         B.penCircle(c, tx + tw / 2, lay.y2 - lay.size2 * 0.36, tw * 0.62, lay.size2 * 0.62, t, 48.04, { width: 5 * S, seed: 6, dur: 0.22 });

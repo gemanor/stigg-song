@@ -185,7 +185,7 @@ export function burnTag(F, c, w, x, y, o = {}) {
   if (u > 1) return;
   const b = burnOf(E, w);
   if (b < 1) return;
-  E.drawText(c, `−${B.fmtInt(b)}${o.unit ?? ""}`, x, y - ease.outCubic(u) * (o.rise ?? 46) * S, { ...MONO, size: (o.size ?? 30) * S, color: o.color ?? C.green, alpha: 1 - u * u, align: o.align ?? "left" });
+  E.drawText(c, `−${B.fmtInt(b)}${o.unit ?? ""}`, x, y - ease.outCubic(u) * (o.rise ?? 46) * S, { ...MONO, size: (o.size ?? 30) * 1.35 * S, color: o.color ?? C.green, alpha: 1 - u * u, align: o.align ?? "left" }); // ≥ 40 px: reads inline on phones
 }
 
 // cached word sprites (for stadium walls): offscreen canvas, text drawn at `size` px, baseline-middle

@@ -150,6 +150,8 @@ export default K.makeScene({
         K.groundA(F, c, { offX: (t - 88.94) * 20 * S });
         pos = autoReply(F, c, card, false);
         K.shadow(c, port ? 0.5 * W : 0.2 * W, port ? H : 0.98 * H, port ? 0.26 * W : 0.14 * W);
+        const hd = K.lmScreen(E, v, lt, 0, op, [0.22, 0.15]); // her eye-roll gets a coral loop beside her head
+        if (hd) { const r = (port ? 26 : 34) * S; B.penCircle(c, hd[0] + r * 2.4, hd[1] - r * 1.6, r, r * 0.8, t, 91.1, { width: 4 * S, seed: 8, dur: 0.5, turns: 0.85 }); }
         B.penStrike(c, pos.cant[0], pos.cant[1], pos.cant[2], t, 90.4, { width: 12 * S * card.k * 1.6, seed: 5, dur: 0.12 });
         const nx = port ? R.x + R.w * 0.08 : 0.43 * W, ny = port ? F.PT + 500 * S : 0.84 * H;
         B.penNote(E, c, "of course you can't", nx, ny, t, 90.88, { size: (port ? 64 : 120) * S, cps: 28, rot: -0.04 });
@@ -177,6 +179,13 @@ export default K.makeScene({
       F.front((c) => {
         K.lockup(F, c, L[3].words, lx, ly, { size: port ? 70 : 140, rot, band: C.bg, bandPad: port ? 22 : 34, seed: 7 });
         if (t >= 93.72 && t < 93.9) { const bx = K.lockupBox(E, c, lx, ly, port ? 70 : 140); B.crosshairs(c, bx.x - 60 * S, bx.y - 50 * S, bx.w + 120 * S, bx.h + 100 * S, { color: C.white, len: 50 * S, inset: 12 * S, cross: 10 * S, lw: 2 * S }); }
+        // her side-eye: a coral dotted sightline from her eye (pose 2) to TOKENS
+        const eye = K.lmScreen(E, v, lt, 2, op, [0.345, 0.31]);
+        if (eye && t >= 93.0) {
+          const u = ease.outCubic(clamp((t - 93.0) / 0.2)), tx = lx + (port ? 40 : 110) * S, ty = ly + (port ? 30 : 70) * S;
+          c.save(); c.strokeStyle = C.coral; c.lineWidth = Math.max(3, 9 * S); c.setLineDash([0.1, 22 * S]); c.lineCap = "round";
+          c.beginPath(); c.moveTo(eye[0] + 30 * S, eye[1]); c.lineTo(lerp(eye[0] + 30 * S, tx, u), lerp(eye[1], ty, u)); c.stroke(); c.restore();
+        }
         void settle;
       });
       K.punch(F, 0.03);
@@ -249,6 +258,15 @@ export default K.makeScene({
         K.slamText(F, c, "SERIES", x0 + tw, y2, ws[3].s, { ...hero, size: s2, color: C.green });
         K.slamText(F, c, "B.", x0 + tw + sw, y2, ws[4].s, { ...hero, size: s2, color: C.green });
         gate(F, c, port ? { x: R.x + R.w * 0.02, y: F.PT + 330 * S, w: R.w * 0.96, k: 0.62 } : { x: 0.05 * W, y: 0.62 * H, w: 0.62 * W, k: 1 });
+        if (t >= 97.06) { // she owns his entitlements: a coral pill tracked to her head
+          const tp = v.trackAt(lt)?.top ?? v.mb, hp = E.plateToScreen(E, v, [tp[0], tp[1]], op), u = K.ease.outBack(clamp((t - 97.06) / 0.14));
+          const txt = "ROLE: ADMIN", o = { ...K.MONO, size: (port ? 22 : 34) * S, align: "center" }, pw = E.measure(c, txt, o) + 36 * S, ph = (port ? 40 : 50) * S;
+          const px = hp[0] - (port ? 120 : 190) * S, py = hp[1] + (port ? 30 : 40) * S;
+          c.strokeStyle = C.coral; c.lineWidth = Math.max(1, 2 * S); c.beginPath(); c.moveTo(px + pw / 2, py); c.lineTo(hp[0] - 34 * S, hp[1] + 52 * S); c.stroke();
+          c.save(); c.translate(px, py); c.scale(Math.max(0.92, u), Math.max(0.92, u));
+          c.fillStyle = C.coral; c.beginPath(); c.roundRect(-pw / 2, -ph / 2, pw, ph, ph / 2); c.fill();
+          E.drawText(c, txt, 0, 2 * S, { ...o, color: INK }); c.restore();
+        }
         K.shadow(c, port ? 0.74 * W : 0.84 * W, port ? H : 0.98 * H, port ? 0.24 * W : 0.13 * W);
       });
       F.plate(v, op);
@@ -400,7 +418,7 @@ export default K.makeScene({
       padlock(c, x + 90 * k, y + h / 2, 1.5 * k, C.coral);
       E.drawText(c, "DATING", x + 170 * k, y + 104 * k, { ...K.HERO, size: 72 * k, color: C.white, align: "left", tracking: -0.01 });
       const req = ws[3].s;
-      E.drawText(c, t >= req ? "LOCKED · requires plan: SERIES B" : "LOCKED", x + 172 * k, y + 176 * k, { ...K.MONO, weight: 600, size: 30 * k, color: C.coral, align: "left", tracking: 0.04 });
+      E.drawText(c, t >= req ? "LOCKED · requires plan: SERIES B" : "LOCKED", x + 172 * k, y + 176 * k, { ...K.MONO, weight: 600, size: 36 * k, color: C.coral, align: "left", tracking: 0.04 });
       // toggle: tries ON on 97.06, snaps back
       const tx = x + w - 230 * k, ty = y + h / 2, tw = 150 * k, th = 76 * k;
       const tryOn = t >= 97.06 ? Math.exp(-(t - 97.06) / 0.07) * Math.sin(Math.min(Math.PI, (t - 97.06) * 30)) : 0;
@@ -410,7 +428,7 @@ export default K.makeScene({
       E.drawText(c, "OFF", tx + tw + 26 * k, ty + 2 * k, { ...K.MONO, size: 28 * k, color: C.grey, align: "left" });
       c.restore();
       // the check, like a log line
-      if (t >= 97.54) E.drawText(c, "can(him, \"dating\")  →  false", x + 8 * k, y + h + 70 * k, { ...K.MONO, weight: 500, size: 34 * k, color: C.grey, align: "left", tracking: 0.02, alpha: clamp((t - 97.54) / 0.06) });
+      if (t >= 97.54) E.drawText(c, "can(him, \"dating\")  →  false", x + 8 * k, y + h + 70 * k, { ...K.MONO, weight: 500, size: 40 * k, color: C.grey, align: "left", tracking: 0.02, alpha: clamp((t - 97.54) / 0.06) });
     }
     function padlock(c, x, y, s, col) {
       c.save(); c.translate(x, y); c.scale(s, s); c.fillStyle = col; c.strokeStyle = col; c.lineWidth = 8;

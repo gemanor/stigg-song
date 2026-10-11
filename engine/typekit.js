@@ -51,6 +51,8 @@ export function fontStr({
   weight = 900,
   italic = false,
 } = {}) {
+  // Single-weight faces never get a synthetic bold (Chrome fakes one by smearing the outline): Instrument Serif only has 400.
+  if (font === "Instrument Serif") weight = 400;
   return `${italic ? "italic " : ""}${weight} ${Math.round(size)}px "${font}"`;
 }
 

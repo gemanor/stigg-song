@@ -20,13 +20,14 @@
 //                                             (pose 20); a wink spark at the head of the take (pose 2)     tracked
 // S3  138.320 DB  (cut)                       her_whopays 0.6→4.4 s on a drawn tabletop (the clip ends in  BACK table, plate
 //                                             a hard table-edge cut at y≈906 px); slow 5% push
-//     138.32→138.94                           THE CHECK slides out from under her fingers (pose 20) to the FRONT tracked
-//                                             right half: itemised from brand.initMeter ("SEE YOU AFTER
-//                                             TOKENS" ×9 145,657 …), TOTAL DUE 1,000,000 TOKENS, #402
-//     138.989 So... / 139.458 who's /         her line handwritten on the check (coral Instrument Serif,   FRONT
-//     140.382 paying / 140.590 for /          write-on per word); 140.382 pen arrow to the total;
-//     140.854 our / 141.043 date?             141.043 pen circle round 1,000,000; 141.80 her folder tap
-//                                             (clip 4.08 s): coral tap ring + two underlines
+//     138.93→140.38                           THE CHECK rides out from under her folder hand (pose 19) and MID tracked (under
+//                                             lands on "paying": itemised from brand.initMeter ("SEE YOU  her cut-out), clear
+//                                             AFTER TOKENS" ×9 145,657 …), TOTAL DUE 1,000,000 TOKENS, #402 of the HUD rows
+//     138.989 So... / 139.458 who's /         her line handwritten on the check (coral Instrument Serif,   MID (on the check)
+//     140.382 paying / 140.590 for /          write-on per word, ≥ 64 px in both canvases); 140.382 pen
+//     140.854 our / 141.043 date?             arrow to the total; 141.043 pen circle round 1,000,000;
+//                                             141.80 her folder tap (clip 4.08 s): coral tap ring (FRONT) +
+//                                             two underlines
 // S4  142.120 DB  (cut)                       him_outoftokens 0.55→1.99 s (pocket pat) under a creeping    plate
 //                                             push; 143.56 (beat) crash zoom ×1.24 to his shock face (3.12 s)
 //                                             giant meter, HUD meter off: LOW BALANCE (blinks per beat),   MID
@@ -208,7 +209,7 @@ function s2(E, t, rt) {
 // ------------------------------------------------------------------------------------------------ S3 the check
 function s3(E, t, rt) {
   const S = E.SCALE, R = E.SAFE, v = slots.s3.v, lt = v ? clipT(v, K.s3, t) : 0;
-  const tgt = wide(E) ? { h: 0.97 * E.H, y1: 1.0 * E.H, x0: 0.03 * E.W } : { h: 0.4 * E.H, y1: 0.92 * E.H, cx: 0.38 * E.W };
+  const tgt = wide(E) ? { h: 0.97 * E.H, y1: 1.0 * E.H, x0: 0.03 * E.W } : { h: 0.4 * E.H, y1: 0.82 * E.H, cx: 0.42 * E.W }; // portrait: her face above the HUD's bottom row
   const opts = plateOpts(E, "s3", tgt), c = begin(E, rt);
   // a slow push over the whole shot (the check hold must never read as a freeze)
   const P = wide(E) ? [0.5 * E.W, 0.45 * E.H] : [0.5 * E.W, 0.55 * E.H], kc = 1 + 0.05 * ease.inOutQuad(clamp((t - CUT.s3) / (CUT.s4 - CUT.s3)));
@@ -228,8 +229,10 @@ function s3(E, t, rt) {
   // "paying" (the folder itself keeps sliding in the clip); her cut-out is drawn over it
   const t0c = W[7].s - 0.06;
   if (t >= t0c) {
-    const sc = wide(E) ? 1 : 0.8, cw = chk.w * sc, ch = chk.h * sc;
-    const X1 = wide(E) ? 0.575 * E.W : R.x + R.w / 2 - cw / 2, Y1 = wide(E) ? 0.07 * E.H : R.y + R.h * 0.2;
+    // the landing spot keeps the paper clear of the HUD's top row through the push (white HUD type on white paper
+    // vanishes); portrait: right of her head, between the HUD's top row and its progress line
+    const sc = wide(E) ? 1 : 0.9, cw = chk.w * sc, ch = chk.h * sc;
+    const X1 = wide(E) ? 0.575 * E.W : R.x + R.w - cw - 4 * S, Y1 = wide(E) ? 0.1 * E.H : R.y + 172 * S;
     const tip = v ? (smoothPt(v, lt, 19) ?? smoothPt(v, lt, 15) ?? [0.64, 0.78]) : [0.64, 0.78];
     const [hx, hy] = v ? E.plateToScreen(E, v, tip, opts) : [0.62 * E.W, 0.8 * E.H];
     const u = ease.outCubic(clamp((t - t0c) / (W[9].s - t0c)));
@@ -239,16 +242,17 @@ function s3(E, t, rt) {
     c.drawImage(chk.cv, 0, 0);
     // live: the total, her handwriting, her pen
     E.drawText(c, "1,000,000", chk.pad - 4 * S, chk.totalY - 30 * S, { font: B.FONT.mono, weight: 800, size: 88 * S, tracking: -0.02, color: B.C.ink, align: "left" });
-    const note = { font: B.FONT.serif, italic: true, weight: 400, size: 66 * S, color: B.C.coral, align: "left", stroke: 1.2 * S, strokeColor: B.C.coral };
+    const ns = (wide(E) ? 66 : 72) * S, nk = ns / (66 * S); // her line is the caption: ≥ 64 px on screen in both
+    const note = { font: B.FONT.serif, italic: true, weight: 400, size: ns, color: B.C.coral, align: "left", stroke: 1.2 * S, strokeColor: B.C.coral };
     const lines = [[W[7], W[8], W[9]], [W[10], W[11], W[12]]];
     lines.forEach((ln, li) => {
       let xx = chk.pad;
-      const yy = chk.noteY + li * 74 * S;
+      const yy = chk.noteY + li * 74 * S * nk;
       for (const w of ln) {
         const txt = w.w + " ", ww = E.measure(c, txt, note);
         if (t >= w.s - 0.04) {
           const p = clamp((t - (w.s - 0.04)) / 0.11);
-          c.save(); c.beginPath(); c.rect(xx - 6 * S, yy - 60 * S, (ww + 12 * S) * p, 110 * S); c.clip();
+          c.save(); c.beginPath(); c.rect(xx - 6 * S, yy - 60 * S * nk, (ww + 12 * S) * p, 110 * S * nk); c.clip();
           E.drawText(c, txt, xx, yy, { ...note, rot: -0.03 });
           c.restore();
         }
@@ -256,7 +260,7 @@ function s3(E, t, rt) {
       }
     });
     const tw = E.measure(c, "1,000,000", { font: B.FONT.mono, weight: 800, size: 88 * S, tracking: -0.02 });
-    B.penArrow(c, chk.pad + 300 * S, chk.noteY - 46 * S, chk.pad + tw + 40 * S, chk.totalY - 10 * S, t, W[9].s, { dur: 0.18, width: 5 * S, bend: 0.35, seed: 3 });
+    B.penArrow(c, chk.pad + 300 * S * nk, chk.noteY - 46 * S * nk, chk.pad + tw + 40 * S, chk.totalY - 10 * S, t, W[9].s, { dur: 0.18, width: 5 * S, bend: 0.35, seed: 3 });
     B.penCircle(c, chk.pad + tw / 2 - 4 * S, chk.totalY - 34 * S, tw * 0.6, 62 * S, t, W[12].s, { dur: 0.28, width: 6 * S, seed: 5 });
     B.penUnderline(c, chk.pad, chk.totalY + 24 * S, chk.pad + tw, t, TAP3 - 0.02, { dur: 0.1, width: 5 * S, seed: 13 });
     B.penUnderline(c, chk.pad + 10 * S, chk.totalY + 40 * S, chk.pad + tw - 20 * S, t, TAP3 + 0.1, { dur: 0.1, width: 5 * S, seed: 17 });
