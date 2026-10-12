@@ -1,26 +1,14 @@
-AI founders are all around us, and they deserve their own MTV gag. See y'all after tokens.
+AI founders are all around us, and they deserve their own MTV gag.
+See y'all after tokens: https://luma.com/after-tokens
 
-See you After Tokens, Nov 10 in San Francisco: https://luma.com/after-tokens
+The Founder ft. The Date
+"I'm an AI Founder"
+v47_FINAL_final(2)
+Waitlist Records
+Director: Degenerative Pixels
 
-"See you after tokens" is what an AI founder says instead of yes. He doesn't take a salary, he takes a token budget. His co-founder is a Mac mini, his seed closed in a cold plunge, and his valuation is marked to the price of matcha. He can't come out tonight. Maybe after Series B.
-
-Every word he sings burns tokens off a live meter, and every word she sings is free. He runs out on the exact frame the music stops. She pays, and the music comes back on her dime. It's something to dance to while your agents run up the bill, and a receipt for everyone who has ever annualized a Tuesday.
-
-Song and voices: ElevenLabs Music v2.5 and v4 Turbo, via Scenario
-Characters: GPT Image 2.5, animated with Gemini Omni 1.1 Flash, via Scenario
-Motion design: Claude Opus 5.5, in JavaScript and three.js
-Direction: Degenerative Pixels
-Budget: 1,000,000 tokens, burned in 2:24
+Song: made with ElevenLabs Music v2.5
+Characters: GPT Image 2.5 and Gemini Omni 1.1 Flash, on Scenario
+Animation: Claude Opus 5.5, in JavaScript and three.js
+Paid for by: 1,000,000 tokens
 Actually paid for by: her
-
-0:00 Hold my Celsius
-0:17 The pitch deck
-0:32 Her red pen
-0:42 See you after tokens
-0:56 Agents for agents
-1:08 Founder to English
-1:26 Left on read
-1:40 Due diligence
-1:58 Low balance
-2:14 Out of tokens
-2:27 She pays
