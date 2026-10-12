@@ -30,7 +30,7 @@ export default {
     const M = 44 * S, left = R.x + M, top = R.y + M, right = R.x + R.w - M, bottom = R.y + R.h - M;
     c.save();
     c.globalAlpha = H.alpha;
-    if (H.corners !== false) {
+    if (H.corners !== false && CFG.chrome !== false) {
       B.crosshairs(c, R.x + 18 * S, R.y + 18 * S, R.w - 36 * S, R.h - 36 * S, { len: 30 * S, inset: 10 * S, cross: 6 * S, lw: Math.max(1, S), color: dark ? B.C.greenA(0.5) : B.C.inkA(0.45) });
       // top-right: LIVE dot + section code + beat squares
       let si = 0;
@@ -92,8 +92,8 @@ function drawMeter(E, c, t, x, y, dark, ink, dim) {
   for (let k = 1; k < 10; k++) { c.fillStyle = dark ? B.C.bg : B.C.paper; c.fillRect(x + (bw * k) / 10 - 0.5 * S, by, 1 * S, bh); }
   const rate = B.burnRate(E, t, 1);
   c.font = `600 ${13 * S}px "JetBrains Mono"`; c.fillStyle = dim;
-  const r = st.state === "topup" ? "PAID BY: HER" : st.state === "blocked" ? "0 TOKENS · 402" : `BURN ${B.fmtShort(rate)}/s`;
-  c.fillText(r, x, by + 22 * S);
+  const r = st.state === "topup" ? "PAID BY: HER" : st.state === "blocked" ? "0 TOKENS · 402" : CFG.chrome === false ? "" : `BURN ${B.fmtShort(rate)}/s`;
+  if (r) c.fillText(r, x, by + 22 * S);
   c.restore();
 }
 

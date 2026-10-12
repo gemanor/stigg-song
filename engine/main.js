@@ -345,8 +345,8 @@ async function renderTime(t, frameIdx = Math.round(t * E.fps)) {
   U.uFlash.value = P.flash < 0.02 ? 0 : P.flash;
   U.uFlashCol.value.setRGB(...P.flashCol);
   U.uInvert.value = P.invert;
-  U.uPunch.value = P.punch;
-  U.uShake.value.set(...P.shake);
+  U.uPunch.value = P.punch * (TL.CALM?.punch ?? 1);
+  U.uShake.value.set(P.shake[0] * (TL.CALM?.shake ?? 1), P.shake[1] * (TL.CALM?.shake ?? 1));
   U.uWarm.value = P.grade === "warm" ? 1 : 0;
   U.uAmber.value.set(P.invertCol);
   U.uRot.value = P.rot;

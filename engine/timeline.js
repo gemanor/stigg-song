@@ -35,7 +35,11 @@ export const HUD = {
     [134.5, "CHECKOUT"],
     [147.8, "TOP_UP"],
   ],
+  // calm pass: the HUD is the token meter only (no LIVE/section/beat cluster, corner crosshairs, clock or burn-rate line)
+  chrome: false,
 };
 
 // Neutral grade: footage passes through untouched. Bloom off by default (CPU render budget); a scene may set E.post.bloom.
 export const POST = { bloom: 0 };
+// Calm pass: the final pass scales every scene's camera punch and shake by these (0 = off).
+export const CALM = { punch: 0, shake: 0 };
