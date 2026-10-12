@@ -54,12 +54,8 @@ export function settle(t, s, amp = 0.06, f = 9, k = 7) {
   if (dt <= 0) return 0;
   return amp * Math.exp(-dt * k) * Math.sin(dt * f * 6.283);
 }
-// slam scale: from `from` down/up to 1 at s, then a small spring settle.
-// Calm pass: every slam is a third as big (no zoom pops), with a barely-there settle.
-export const slam = (t, s, from = 1.35, d = 0.066) => {
-  const f = 1 + (from - 1) * 0.35;
-  return t < s - d ? f : lerp(f, 1, land(t, s, d)) + settle(t, s, 0.012 * Math.sign(from - 1 || 1), 6, 10);
-};
+// slam scale: from `from` down/up to 1 at s, then a small spring settle
+export const slam = (t, s, from = 1.35, d = 0.066) => (t < s - d ? from : lerp(from, 1, land(t, s, d)) + settle(t, s, 0.05 * Math.sign(from - 1 || 1), 7, 9));
 export const vis = (t, s, d = 0.066) => t >= s - d;
 // word lookup (by section + text), returns the E.words entry (first match after `after`)
 export function W(E, section, text, after = 0) {

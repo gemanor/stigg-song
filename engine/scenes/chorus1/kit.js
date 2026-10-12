@@ -146,7 +146,7 @@ export const MONO = { font: FONT.mono, weight: 700, tracking: 0.08 };
 export function slam(t, s, o = {}) {
   const pre = o.pre ?? 0.05;
   if (t < s - pre) return null;
-  if (t < s) { const u = (t - (s - pre)) / pre; return { a: o.fade === "lin" ? u : o.fadeIn ? Math.min(1, 0.35 + u) : 1, sc: lerp(o.from ?? 1.32, 1, ease.inQuad(u)) }; }
+  if (t < s) { const u = (t - (s - pre)) / pre; return { a: o.fadeIn ? Math.min(1, 0.35 + u) : 1, sc: lerp(o.from ?? 1.32, 1, ease.inQuad(u)) }; }
   const dt = t - s;
   return { a: 1, sc: 1 - (o.bounce ?? 0.035) * Math.exp(-dt * 16) * Math.sin(dt * 46) };
 }
@@ -181,13 +181,6 @@ export function burnOf(E, w) {
 export function burnTag(F, c, w, x, y, o = {}) {
   const { E, t, S } = F;
   if (t < w.s) return;
-  if (o.hold) { // calm option: rises 0.25 s, holds until o.hold (s), fades over 0.12 s
-    const dt = t - w.s, b = burnOf(E, w);
-    if (dt > o.hold + 0.12 || b < 1) return;
-    const r = ease.outCubic(clamp(dt / 0.25)), a = 1 - clamp((dt - o.hold) / 0.12);
-    E.drawText(c, `−${B.fmtInt(b)}${o.unit ?? ""}`, x, y - r * (o.rise ?? 24) * S, { ...MONO, size: (o.size ?? 30) * 1.35 * S, color: o.color ?? C.green, alpha: a, align: o.align ?? "left" });
-    return;
-  }
   const u = (t - w.s) / (o.dur ?? 0.7);
   if (u > 1) return;
   const b = burnOf(E, w);
@@ -223,7 +216,7 @@ export function wallTiers(F, c, t0, o = {}) {
   for (let r = 0; r < rows; r++) {
     const rw = sp[0].w * k, rh = sp[0].h * k;
     const jumpDt = bt ? t - bt.t - r * 0.018 : 9;
-    const jump = jumpDt > 0 ? Math.exp(-jumpDt / 0.09) * Math.sin(Math.min(Math.PI, jumpDt * 26)) * (o.jumpAmp ?? 22) * S * k : 0;
+    const jump = jumpDt > 0 ? Math.exp(-jumpDt / 0.09) * Math.sin(Math.min(Math.PI, jumpDt * 26)) * 22 * S * k : 0;
     const y = yb - rh * 0.92 - jump;
     const gap = rw * 1.04, dir = r % 2 ? 1 : -1, off = dir * (o.speed ?? 520) * S * dt + hash1(r * 7.7 + 1) * gap;
     const n0 = Math.floor(-off / gap) - 1;
@@ -242,7 +235,6 @@ export function wallTiers(F, c, t0, o = {}) {
 }
 // Wave: a grid of words, a stadium wave sweeps across (scale up + accent colour at the crest).
 export function wallWave(F, c, t0, o = {}) {
-  if (o.calm) return wallWaveCalm(F, c, t0, o);
   const { E, t, S, W, H } = F, dt = t - t0, word = o.word ?? "FOUNDER!";
   const base = Math.round((o.base ?? 160) * S);
   const sp = [sprite(E, word, { size: base, color: o.ink ?? C.white }), sprite(E, word, { size: base, color: o.acc ?? C.green })];
@@ -256,25 +248,6 @@ export function wallWave(F, c, t0, o = {}) {
       const s = k * (1 + 0.32 * crest), w = sp[0].w * s, h = sp[0].h * s;
       c.globalAlpha = (o.alpha ?? 1) * (0.5 + 0.5 * Math.max(crest, cx < front ? 0.75 : 0.4));
       c.drawImage(sp[crest > 0.45 ? 1 : 0].cv, cx - w / 2, cy - h / 2 - crest * 18 * S, w, h);
-    }
-  c.globalAlpha = 1;
-}
-
-// calm wave (CALM_PASS): the wall sits dim and still; one crest travels across once, words under it light green and rise
-function wallWaveCalm(F, c, t0, o) {
-  const { E, t, S, W, H } = F, dt = t - t0, word = o.word ?? "FOUNDER!";
-  const base = Math.round((o.base ?? 160) * S);
-  const sp = [sprite(E, word, { size: base, color: o.ink ?? C.white }), sprite(E, word, { size: base, color: o.acc ?? C.green })];
-  const cols = o.cols ?? 4, rows = o.rows ?? 7, cw = W / cols, rh = H / rows;
-  const k = Math.min((cw * 0.94) / sp[0].w, (rh * 1.05) / sp[0].h), w0 = sp[0].w * k, h0 = sp[0].h * k;
-  const front = lerp(-0.2, 1.2, clamp(dt / (o.dur ?? 0.54))) * W, sig = W * (o.width ?? 0.16);
-  for (let r = 0; r < rows; r++)
-    for (let i = 0; i < cols; i++) {
-      const cx = (i + 0.5) * cw + (r % 2 ? cw * 0.25 : 0), cy = (r + 0.5) * rh;
-      const d = (cx - front) / sig, crest = Math.exp(-d * d);
-      c.globalAlpha = 0.34 * (1 - crest);
-      if (c.globalAlpha > 0.01) c.drawImage(sp[0].cv, cx - w0 / 2, cy - h0 / 2, w0, h0);
-      if (crest > 0.01) { c.globalAlpha = crest; c.drawImage(sp[1].cv, cx - w0 / 2, cy - h0 / 2 - crest * 10 * S, w0, h0); }
     }
   c.globalAlpha = 1;
 }
@@ -297,10 +270,7 @@ export function lockup(F, c, words, cx, cy, o = {}) {
     const p = (o.bandPad ?? 22) * E.SCALE;
     c.fillStyle = o.band; c.fillRect(-E.W, bx.top - p, E.W * 3, bx.bot - bx.top + 2 * p);
   }
-  const ao = { size, words, seed: o.seed ?? 3 };
-  if (o.lead != null) ao.lead = o.lead; // B.afterTokens build timing (calm pass: a longer, softer build)
-  if (o.build != null) ao.build = o.build;
-  const r = B.afterTokens(E, c, cx, cy, t, ao);
+  const r = B.afterTokens(E, c, cx, cy, t, { size, words, seed: o.seed ?? 3 });
   c.restore();
   return { ...bx, ...r };
 }

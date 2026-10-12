@@ -12,6 +12,8 @@ A 2:38 satirical music video: an electroclash × hyperpop duet about a San Franc
 | `deliver/im_an_ai_founder_16x9.mp4` (92.6 MB), `deliver/im_an_ai_founder_9x16.mp4` (85.9 MB) | Sharing copies at full 1080p60, under GitHub's 100 MB limit, committed to this repo. |
 | `deliver/teaser_16x9.mp4` (29.6 MB), `deliver/teaser_9x16.mp4` (24.8 MB) | 35.8 s teasers: the hook and drop (0:00–0:16), then the check and the payoff (2:18 to the end). Both cuts sit on downbeats. |
 
+| `deliver/shorts/short1_im_an_ai_founder.mp4` (42.8 s), `short2_agents_for_agents.mp4` (34.7 s), `short3_out_of_tokens.mp4` (41.9 s) | Vertical shorts (1080×1920, 60 fps) for teasing. 1: the hook and drop, then her red-pen pre-chorus and chorus 1. 2: the agents skit and her Founder → English verse. 3: the due-diligence Q&A, then the check, "out of tokens", her paying and the end card. Shorts 1-2 end on the teaser slate (`--variant t`). Rebuild with `.venv/bin/python tools/shorts.py`. |
+
 Making-of page (film, token-meter chart, stills, lyrics with what every line cost, credits): https://claude.ai/artifact/EEo1dsGZjdSgagSNHtuqqE
 
 `out/` is not tracked by git: the full-quality masters are about 165 MB each, over GitHub's 100 MB file limit. Rebuild them with the commands below.
