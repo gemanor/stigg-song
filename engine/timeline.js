@@ -16,6 +16,7 @@ export const TIMELINE = [
   { id: "outro", start: 134.5, end: 147.8, z: 0, direct: true },
   { id: "endcard", start: 147.8, end: 157.99, z: 0, variant: "a", direct: true },
   { id: "endcard_b", file: "endcard.js", start: 147.8, end: 157.99, z: 0, variant: "b", direct: true }, // + AFTER TOKENS · NOV 10 · SAN FRANCISCO
+  { id: "endcard_t", file: "endcard.js", start: 147.8, end: 157.99, z: 0, variant: "t", direct: true }, // teaser slate: b without the TOP-UP meter (she hasn't paid yet in teasers 1-2)
   { id: "_smoke", start: 0.0, end: 6.0, z: 0, variant: "smoke", direct: true }, // lead's smoke test, never in a delivery
   { id: "hud", start: 0.0, end: 9999, z: 100, direct: true },
 ];

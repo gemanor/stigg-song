@@ -83,13 +83,13 @@ export default {
     }
   },
   render(E, t, rt, layer) {
-    const sh = shotAt(t), b = layer.id === "endcard_b";
+    const sh = shotAt(t), b = layer.id !== "endcard", tz = layer.id === "endcard_t";   // t = teaser slate
     E.renderer.setRenderTarget(rt);
     if (sh === 1) HP.render(E, t, rt);
     else if (sh === 2) e2(E, t, rt);
     else if (sh === 3) e3(E, t, rt);
     else if (sh === 4) e4(E, t, rt);
-    else e56(E, t, rt, b);
+    else e56(E, t, rt, b, tz);
   },
 };
 
@@ -267,7 +267,7 @@ function lockup(E, b) {
   if (b) return { size: 120 * S, rows: 13, cell, l1: R.y + R.h * 0.07, l2: R.y + R.h * 0.2, l3: R.y + R.h * 0.33, meterY: R.y + R.h * 0.55, logoY: R.y + R.h * 0.53, tagY: R.y + R.h * 0.665, bannerY: R.y + R.h * 0.78, two: false };
   return { size: 120 * S, rows: 13, cell, l1: R.y + R.h * 0.235, l2: R.y + R.h * 0.37, l3: R.y + R.h * 0.505, meterY: R.y + R.h * 0.685, logoY: R.y + R.h * 0.735, tagY: R.y + R.h * 0.875, bannerY: R.y + R.h * 0.78, two: false };
 }
-function e56(E, t, rt, b) {
+function e56(E, t, rt, b, tz = false) {
   const S = E.SCALE, R = E.SAFE, [g1] = surfaces(E), c = g1.ctx, L = lockup(E, b), stab = t >= CUT.e6;
   g1.clear();
   groundA(c, E, t, { offY: -(t - CUT.e5) * (stab ? 22 : 9) * S, gridA: 0.5 });
@@ -292,8 +292,8 @@ function e56(E, t, rt, b) {
     if (rev >= 1) glint(c, E, t, E.W / 2 - tok.w / 2, L.l2 - tok.h / 2, tok, tokO);
   }
   if (!stab) {
-    // the meter, big: the spine at its last state
-    const u = ease.outCubic(clamp((t - 154.6) / 0.25)), o = { rows: wide(E) ? 11 : 9, cell: L.cell, color: B.C.green, line: B.C.cell };
+    // the meter, big: the spine at its last state (the teaser slate skips it: she hasn't paid yet in teasers 1-2)
+    const u = tz ? 0 : ease.outCubic(clamp((t - 154.6) / 0.25)), o = { rows: wide(E) ? 11 : 9, cell: L.cell, color: B.C.green, line: B.C.cell };
     if (u > 0) {
       const val = B.fmtInt(B.tokensAt(E, t)), sz = pixelCountSize(val, o), x = E.W / 2 - sz.w / 2, y = L.meterY + (1 - u) * 30 * S;
       c.save(); c.globalAlpha = u;
