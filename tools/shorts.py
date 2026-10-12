@@ -3,7 +3,7 @@
 Every splice sits on the song's beat grid and on exact 60 fps frame boundaries. Audio comes straight from the master WAV
 for the same song times (20 ms fades at each internal join), so picture and sound splice at the same instant.
 
-  short1  "I'm an AI founder"  0:00-0:15.67 (hook + drop) + 0:32.80-0:56.12 (her red-pen pre-chorus + chorus 1) + slate
+  short1  "I'm an AI founder"  0:08.40-0:15.67 (the drop: opens on the I'M slam) + 0:32.80-0:56.12 (her red-pen pre-chorus + chorus 1) + slate
   short2  "Agents for agents"  0:56.12-1:26.97 (skit 2 + her FOUNDER -> ENGLISH verse, ends on "see fig. 2") + slate
   short3  "Out of tokens"      1:40.38-1:58.80 (the due-diligence Q&A) + 2:14.50-2:37.98 (outro + end card b)
 
@@ -19,7 +19,7 @@ SLATE_F0 = 9250                       # song frame of the slate file's first fra
 WAV = json.load(open('engine/data/audio.json'))['master']
 # (video source, first song frame, end song frame exclusive)
 SHORTS = {
-    'short1_im_an_ai_founder': [(M, 0, 940), (M, 1968, 3367), (SLATE, 9250, 9479)],
+    'short1_im_an_ai_founder': [(M, 504, 940), (M, 1968, 3367), (SLATE, 9250, 9479)],   # no intro skit: a feed short opens on the chant
     'short2_agents_for_agents': [(M, 3367, 5218), (SLATE, 9250, 9479)],
     'short3_out_of_tokens': [(MB, 6023, 7128), (MB, 8070, 9479)],
 }
@@ -35,6 +35,7 @@ def build(name, parts):
         v, a = 2 * i, 2 * i + 1
         fades = []
         if i > 0: fades.append('afade=t=in:st=0:d=0.02')
+        elif f0 > 0: fades.append('afade=t=in:st=0:d=0.01')   # a mid-song start: no click
         if i < len(parts) - 1: fades.append(f'afade=t=out:st={n / FPS - 0.02:.6f}:d=0.02')
         fl.append(f'[{v}:v]setpts=PTS-STARTPTS[v{i}]')
         fl.append(f'[{a}:a]aresample=48000,asetpts=PTS-STARTPTS{"," + ",".join(fades) if fades else ""}[a{i}]')
