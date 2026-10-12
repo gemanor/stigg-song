@@ -199,7 +199,7 @@ function pen(E, c, t, U, id, st) {
     const s3 = nS * 0.9, fx = vx + w * 0.5, fy = A0.venueY - s - (P ? 18 : 26);
     B.penNote(E, c, "freezer", fx, fy, t, O.freeze + 0.08, { size: s3, cps: 50, rot: -0.06, align: "center" });
     const [ax, ay] = A0.vcTub;
-    const x0 = fx + s3 * 1.6, y0 = fy - s3 * 0.1, x1 = ax - (P ? 120 : 200), y1 = ay - (P ? 120 : 180);
+    const x0 = fx + s3 * 1.6, y0 = fy - s3 * 0.1, x1 = ax - (P ? 60 : 200), y1 = P ? Math.min(ay - 120, 1150) : ay - 180; // portrait: stay inside the card crop
     B.penArrow(c, x0, y0, x1, y1, t, O.vc - 0.1, { width: pW, dur: 0.16, seed: 3, bend: -0.25 });
     if (t >= O.vc - 0.1 && t < O.vc + 0.06) { const u = (t - O.vc + 0.1) / 0.16; tip = [lerp(x0, x1, u), lerp(y0, y1, u) - Math.sin(u * 3.14) * 60]; }
   }

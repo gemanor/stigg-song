@@ -393,7 +393,7 @@ function bubbleRing(c, cx, cy, r, lvl) {
 const AMT = "$3,000,000.00";
 function vcFrame(U) {
   const { H0, P } = U;
-  if (P) { const w = 1300, h = w * 9 / 16; return { x: 720 - 0.7 * w, y: 1000 - 0.3 * h, w, h }; }
+  if (P) { const w = 1300, h = w * 9 / 16; return { x: 745 - 0.7 * w, y: 1040 - 0.3 * h, w, h }; } // face clear of the WIRE row, above the subtitle
   const w = 1700;
   return { x: 1400 - 0.7 * w, y: H0 - w * 9 / 16, w, h: w * 9 / 16 };
 }
@@ -556,7 +556,7 @@ export const MARKET = {
     const val = tb >= O.my15 - 0.066;
     eyebrow(E, c, "MARKET", L.x, L.ey);
     // label slot-roll: MATCHA -> VALUATION (same chart: his valuation is marked to matcha)
-    const roll = val ? io((tb - O.my15 + 0.066) / 0.22) : 0;
+    const roll = val ? io((tb - O.my15 + 0.066) / 0.34) : 0; // slow enough to stay a build, not a cut
     const labA = "MATCHA", labB = "VALUATION";
     const sA = L.labS, sB = fit(E, c, labB, { size: L.labS, tracking: -0.04 }, L.x1 - L.x - (P ? 70 : 100));
     c.save();
